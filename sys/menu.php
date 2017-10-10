@@ -5,7 +5,7 @@
 </head>
 
 <body>
-<h2>メニュー</h2>
+<h2>全体メニュー</h2>
 <p>
     <input type="button" value="予約" onclick="location.href='/Reservation/'">
 </p>
