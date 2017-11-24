@@ -14,8 +14,8 @@ foreach ($users as $row) {
     //<tr><td></td><td></td><td>2017/10/10</td><td>男</td><td>false</td></tr>
     echo
         '<tr>' .
-        '<td>' . $row['RESERVATION_CODE'] . '</td>' . //予約番号
-        '<td>' . $row['RESERVATION_DAY'] . '</td>' .	//宿泊日
+        '<td>' . $row['RESERVATION_CODE'] . '</td>' . 		//予約番号
+        '<td>' . $row['RESERVATION_DAY'] . '</td>' .		//宿泊日
         '<td>' . $row['RESERVATION_STAYDAY'] . '</td>' .	//泊数
         '<td>' . $row['RESERVATION_NUMBER'] . '</td>' .		//人数
         '<td>' . $row['CLIENT_NAME']. '</td>' .				//名前
@@ -26,7 +26,7 @@ foreach ($users as $row) {
         '<td>' . $row['ROOM_TYPE'] . '</td>' .				//部屋タイプ
         '<td>' . $row['EMPLOYEE_CODE'] . '</td>' .			//従業員番号
         '<td>' . $row['RECEIP_DAY'] . '</td>' .				//受付日
-        '<td>' . $row['RESERVATION_REMARKS'] . '</td>' .			//備考
+        '<td>' . $row['RESERVATION_REMARKS'] . '</td>' .	//備考
         "</tr>\n";
 }
 ?>
