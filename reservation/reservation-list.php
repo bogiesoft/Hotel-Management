@@ -23,36 +23,44 @@ include "../header.php"
 
 <div class="title-list">
     <table class="table table-striped">
-        <col style="width: 6%;" />
-        <col style="width: 10%;" />
-        <col style="width: 7%;" />
-        <col style="width: 10%;" />
-        <col style="width: 10%;" />
-        <col style="width: 6%;" />
-        <col style="width: 6%;" />
-        <col style="width: 10%;" />
-        <col style="width: 10%;" />
-        <col style="width: 27%;" />
+            <col style="width: 6%;" /><!--予約番号-->
+            <col style="width: 10%;" /><!--宿泊日-->
+            <col style="width: 5%;" /><!--泊数-->
+            <col style="width: 5%;" /><!--人数-->
+            <col style="width: 10%;" /><!--名前-->
+            <col style="width: 10%;" /><!--フリガナ-->
+            <col style="width: 3%;" /><!--性別-->
+            <col style="width: 6%;" /><!--連絡先-->
+            <col style="width: 6%;" /><!--部屋番号-->
+            <col style="width: 6%;" /><!--部屋タイプ-->
+            <col style="width: 10%;" /><!--従業員番号-->
+            <col style="width: 10%;" /><!--受付日-->
+            <col style="width: 27%;" /><!--備考-->
 
-        <tr><th>予約番号</th><th>宿泊日</th><th>泊数</th><th>名前</th><th>ふりがな</th><th>性別</th><th>部屋番号</th><th>部屋タイプ</th><th>連絡先</th><th>備考</th></tr>
+        <tr><th>予約番号</th><th>宿泊日</th><th>泊数</th><th>人数</th><th>名前</th><th>フリガナ</th><th>性別</th><th>連絡先</th><th>部屋番号</th><th>部屋タイプ</th><th>従業員番号</th><th>受付日</th><th>備考</th></tr>
     </table>
 </div>
 <div class="scroll_box">
     <div class="elist">
         <table class="table table-striped">
-            <col style="width: 6%;" />
-            <col style="width: 10%;" />
-            <col style="width: 7%;" />
-            <col style="width: 10%;" />
-            <col style="width: 10%;" />
-            <col style="width: 6%;" />
-            <col style="width: 6%;" />
-            <col style="width: 10%;" />
-            <col style="width: 10%;" />
-            <col style="width: 27%;" />
+            <col style="width: 6%;" /><!--予約番号-->
+            <col style="width: 10%;" /><!--宿泊日-->
+            <col style="width: 5%;" /><!--泊数-->
+            <col style="width: 5%;" /><!--人数-->
+            <col style="width: 10%;" /><!--名前-->
+            <col style="width: 10%;" /><!--フリガナ-->
+            <col style="width: 3%;" /><!--性別-->
+            <col style="width: 6%;" /><!--連絡先-->
+            <col style="width: 6%;" /><!--部屋番号-->
+            <col style="width: 6%;" /><!--部屋タイプ-->
+            <col style="width: 10%;" /><!--従業員番号-->
+            <col style="width: 10%;" /><!--受付日-->
+            <col style="width: 27%;" /><!--備考-->
 
             <!--<tr><td>名前</td><td>ふりがな</td><td>性別</td><td>登録日</td><td>住所</td></tr>-->
-            <tr><td>0162</td><td>2017/12/31</td><td>5泊</td><td>久田 成彦</td><td>くだ なるひこ</td><td>男</td><td>101</td><td>エコノミーシングル</td><td>090-1679-3241</td><td>バスタオル2枚用意</td></tr>
+            <?php
+            include "reservation-list-Extraction.php"
+            ?>
         </table>
     </div>
 </div>

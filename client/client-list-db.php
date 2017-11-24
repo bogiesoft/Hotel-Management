@@ -6,14 +6,19 @@
             $users = $stmt -> fetchAll(PDO::FETCH_ASSOC);
             // foreach文で配列の中身を一行ずつ出力
             foreach ($users as $row) {
+            	//削除フラグ条件
                 if($row['CLIENT_DELETE'] === '1') {
 
                 }else if($row['CLIENT_DELETE'] === '0'){
+                
+                	//電話番号の条件
                     if ($row['CLIENT_HOPE_CONTACT'] === '0') {
-                        $tel=$row['CLIENT_TEL'];
+                        $client_tel=$row['CLIENT_TEL'];
                     }else if ($row['CLIENT_HOPE_CONTACT'] === '1'){
-                        $tel=$row['CLIENT_MOBILE'];
+                        $client_tel=$row['CLIENT_MOBILE'];
                     }
+                    
+                    
                 echo '<tr>'.
                                 '<td>' . $row['CLIENT_CODE'] . '</td>' .        //顧客番号
                                 '<td>' . $row['CLIENT_ENTRY'] . '</td>' .       //入会日
@@ -21,7 +26,7 @@
                                 '<td>' . $row['CLIENT_KANA'] . '</td>' .        //フリガナ
                                 '<td>' . $row['CLIENT_SEX'] . '</td>' .         //性別
                                 '<td>' . $row['CLIENT_BIRTH'] . '</td>'.        //生年月日
-                                '<td>' . $tel . '</td>'.                          //電話番号
+                                '<td>' . $client_tel . '</td>'.                 //電話番号
                                 '<td>' . $row['CLIENT_POSTCODE'] . '</td>' .   //郵便番号
                                 '<td>' . $row['CLIENT_ADDRESS'] . '</td>' .    //住所
                                 '<td>' . $row['CLIENT_REMARKS'] . '</td>';     //備考

@@ -23,16 +23,16 @@ include "../header.php"
 
 <div class="title-list">
     <table class="table table-striped">
-        <col style="width: 5%;" />
-        <col style="width: 5%;" />
-        <col style="width: 10%;" />
-        <col style="width: 10%;" />
-        <col style="width: 5%;" />
-        <col style="width: 5%;" />
-        <col style="width: 11%;" />
-        <col style="width: 11%;" />
-        <col style="width: 17%;" />
-        <col style="width: 25%;" />
+            <col style="width: 5%;" />  <!--顧客番号-->
+            <col style="width: 5%;" />  <!--入会日-->
+            <col style="width: 10%;" /> <!--名前-->
+            <col style="width: 10%;" /> <!--フリガナ-->
+            <col style="width: 5%;" />  <!--性別-->
+            <col style="width: 10%;" />  <!--生年月-->
+            <col style="width: 11%;" /> <!--電話番号-->
+            <col style="width: 11%;" /> <!--郵便番号-->
+            <col style="width: 17%;" /> <!--住所-->
+            <col style="width: 25%;" /> <!--備考-->
 
         <tr><th>顧客番号</th><th>入会日</th><th>名前</th><th>フリガナ</th><th>性別</th><th>生年月日</th><th>連絡先</th><th>郵便番号</th><th>住所</th><th>備考</th></tr>
     </table>
@@ -45,7 +45,7 @@ include "../header.php"
             <col style="width: 10%;" /> <!--名前-->
             <col style="width: 10%;" /> <!--フリガナ-->
             <col style="width: 5%;" />  <!--性別-->
-            <col style="width: 5%;" />  <!--年齢-->
+            <col style="width: 10%;" />  <!--生年月-->
             <col style="width: 11%;" /> <!--電話番号-->
             <col style="width: 11%;" /> <!--郵便番号-->
             <col style="width: 17%;" /> <!--住所-->

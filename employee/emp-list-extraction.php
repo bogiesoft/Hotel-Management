@@ -20,6 +20,6 @@ foreach ($users as $row) {
        }else{
            echo '<td>'."従業員".'</td>';
        }
-
+                echo "</tr>\n";
 }
 ?>
