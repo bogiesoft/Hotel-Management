@@ -1,0 +1,77 @@
+/*test.css*/
+
+.box {
+  padding: 0.5em 1em;
+  margin: 2em 0;
+  color: #00bcd4;
+  background: #e4fcff;
+  border-top: solid 6px #1dc1d6;
+  box-shadow: 0 3px 4px rgba(0,0,0,0.32);
+  width: 350px;
+  height: 100px;
+  display: inline-block;
+  text-align: center;
+  line-height: 100px;
+}
+
+.box:hover{
+  background-color: #d7eff2;
+  border-top: solid 6px #17b0c4;
+}
+
+.box p {
+  margin: 0;
+  padding: 0;
+  font-size: 30px;
+}
+
+.boxA {
+  text-align: center;
+  padding-top: 50px;
+  margin-left: 15%;
+  margin-right: 15%;
+}
+
+@media (max-width:1170px) {
+  .boxA {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+@media (max-width:414px) {
+  .box {
+    margin: 1em 0;
+    width: 100%;
+    height: 100px;
+    padding: 0;
+  }
+
+  .boxA {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+
+
+a:link {
+color:#00bcd4;
+}
+
+a:visited {
+color:#00bcd4;
+}
+
+a:hover {
+  color: #00b2c9;
+  text-decoration: none;
+}
+
+a:active {
+color:#00bcd4;
+}
+
+a {
+text-decoration: none;
+}
