@@ -1,21 +1,29 @@
-<?php
-
-require_once __DIR__ . '/functions.php';
-require_logined_session();
-
-header ('Content-Type: text/html; charset=UTF-8');
-
-?>
 
 <!DOCTYPE html>
 <html>
 <head>
 <title>売上管理｜ホテル宿泊システム</title>
+<?php
+include "../header_css.php"
+?>
+  <link rel="stylesheet" type="text/css" href="css/top.css">
+  <link rel="shortcut icon" href="assets/ico/img.png">
+  
+  
 </head>
 <body>
-<h1><?=h($_SESSION["username"])?>としてログインしています</h1>
-<p><a href="/login/sales-logout.php?token=<?=h(generate_token())?>">ログアウト</a></p>
+<?php
+include "../header.php"
+?>
+<div align="right"><a href="/login/sales-logout.php"><input type="submit" name="admin" id="submit" class="button button-primary button-large" value="ログアウト" /></a></div>
 
-<h2>Nextculture Japan</h2>
+<div align="center"><h1>売上管理</h1></div>
+
+		<br>
+<div class="copyright">
+<div align="center"><p>COPYRIGHT &copy; ビジネスホテルOIC ALL RIGHTS RESERVED.</p>
+</div>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </body>
 </html>
