@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $dbtype  = 'mysql';
         $host    = 'localhost';
-        $db      = 'tbl_sales';
+        $db      = 'dbname';
         $charset = 'utf8';
 
         $dsn = "$dbtype:host=$host; dbname=$db; charset=$charset";
@@ -54,7 +54,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 header ('Content-Type: text/html; charset=UTF-8');
 ?>
 
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -75,17 +74,26 @@ include "../header.php"
 
 <div align="center"><h1>ログインしてください</h1></div>
 
+<?php if ($errors): ?>
+<ul>
+    <?php foreach ($errors as $err): ?>
+    <li><?=h($err)?></li>
+    <?php endforeach; ?>
+</ul>
+<?php endif; ?>
+
 <div class="boxA">
 <form name="loginform" id="loginform" action="/login/sales-info.php" method="admin">
-	<p>
-		<label for="user_login">ユーザー名<br />
-		<input type="text" name="log" id="user_login" class="input" value="" size="20" /></label>
-	</p>
-	<p>
-		<label for="user_pass">パスワード<br />
-		<input type="password" name="pwd" id="user_pass" class="input" value="" size="20" /></label>
-	</p>
+ 	<p>ユーザ名<br />
+ 	<input type="text" name="username" value="<?php echo $username = isset($_POST['username']) ? $_POST['username']: ''; ?>"></p>
+ 	
+    <p>パスワード<br />
+    <input type="password" name="password" value=""></p>
 	<p class="forgetmenot"><label for="rememberme"><input name="rememberme" type="checkbox" id="rememberme" value="forever"  /> ログイン状態を保存する</label></p>
+	
+	<!-- トークン -->
+    <input type="hidden" name="token" value="<?=h(generate_token())?>">    <!--<input type="hidden" name="token" value="<?php echo password_hash('1111', PASSWORD_DEFAULT, array('cost', 10)) ?>">-->
+	
 	<p class="submit">
 		<input type="submit" name="admin" id="submit" class="button button-primary button-large" value="ログイン" />
 </form>
