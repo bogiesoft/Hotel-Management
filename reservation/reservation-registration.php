@@ -1,4 +1,8 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/json2/20160511/json2.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/json2/20160511/json_parse.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/json2/20160511/json_parse_state.js"></script>
+
 <!DOCTYPE html>
 
 <html lang="ja">
@@ -44,10 +48,32 @@ $( function() {
 
       var getRoomP = $("#room_p").val();
       $('#RoomP_out').text(getRoomP);
+
+    var getRemarks = $('#remarks').val();
+    $('#Remarks_out').text(getRemarks);
+
+      var q_day = document.asw.r_day.value;
+      console.log(q_day);
+      document.getElementById('w_day').value = q_day;
+      var q_stayday = document.asw.stayday.value;
+      console.log(q_stayday);
+      document.getElementById('w_stayday').value = q_stayday;
+      var q_code = document.asw.r_code.value;
+      document.getElementById('w_code').value = q_code;
+      var q_name = document.asw.r_name.value;
+      document.getElementById('w_name').value = q_name;
+      var q_num = document.asw.num.value;
+      document.getElementById('w_num').value = q_num;
+      var q_room = document.asw.room_no.value;
+      document.getElementById('w_room_no').value = q_room;
+      var q_inputter = document.asw.inputter.value;
+      document.getElementById('w_inputter').value = q_inputter;
+      var q_remarks = document.asw.c_remarks.value;
+      document.getElementById('w_remarks').value = q_remarks;
+
   });
 });
 </script>
-
 
 </head>
 <body>
@@ -55,12 +81,16 @@ $( function() {
 <?php
 include "../header.php"
 ?>
+<?php
+include "../dbconnect.php"
+?>
+
 
 <div class="boxA">
 <div class="box1">
     <div class="container">
         <div class="form-horizontal">
-            <form action="*" method="post" class="rsv">
+            <form action="reservation-comit.php" method="post" class="rsv" name="asw">
                 <div class="form-group">
                     <label class="col-xs-2 label-control ">宿泊日：</label>
                     <div class="col-xs-4">
@@ -75,14 +105,42 @@ include "../header.php"
                 <div class="form-group">
                     <label class="col-xs-2 label-control">顧客番号：</label>
                     <div class="col-xs-3">
+
                         <input type="text" name="r_code" class="form-control" size="8" id="code">
                     </div>
                 </div>
+                <script>
+                <?php $stmt = $db->query('select CLIENT_CODE,CLIENT_NAME from tbl_client'); ?>
+                <?php $cli = $stmt -> fetchAll(PDO::FETCH_ASSOC); ?>
+                <?php $val_cli = json_encode($cli);?>
 
+                $( function() {
+                  $('#code').change( function() {
+                    var array_cli = JSON.parse('<?php echo $val_cli;?>');
+                    console.log(array_cli);
+                    var setCode = $('#code').val();
+                    var i;
+                    var cli_name;
+                    console.log(setCode);
+
+                    for (i=0; 2 > i;i++) {
+                      console.log(i);
+                      if(setCode == array_cli[i]['CLIENT_CODE']) {
+                        console.log(array_cli[i]['CLIENT_NAME']);
+                        cli_name = array_cli[i]['CLIENT_NAME'];
+                        console.log(cli_name);
+                        $('#name').val(cli_name);
+                        break;
+                      }
+                    }
+
+                  });
+                });
+                </script>
                 <div class="form-group">
                   <label class="col-xs-2 label-control">顧客名：</label>
                   <div class="col-xs-9">
-                      <input type="text" name="r_name" class="form-control" size="21" id="name">
+                    <input type="text" name="r_name" class="form-control" size="21" id="name" >
                   </div>
                 </div>
 
@@ -112,30 +170,49 @@ include "../header.php"
                 </div>
 
                 <div class="form-group">
-                    <label class="col-xs-2 label-control">部屋番号：</label>
-                    <div class="col-xs-2">
-                        <input type="text" name="room_no" class="form-control" size="5" id="room_p">
-                    </div>
                     <label class="col-xs-2 label-control">煙草：</label>
                     <div class="col-xs-4" id="smoke">
                         <input type="radio" name="smoke" value="禁煙"><label for="no_smoke">禁煙</label>
-                        <input type="radio" name="smoke" value="喫煙"><label for="ok_smoke">喫煙</label>
+                        <input type="radio" name="smoke" value="喫煙"><label for="ok_smoke">喫煙</label><br>
+                        <input type="radio" name="smoke" value="どちらでも"><label for="either_smoke">どちらでも</label>
+                    </div>
+                    <label class="col-xs-2 label-control">部屋番号：</label>
+                    <div class="col-xs-2">
+                        <select name="room_no" id="room_p">
+                          <option value="未選択">000</option>
+                          <?php  $stmt = $db->query('select ROOM_CODE,ROOM_NAME from tbl_room'); ?>
+                          <?php  $room = $stmt -> fetchAll(PDO::FETCH_ASSOC); ?>
+                          <?php  foreach ($room as $row): ?> {
+                                    <option value="<?= $row['ROOM_CODE']?>"><?= $row['ROOM_NAME']?></option>
+                                  }
+                          <?php endforeach ?>
+
+                        </select>
                     </div>
                 </div>
-
+                <div class="form-group">
+                    <label class="col-xs-2 label-control">備考：</label>
+                    <div class="col-xs-9">
+                        <input type="text" name="c_remarks" class="form-control" id="remarks">
+                    </div>
+                </div>
                 <div class="form-group">
                     <label class="col-xs-2 label-control">入力者：</label>
                     <div class="col-xs-2">
                         <select name="inputter" id="inputter">
                             <option value="未選択">--入力者を選択--</option>
+                            <?php  $stmt = $db->query('select EMPLOYEE_CODE,EMPLOYEE_NAME from tbl_employee'); ?>
+                            <?php  $employee = $stmt -> fetchAll(PDO::FETCH_ASSOC); ?>
+                            <?php  foreach ($employee as $row): ?> {
+                                      <option value="<?= $row['EMPLOYEE_CODE']?>"><?= $row['EMPLOYEE_NAME']?></option>
+                                    }
+                            <?php endforeach ?>
                         </select>
                     </div>
                 </div>
-
                 <button type="button" class="btn btn-default btn-lg" id="reg_conf">登録確認</button>
                 <input type="button" class="btn btn-default btn-lg" value="キャンセル" onclick="history.back();">
             </form>
-
 
         </div>
     </div>
@@ -145,7 +222,7 @@ include "../header.php"
 <div class="modal fade" id="reg_pop" tabindex="-1">
 	<div class="modal-dialog">
 		<div class="modal-content">
-      <form action="*" method="post">
+      <form action="reservation-comit.php" method="post">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"><span>×</span></button>
 				<h4 class="modal-title">以下で登録しますか？</h4>
@@ -175,23 +252,36 @@ include "../header.php"
         <div class="form-group">
           <label class="col-xs-2 label-control">入力者：</label><p id="Inputter_out" class="col-xs-3"></p>
         </div>
+        <div class="form-group">
+            <label class="col-xs-2 label-control">備考：</label><p id="Remarks_out" class="col-xs-3"></p>
+        </div>
+        </div>
       </div>
-      </div>
+
 			<div class="modal-footer">
 
   				<button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
+
+          <input type="hidden" name="day" id="w_day">
+          <input type="hidden" name="stayday" id="w_stayday">
+          <input type="hidden" name="code" id="w_code">
+          <input type="hidden" name="name" id="w_name">
+          <input type="hidden" name="num" id="w_num">
+          <input type="hidden" name="room_no" id="w_room_no">
+          <input type="hidden" name="inputter" id="w_inputter">
+          <input type="hidden" name="remarks" id="w_remarks">
   				<button type="submit" class="btn btn-default">登録</button>
+      </div>
 			</div>
     </form>
 		</div>
 	</div>
-</div>
 
 <!--2枚目-->
 <div class="box2">
     <div class="container">
         <div class="form-horizontal">
-            <form action="*" method="post">
+            <form action="reservation-comit.php" method="post">
                 <div class="form-group">
                     <label class="col-xs-2 label-control">顧客名：</label>
                     <div class="col-xs-9">
@@ -204,33 +294,31 @@ include "../header.php"
                     <div class="col-xs-9">
                         <input type="text" name="f-kana" class="form-control" size="21">
                     </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="col-xs-2 label-control">性別：</label>
-                    <div class="col-xs-2">
-                        <input type="text" name="f-sex" class="form-control" size="1">
-                    </div>
-                    <label class="col-xs-2 label-control">生年月日：</label>
-                    <div class="col-xs-4">
-                        <input type="text" name="f-birthday" class="form-control" size="11">
-                    </div>
-                  </div>
-                    <div class="form-group">
-                    <label class="col-xs-2 label-control">年齢：</label>
-                    <div class="col-xs-4">
-                        <?php echo floor ((date('Ymd') - 19411129)/10000);?>
-                    </div>
                 </div>
-
+                <div class="form-group">
+                  <label class="col-xs-2 label-control">性別：</label>
+                  <div class="col-xs-2">
+                      <input type="text" name="f-sex" class="form-control" size="1">
+                  </div>
+                  <label class="col-xs-2 label-control">生年月日：</label>
+                  <div class="col-xs-4">
+                      <input type="text" name="f-birthday" class="form-control" size="11">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-xs-2 label-control">年齢：</label>
+                  <div class="col-xs-4">
+                      <?php echo floor ((date('Ymd') - 19411129)/10000);?>
+                  </div>
+                </div>
                 <div class="form-group">
                     <label class="col-xs-2 label-control">備考：</label>
                     <div class="col-xs-9">
-                        <textarea rows="2" cols="50" name="c-remarks" class="form-control"></textarea>
+                        <textarea rows="2" cols="50" name="f-remarks" class="form-control"></textarea>
                     </div>
                 </div>
-
             </form>
-            </div>
+          </div>
         </div>
     </div>
 </div>
