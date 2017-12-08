@@ -1,0 +1,63 @@
+.box {
+  width: 700px;
+  margin: auto;
+  margin-top: 50px;
+  border: solid 1px;
+  padding: 0.5em 1em;
+  color: #00bcd4;
+  background: #e4fcff;
+  border-top: solid 6px #1dc1d6;
+  box-shadow: 0 3px 4px rgba(0,0,0,0.32);
+  font-size: 20px;
+}
+
+p {
+  margin-left: 7px;
+}
+
+.col-xs-2.label-control {
+  width: 130px;
+  padding: 0px;
+}
+
+.modal {
+  font-size: 20px;
+}
+
+.modal-dialog {
+  width: 700px;
+  margin-top: 20px;
+}
+
+.modal label {
+  float: left;
+}
+
+.modal-body {
+  height: 500px;
+  padding: 0.5em 1em;
+}
+
+
+
+p#Id_out.col-xs-3,p#Entry_out.col-xs-3,p#Name_out.col-xs-9,p#Kana_out.col-xs-9,
+p#Birthday_out.col-xs-3,p#Sex_out.col-xs-3,p#Tel_out.col-xs-3,p#Phone_out.col-xs-3,
+p#Zip_out.col-xs-3,p#Add_out.col-xs-9,p#Remarks_out.col-xs-9 {
+  padding: 0px;
+}
+
+.btn-default {
+    display: inline-block;
+    padding: 0.3em 1em;
+    text-decoration: none;
+    color: #67c5ff;
+    border: solid 2px #67c5ff;
+    border-radius: 3px;
+    transition: .4s;
+}
+
+.btn-default:hover {
+    background: #67c5ff;
+    color: white;
+    border: solid 2px #67c5ff;
+}

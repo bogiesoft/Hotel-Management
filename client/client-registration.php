@@ -1,6 +1,8 @@
 <script src="https://ajaxzip3.github.io/ajaxzip3.js" charset="UTF-8"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
+
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -17,8 +19,9 @@ include "../header_css.php"
   $( function() {
   	$('#reg_conf').click( function () {
   		$('#reg_pop').modal();
-      var getId = $("#c_id").val();
+      var getId = $("#client_id").val();
       $('#Id_out').text(getId);
+
       var getEntry = $("#entry").val();
       $('#Entry_out').text(getEntry);
       var getName = $("#client_name").val();
@@ -40,23 +43,73 @@ include "../header_css.php"
       var getRemarks = $("#remarks").val();
       $('#Remarks_out').text(getRemarks);
 
+        var getEmp = $("#emp_id").val();
+        $('#Emp_out').text(getEmp);
+
   	});
   });
 </script>
+    <script type="text/javascript">
+    $(function () {
+      $('#reg_conf').click( function() {
+        var i_id = document.zxc.c_id.value;
+        console.log(i_id);
+        document.getElementById('m_id').value=i_id;
+
+                var i_entry = document.zxc.n_entry.value;
+                document.getElementById('m_entry').value=i_entry;
+
+                var i_name = document.zxc.c_name.value;
+                document.getElementById('m_name').value=i_name;
+
+                var i_kana = document.zxc.c_kana.value;
+                document.getElementById('m_kana').value=i_kana;
+
+                var i_birthday = document.zxc.c_birthday.value;
+                document.getElementById('m_birthday').value=i_birthday;
+
+                var i_sex = document.zxc.sex.value;
+                document.getElementById('m_sex').value=i_sex;
+
+                var i_tel = document.zxc.c_tel.value;
+                document.getElementById('m_tel').value=i_tel;
+
+                var i_phone = document.zxc.c_phone.value;
+                document.getElementById('m_phone').value=i_phone;
+
+                var i_zip = document.zxc.zip11.value;
+                document.getElementById('m_zip').value=i_zip;
+
+                var i_add = document.zxc.addr11.value;
+                document.getElementById('m_add').value=i_add;
+
+                var i_remark = document.zxc.c_remarks.value;
+                document.getElementById('m_remark').value=i_remark;
+
+                var i_emp = document.zxc.e_id.value;
+                document.getElementById('m_emp').value=i_emp;
+
+            });
+        });
+
+    </script>
 </head>
 
 <?php
 include "../header.php"
 ?>
+<?php
+include "../dbconnect.php"
+?>
 
 <div class="box">
 <div class="container">
 <div class="form-horizontal">
-    <form action="*" method="post" id="form1">
+    <form action="client-form.php" method="post" name="zxc">
           <div class="form-group">
             <label class="col-xs-2 label-control">顧客番号：</label>
               <div class="col-xs-2">
-                <input type="text" name="c_id" class="form-control" size="10" id="c_id">
+                <input type="text" name="c_id" class="form-control" size="10" id="client_id">
               </div>
             <label class="col-xs-2 label-control">入会日：</label>
             <div class="col-xs-2">
@@ -71,7 +124,7 @@ include "../header.php"
           </div>
           <label class="col-xs-2 label-control">ﾌﾘｶﾞﾅ ：</label>
           <div class="col-xs-2">
-            <input type="text" name="c-kana" class="form-control" size="21" id="client_kana">
+            <input type="text" name="c_kana" class="form-control" size="21" id="client_kana">
           </div>
         </div>
 
@@ -107,7 +160,26 @@ include "../header.php"
           <div class="col-xs-2">
             <input type="tel" placeholder="ハイフンなし" name="zip11" class="form-control" size="10" maxlength="7" onKeyUp="AjaxZip3.zip2addr(this,'','addr11','addr11'); " id="zip11">
           </div>
+
+          <label class="col-xs-2 label-control">従業員番号：</label>
+          <div class="col-xs-2">
+              <select name="e_id" id="emp_id">
+
+                  <?php
+                  $db->exec('SET FOREIGN_KEY_CHECKS=0;');
+                  $stmt = $db->query("SELECT EMPLOYEE_CODE, EMPLOYEE_NAME FROM tbl_employee");
+                  $employee = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                  foreach ($employee as $row):
+                  ?>{
+                     <option value="<?=$row['EMPLOYEE_CODE']?>"><?=$row['EMPLOYEE_NAME']?></option>
+                     }
+                  <?php endforeach?>
+
+              </select>
+          </div>
         </div>
+
+
 
         <div class="form-group">
                 <!-- ▼住所入力フィールド(都道府県+以降の住所) -->
@@ -135,46 +207,60 @@ include "../header.php"
 <div class="modal fade" id="reg_pop" tabindex="-1">
 	<div class="modal-dialog">
 		<div class="modal-content">
-      <form action="*" method="post">
+           <form action="client-form.php" method="post">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"><span>×</span></button>
 				<h4 class="modal-title">以下で登録しますか？</h4>
 			</div>
-      <div class="form-horizontal">
-  		<div class="modal-body">
-        <div class="form-group">
-          <label class="col-xs-2 label-control">顧客番号：</label><p id="Id_out" class="col-xs-3"></p>
-          <label class="col-xs-2 label-control">入会日：</label><p id="Entry_out" class="col-xs-3"></p>
-        </div>
-        <div class="form-group">
-          <label class="col-xs-2 label-control">名前：</label><p id="Name_out" class="col-xs-9"></p>
-        </div>
-        <div class="form-group">
-          <label class="col-xs-2 label-control">ﾌﾘｶﾞﾅ：</label><p id="Kana_out" class="col-xs-9"></p>
-        </div>
-        <div class="form-group">
-          <label class="col-xs-2 label-control">誕生日：</label><p id="Birthday_out" class="col-xs-3"></p>
-          <label class="col-xs-2 label-control">性別：</label><p id="Sex_out" class="col-xs-3"></p>
-        </div>
-        <div class="form-group">
-          <label class="col-xs-2 label-control">電話番号：</label><p id="Tel_out" class="col-xs-3"></p>
-          <label class="col-xs-2 label-control">携帯番号：</label><p id="Phone_out" class="col-xs-3"></p>
-        </div>
-        <div class="form-group">
-          <label class="col-xs-2 label-control">郵便番号：</label><p id="Zip_out" class="col-xs-3"></p>
-        </div>
-        <div class="form-group">
-          <label class="col-xs-2 label-control">住所：</label><p id="Add_out" class="col-xs-9"></p>
-        </div>
-        <div class="form-group">
-          <label class="col-xs-2 label-control">備考：</label><p id="Remarks_out" class="col-xs-9"></p>
-        </div>
-      </div>
+              <div class="form-horizontal">
+                    <div class="modal-body">
+                        <div class="form-group">
+                          <label class="col-xs-2 label-control">顧客番号：</label><p id="Id_out" class="col-xs-3"></p>
+                          <label class="col-xs-2 label-control">入会日：</label><p id="Entry_out" class="col-xs-3"></p>
+                        </div>
+                        <div class="form-group">
+                          <label class="col-xs-2 label-control">名前：</label><p id="Name_out" class="col-xs-9"></p>
+                        </div>
+                        <div class="form-group">
+                          <label class="col-xs-2 label-control">ﾌﾘｶﾞﾅ：</label><p id="Kana_out" class="col-xs-9"></p>
+                        </div>
+                        <div class="form-group">
+                          <label class="col-xs-2 label-control">誕生日：</label><p id="Birthday_out" class="col-xs-3"></p>
+                          <label class="col-xs-2 label-control">性別：</label><p id="Sex_out" class="col-xs-3"></p>
+                        </div>
+                        <div class="form-group">
+                          <label class="col-xs-2 label-control">電話番号：</label><p id="Tel_out" class="col-xs-3"></p>
+                          <label class="col-xs-2 label-control">携帯番号：</label><p id="Phone_out" class="col-xs-3"></p>
+                        </div>
+                        <div class="form-group">
+                          <label class="col-xs-2 label-control">郵便番号：</label><p id="Zip_out" class="col-xs-3"></p>
+                          <label class="col-xs-2 label-control">従業員番号：</label><p id="Emp_out" class="col-xs-3"></p>
+                        </div>
+                        <div class="form-group">
+                          <label class="col-xs-2 label-control">住所：</label><p id="Add_out" class="col-xs-9"></p>
+                        </div>
+                        <div class="form-group">
+                          <label class="col-xs-2 label-control">備考：</label><p id="Remarks_out" class="col-xs-9"></p>
+                        </div>
+                     </div>
+              </div>
 
       </div>
 			<div class="modal-footer">
   				<button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
-  				<button type="submit" class="btn btn-default">登録</button>
+                <input type="hidden" name="id" id="m_id">
+                <input type="hidden" name="entry" id="m_entry">
+                <input type="hidden" name="name" id="m_name">
+                <input type="hidden" name="kana" id="m_kana">
+                <input type="hidden" name="birth" id="m_birthday">
+                <input type="hidden" name="sex" id="m_sex">
+                <input type="hidden" name="tel" id="m_tel">
+                <input type="hidden" name="mobile" id="m_phone">
+                <input type="hidden" name="zip" id="m_zip">
+                <input type="hidden" name="add" id="m_add">
+                <input type="hidden" name="remark" id="m_remark">
+                <input type="hidden" name="emp" id="m_emp">
+                <button type="submit" class="btn btn-default">登録</button>
 			</div>
     </form>
 		</div>
@@ -183,10 +269,9 @@ include "../header.php"
 
 
 <br>
-
 <div class="copyright">
 <div align="center"><p>COPYRIGHT &copy; ビジネスホテルOIC ALL RIGHTS RESERVED.</p>
-</div>
+</div></div>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </body>
 </html>

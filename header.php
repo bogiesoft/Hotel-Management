@@ -17,7 +17,8 @@
               <li><a href="/reservation/reservation-select.php">予約</a></li>
               <li><a href="/client/client-select.php">顧客</a></li>
               <li><a href="/employee/employee-select.php">従業員</a></li>
-              <li><a href="/room/room-registration-change.php">部屋登録変更</a></li>
+              <li><a href="/room/room-registration-new.php">部屋新規登録</a></li>
+              <li><a href="/room/room-registration-status.php">部屋登録状況</a></li>
               <li><a href="/room/status.php">部屋状況</a></li>
               <li><a href="/accounting/accounting.php">会計</a></li>
               <li><a href="/login/sales-login.php">売上</a></li>

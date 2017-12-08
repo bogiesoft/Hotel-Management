@@ -1,28 +1,22 @@
-/*test.css*/
-
 .box {
-  padding: 0.5em 1em;
-  margin: 2em 0;
-  color: #00bcd4;
-  background: #e4fcff;
-  border-top: solid 6px #1dc1d6;
-  box-shadow: 0 3px 4px rgba(0,0,0,0.32);
-  width: 350px;
-  height: 100px;
-  display: inline-block;
-  text-align: center;
-  line-height: 100px;
+    padding: 0.5em 1em;
+    width: 700px;
+    margin: auto;
+    margin-top: 50px;
+    color: #00bcd4;
+    background: #e4fcff;
+    border-top: solid 6px #1dc1d6;
+    box-shadow: 0 3px 4px rgba(0,0,0,0.32);
+    /* width: 350px; */
+    /* height: 100px; */
+    /*text-align: center;*/
+    /* line-height: 100px; */
+    font-size: 20px;
 }
 
-.box:hover{
-  background-color: #d7eff2;
-  border-top: solid 6px #17b0c4;
-}
-
-.box p {
-  margin: 0;
-  padding: 0;
-  font-size: 30px;
+.col-xs-2.label-control {
+  width: 130px;
+  padding: 0px;
 }
 
 .boxA {
@@ -53,8 +47,6 @@
   }
 }
 
-
-
 a:link {
 color:#00bcd4;
 }
@@ -64,8 +56,7 @@ color:#00bcd4;
 }
 
 a:hover {
-  color: #00b2c9;
-  text-decoration: none;
+color:#00bcd4;
 }
 
 a:active {
@@ -74,4 +65,8 @@ color:#00bcd4;
 
 a {
 text-decoration: none;
+}
+
+input.stay{
+width: 3em;
 }

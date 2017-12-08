@@ -3,11 +3,11 @@
 
 <html lang="ja">
 <head>
-<title>部屋登録変更</title>
+<title>部屋登録状況</title>
 <?php
 include "../header_css.php"
 ?>
-<link rel="stylesheet" type="text/css" href="css/room-registration-change.css">
+<link rel="stylesheet" type="text/css" href="css/room-registration-status.css">
 <link rel="shortcut icon" href="assets/ico/img.png">
 <meta name=viewport content="width=device-width, initial-scale=1">
 
@@ -23,9 +23,11 @@ include "../header.php"
 ?>
 <div class="row">
 <div class="midasi col-sm-2">
-  <h4>部屋登録変更</h4>
+  <h4>部屋登録状況</h4>
 </div>
-
+<div class="col-sm-1">
+<a class="btn btn-default" href="./room-registration-change.php" role="button">新規追加</a>
+</div>
 </div>
 <div class="box">
     <table  border=1 class="table">
@@ -74,19 +76,12 @@ $END_RENOVATIONphp=$row['END_RENOVATION'];
              '<td>'.$row['ROOM_TYPE'].'</td>'.
              '<td>'.$row['ROOM_CAPACITY'].'</td>'.
              '<td>'.$row['ROOM_BETS'].'</td>'.
-             '<td>'.$row['ROOM_PRICE'].'円</td>'.
-             '<td><select name="SMOKING">
-<option value="0" ';
-if($row['ROOM_SMOKING'] === '0'){
-                 echo 'selected';
+             '<td>'.$row['ROOM_PRICE'].'円</td>';
+             if($row['ROOM_SMOKING'] === '1'){
+                 echo '<td>'."喫煙".'</td>';
+             }else{
+                 echo '<td>'."禁煙".'</td>';
              };
-             echo '>禁煙
-<option value="1" ';
-if($row['ROOM_SMOKING'] === '1'){
-                 echo 'selected';
-             };
-             echo '>喫煙
-</select></td>';
              if($row['ROOM_RENOVATION'] === '1'||$todate>=$START_RENOVATIONphp&&$todate<=$END_RENOVATIONphp){
                  echo '<td>'."改装中".'</td>';
              }else if($START_RENOVATIONphp==null){
@@ -94,19 +89,13 @@ if($row['ROOM_SMOKING'] === '1'){
              }else{
                  echo '<td>'."改装予定あり".'</td>';
              };
-             echo'<td><input type="date" value='.$row['START_RENOVATION'].'></td>'.
-             '<td><input type="date" value='.$row['END_RENOVATION'].'></td>'.
-             '<td><select name="CLEAN">
-<option value="0" ';
-if($row['ROOM_CLEAN'] === '0'){
-                 echo 'selected';
-             }; echo '>使用可
-<option value="1" ';
-                if($row['ROOM_CLEAN'] === '1'){
-                 echo 'selected';
-               };
-             echo '>清掃中
-</select></td>';
+             echo'<td>'.$row['START_RENOVATION'].'</td>'.
+             '<td>'.$row['END_RENOVATION'].'</td>';
+             if($row['ROOM_CLEAN'] === '1'){
+               echo '<td>'."清掃中".'</td>';
+             }else{
+               echo '<td>'."使用可".'</td>';
+             };
 
       }
       ?>
