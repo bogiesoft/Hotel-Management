@@ -41,7 +41,8 @@ include "../header.php"
       <col style="width: 10%;"> <!--改装開始-->
       <col style="width: 10%;"> <!--改装終了-->
       <col style="width: 10%;"> <!--清掃状況-->
-      <tr class="success"><th>部屋No.</th><th>タイプ</th><th>定員数</th><th>ベッド数</th><th>金額</th><th>煙草</th><th>改装状況</th><th>改装開始日</th><th>改装終了日</th><th>清掃状況</th></tr>
+      <col style="width: 10%;"> <!--清掃状況-->
+      <tr class="success"><th>部屋No.</th><th>タイプ</th><th>定員数</th><th>ベッド数</th><th>金額</th><th>煙草</th><th>改装状況</th><th>改装開始日</th><th>改装終了日</th><th>清掃状況</th><th></th></tr>
     </table>
   </div>
   <div class="scroll_box">
@@ -55,6 +56,7 @@ include "../header.php"
       <col style="width: 7%;"> <!--改装状況-->
       <col style="width: 10%;"> <!--改装開始-->
       <col style="width: 10%;"> <!--改装終了-->
+      <col style="width: 10%;"> <!--清掃状況-->
       <col style="width: 10%;"> <!--清掃状況-->
       <?php
       require"../dbconnect.php";//DB接続用ファイルの読み込み
@@ -75,7 +77,7 @@ $END_RENOVATIONphp=$row['END_RENOVATION'];
              '<td>'.$row['ROOM_NAME'].'</td>'.
              '<td>'.$row['ROOM_TYPE'].'</td>'.
              '<td>'.$row['ROOM_CAPACITY'].'</td>'.
-             '<td>'.$row['ROOM_BETS'].'</td>'.
+             '<td>'.$row['ROOM_BED'].'</td>'.
              '<td>'.$row['ROOM_PRICE'].'円</td>';
              if($row['ROOM_SMOKING'] === '1'){
                  echo '<td>'."喫煙".'</td>';
@@ -96,9 +98,10 @@ $END_RENOVATIONphp=$row['END_RENOVATION'];
              }else{
                echo '<td>'."使用可".'</td>';
              };
-
+             echo '<td><a class="btn btn-default" href="./room-registration-update.php?id='.$row['ROOM_CODE'].'" role="button">変更</a></td>';
       }
       ?>
+
    </table>
 
  </div>

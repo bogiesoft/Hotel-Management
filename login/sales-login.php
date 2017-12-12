@@ -65,13 +65,13 @@ include "../header.php"
 
 <div class="boxA">
 <form name="loginform" id="loginform" action="/login/sales-info.php" method="POST">
- 	<p>ユーザ名<br />
+ 	<p>ユーザID<br />
  	<input type="text" name="username" value="<?php if (!empty($_POST["username"])) {echo htmlspecialchars($_POST["username"], ENT_QUOTES);} ?>"> </p>
- 	
+
     <p>パスワード<br />
     <input type="password" name="password" value=""></p>
 	<p class="forgetmenot"><label for="rememberme"><input name="rememberme" type="checkbox" id="rememberme" value="forever"  /> ログイン状態を保存する</label></p>
-	
+
 	<p class="submit">
 		<input type="submit" name="login" id="login" class="button button-primary button-large" value="ログイン" />
 </form>
