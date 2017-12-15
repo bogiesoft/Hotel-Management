@@ -30,9 +30,6 @@ include "./header.php"
     <a href="/employee/employee-select.php" style="#00bcd4"><p>従業員</p></a>
   </div>
   <div class="box">
-  	<a href="/room/room-registration-new.php" style="#00bcd4"><p>部屋新規登録</p></a>
-  </div>
-  <div class="box">
   	<a href="/room/room-registration-status.php" style="#00bcd4"><p>部屋登録状況</p></a>
   </div>
   <div class="box">

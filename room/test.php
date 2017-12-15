@@ -32,7 +32,7 @@ try {
                   ':ROOM_NAME' => $R_Name,
                   ':ROOM_SMOKING' => $R_Smokin,
                   ':ROOM_CAPACITY' => $R_Capa,
-                  ':ROOM_BETS' => $R_Bed,
+                  ':ROOM_BED' => $R_Bed,
                   ':ROOM_PRICE' => $R_Price,
                   ':ROOM_DESCRIPTION' => $R_Desc,
                   ':ROOM_RENOVATION' => $R_Reno,

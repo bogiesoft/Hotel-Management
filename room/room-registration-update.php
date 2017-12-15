@@ -33,52 +33,61 @@ include "../header_css.php"
             $('#reg_conf').click( function () {
                 $('#reg_pop').modal();
 //
-                var getId = $("#room_code").val();
+                var getId = $("#id").val();
                 $('#Id_out').text(getId);
-                var getName = $("#room_name").val();
+                var getType = $("#type").val();
+                $('#Type_out').text(getType);
+                var getName = $("#name").val();
                 $('#Name_out').text(getName);
-                var getEntry = $("#entry").val();
-                $('#Entry_out').text(getEntry);
+                var getCapa = $("#capa").val();
+                $('#Capa_out').text(getCapa);
+                var getBed = $("#bed").val();
+                $('#Bed_out').text(getBed);
+                var getSmoke = $("#smoke").val();
+                $('#Smoke_out').text(getSmoke);
+                var getPrice = $("#price").val();
+                $('#Price_out').text(getPrice);
+                var getReno = $("#reno").val();
+                $('#Reno_out').text(getReno);
+                var getStart = $("#start_reno").val();
+                $('#Start_out').text(getStart);
+                var getEnd = $("#end_reno").val();
+                $('#End_out').text(getEnd);
+                var getClean = $("#clean").val();
+                $('#Clean_out').text(getClean);
+                var getDesc = $("#desc").val();
+                $('#Desc_out').text(getDesc);
 
-                var getKana = $("#emp_kana").val();
-                $('#Kana_out').text(getKana);
-                var getSex = $("#sex").val();
-                $('#Gender_out').text(getSex);
-                var getMgr = $("#mgr").val();
-                $('#Mgr_out').text(getMgr);
-                var getPass = $("#pass").val();
-                $('#Pass_out').text(getPass);
-
-                var dummy = $("#pass").val();
-                var strdum = "*".repeat(dummy.length);
-                $('#Dummy_pass').text(strdum);
-
-            });
-        });
-    </script>
-
-    <script type="text/javascript">
-    $(function () {
-      $('#reg_conf').click( function() {
-        var i_id = document.qwe.e_id.value;
-        console.log(i_id);
+        var i_id = document.qwe.r_id.value;
         document.getElementById('f_id').value=i_id;
-        var i_entry = document.qwe.entry.value;
-        document.getElementById('f_entry').value=i_entry;
-        var i_name = document.qwe.e_name.value;
+        var i_type = document.qwe.r_type.value;
+        document.getElementById('f_type').value=i_type;
+        var i_name = document.qwe.r_name.value;
         document.getElementById('f_name').value=i_name;
-        var i_kana = document.qwe.e_kana.value;
-        document.getElementById('f_kana').value=i_kana;
-        var i_sex = document.qwe.sex.value;
-        document.getElementById('f_sex').value=i_sex;
-        var i_mgr = document.qwe.mgr.value;
-        document.getElementById('f_mgr').value=i_mgr;
-        var i_pass = document.qwe.e_pass.value;
-        document.getElementById('f_pass').value=i_pass;
+        var i_capa = document.qwe.r_capa.value;
+        document.getElementById('f_capa').value=i_capa;
+        var i_bed = document.qwe.r_bed.value;
+        document.getElementById('f_bed').value=i_bed;
+        var i_smoke = document.qwe.r_smoking.value;
+        document.getElementById('f_smoke').value=i_smoke;
+        var i_price = document.qwe.r_price.value;
+        document.getElementById('f_price').value=i_price;
+        var i_reno = document.qwe.r_reno.value;
+        document.getElementById('f_reno').value=i_reno;
+        var i_start_reno = document.qwe.r_start_reno.value;
+        document.getElementById('f_start_reno').value=i_start_reno;
+        var i_clean = document.qwe.r_clean.value;
+        document.getElementById('f_clean').value=i_clean;
+        var i_end_reno = document.qwe.r_end_reno.value;
+        document.getElementById('f_end_reno').value=i_end_reno;
+        var i_desc = document.qwe.r_desc.value;
+        document.getElementById('f_desc').value=i_desc;
+
+
       });
     });
+</script>
 
-    </script>
 </head>
 
 <body>
@@ -88,11 +97,11 @@ include "../header.php"
 
 <script>
 $( function() {
-  $('#room_code').change( function() {
+  $('#id').click( function(){
     var array_room = JSON.parse('<?php echo $val_room;?>');
     var array_count = JSON.parse('<?php echo $count?>');
+    var setCode = JSON.parse('<?php echo $id;?>');
 
-    var setCode = $('#room_code').val();
     var i;
 
     for (i=0; array_count > i;i++) {
@@ -129,7 +138,6 @@ $( function() {
         break;
       }
     }
-
   });
 });
 </script>
@@ -142,18 +150,32 @@ $( function() {
               <div class="form-group">
                  <label class="col-xs-2 label-control">部屋コード：</label>
                  <div class="col-xs-2">
-                     <input type="text" name="r_code" class="form-control" size="7" id="id">
+                     <input type="text" name="r_id" class="form-control" size="7" id="id">
                  </div>
-                 <label class="col-xs-2 label-control">部屋タイプ：</label>
-                 <div class="col-xs-2">
-                     <input type="text" name="r_type" class="form-control" size="20" id="type">
-                 </div>
-             </div>
+              </div>
 
              <div class="form-group">
                  <label class="col-xs-2 label-control">号室名：</label>
                  <div class="col-xs-2">
                      <input type="text" name="r_name" class="form-control" size="3" id="name" required>
+                 </div>
+                 <label class="col-xs-2 label-control">部屋タイプ：</label>
+                 <div class="col-xs-2">
+                   <select name="r_type" id="type">
+                       <option value="未選択">--客室名称を選択--</option>
+                       <option value="エコノミーシングル">エコノミーシングル</option>
+                       <option value="標準シングル">標準シングル</option>
+                       <option value="デラックスシングル">デラックスシングル</option>
+                       <option value="エコノミーシングル">エコノミーダブル</option>
+                       <option value="標準ダブル">標準ダブル</option>
+                       <option value="キングダブル">キングダブル</option>
+                       <option value="エコノミーツイン">エコノミーツイン</option>
+                       <option value="標準ツイン">標準ツイン</option>
+                       <option value="デラックスツイン">デラックスツイン</option>
+                       <option value="ファミリー和室">ファミリー和室</option>
+                       <option value="シングル">シングル</option>
+                       <option value="ダブル">ダブル</option>
+                   </select>
                  </div>
              </div>
 
@@ -171,9 +193,9 @@ $( function() {
              <div class="form-group">
                  <label class="col-xs-2 label-control">煙草：</label>
                  <div class="col-xs-2">
-                     <select name="r_smoking" id="smoke" >
-                         <option value="true">喫煙</option>
-                         <option value="false" selected>禁煙</option>
+                     <select name="r_smoking" id="smoke">
+                         <option value="0">禁煙</option>
+                         <option value="1">喫煙</option>
                      </select>
                  </div>
                  <label class="col-xs-2 label-control">金額 ：</label>
@@ -185,13 +207,13 @@ $( function() {
              <label class="col-xs-2 label-control ">改装状態：</label>
                <div class="col-xs-2">
                    <select name="r_reno" id="reno" >
-                       <option value="true">改装中</option>
-                       <option value="false" selected>非改装</option>
+                       <option value="0">非改装</option>
+                       <option value="1">改装中</option>
                    </select>
                </div>
                <label class="col-xs-2 label-control ">改装開始日：</label>
                <div class="col-xs-2">
-                   <input type="date" name="r_start_reno"  value='' class="form-control" size="12" tabindex="-1" required id="start_reno">
+                   <input type="date" name="r_start_reno"  value=room_start_reno class="form-control" size="12" tabindex="-1" required id="start_reno">
                </div>
              </div>
              <div class="form-group">
@@ -199,19 +221,19 @@ $( function() {
                  <label class="col-xs-2 label-control ">清掃状態：</label>
                <div class="col-xs-2">
                    <select name="r_clean" id="clean" >
-                       <option value="true">清掃中</option>
-                       <option value="false" selected>非清掃</option>
+                      <option value="0">非清掃</option>
+                      <option value="1">清掃中</option>
                    </select>
                </div>
                <label class="col-xs-2 label-control ">改装終了日：</label>
                <div class="col-xs-2">
-                   <input type="date" name="r_end_reno"  value='' class="form-control" size="12" tabindex="-1" required id="end_reno">
+                   <input type="date" name="r_end_reno"  value=room_end_reno class="form-control" size="12" tabindex="-1" required id="end_reno">
                </div>
 
              </div>
              <div class="form-group">
                <label class="col-xs-2 label-control">概要 ：</label>
-               <div class="col-xs-2">
+               <div class="col-xs-5">
                    <input type="text" name="r_desc" class="form-control" size="21" id="desc" required>
                </div>
              </div>
@@ -234,36 +256,49 @@ $( function() {
             <div class="form-horizontal">
                 <div class="modal-body">
                     <div class="form-group">
-                        <label class="col-xs-2 label-control">顧客番号：</label><p id="Id_out" class="col-xs-3"></p>
-                        <label class="col-xs-2 label-control">登録日：</label><p id="Entry_out" class="col-xs-3"></p>
+                        <label class="col-xs-2 label-control">部屋コード：</label><p id="Id_out" class="col-xs-3"></p>
                     </div>
                     <div class="form-group">
-                        <label class="col-xs-2 label-control">名前：</label><p id="Name_out" class="col-xs-9"></p>
+                      <label class="col-xs-2 label-control">部屋タイプ：</label><p id="Type_out" class="col-xs-4"></p>
+                        <label class="col-xs-2 label-control">号室名：</label><p id="Name_out" class="col-xs-3"></p>
                     </div>
                     <div class="form-group">
-                        <label class="col-xs-2 label-control">ﾌﾘｶﾞﾅ：</label><p id="Kana_out" class="col-xs-9"></p><br>
+                      <label class="col-xs-2 label-control">定員数：</label><p id="Capa_out" class="col-xs-4"></p>
+                      <label class="col-xs-2 label-control">ベッド数：</label><p id="Bed_out" class="col-xs-3"></p>
                     </div>
                     <div class="form-group">
-                        <label class="col-xs-2 label-control">性別：</label><p id="Gender_out" class="col-xs-3"></p>
-                        <label class="col-xs-2 label-control">責任者：</label><p id="Mgr_out" class="col-xs-3"></p>
+                      <label class="col-xs-2 label-control">煙草：</label><p id="Smoke_out" class="col-xs-4"></p>
+                      <label class="col-xs-2 label-control" >金額：</label><p id="Price_out" class="col-xs-3"></p>
                     </div>
                     <div class="form-group">
-                        <label class="col-xs-2 label-control" >ﾊﾟｽﾜｰﾄﾞ：</label>
-                        <p id="Dummy_pass" class="col-xs-3"></p>
-                        <p hidden id="Pass_out" class="col-xs-3"></p>
+                      <label class="col-xs-2 label-control" >清掃状態：</label><p id="Clean_out" class="col-xs-4"></p>
+                      <label class="col-xs-2 label-control" >改装状態：</label><p id="Reno_out" class="col-xs-3"></p>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-2 label-control" >改装開始日：</label><p id="Start_out" class="col-xs-4"></p>
+                        <label class="col-xs-2 label-control" >改装終了日：</label><p id="End_out" class="col-xs-3"></p>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-2 label-control" >概要：</label><p id="Desc_out" class="col-xs-7"></p>
                     </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
-                <input type="hidden" name="id" id="f_id">
-                <input type="hidden" name="entry" id="f_entry">
-                <input type="hidden" name="name" id="f_name">
-                <input type="hidden" name="kana" id="f_kana">
-                <input type="hidden" name="sex" id="f_sex">
-                <input type="hidden" name="mgr" id="f_mgr">
-                <input type="hidden" name="pass" id="f_pass">
+                <input type="hidden" name="h_id" id="f_id">
+                <input type="hidden" name="h_type" id="f_type">
+                <input type="hidden" name="h_name" id="f_name">
+                <input type="hidden" name="h_capa" id="f_capa">
+                <input type="hidden" name="h_bed" id="f_bed">
+                <input type="hidden" name="h_smoke" id="f_smoke">
+                <input type="hidden" name="h_price" id="f_price">
+                <input type="hidden" name="h_reno" id="f_reno">
+                <input type="hidden" name="h_start_reno" id="f_start_reno">
+                <input type="hidden" name="h_clean" id="f_clean">
+                <input type="hidden" name="h_end_reno" id="f_end_reno">
+                <input type="hidden" name="h_desc" id="f_desc">
+
                 <button type="submit" class="btn btn-default">ボタン</button>
             </div>
           </form>
