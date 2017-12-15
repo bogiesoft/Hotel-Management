@@ -4,8 +4,8 @@
 <head>
 <meta http-equiv="content-type" charset="utf-8">
   <title>顧客｜ホテル宿泊管理システム</title>
-  <link rel="stylesheet" type="text/css" href="css/employee.css">
-  <link rel="shortcut icon" href="assets/ico/img.png">
+  <link rel="stylesheet" type="text/css" href="../css/employee.css">
+  <link rel="shortcut icon" href="../assets/ico/img.png">
   <meta name=viewport content="width=device-width, initial-scale=1">
 </head>
 

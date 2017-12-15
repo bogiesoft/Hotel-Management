@@ -8,7 +8,7 @@ $Num = intval($_POST['num']);
 $Room = $_POST['room_no'];
 $Inputter = $_POST['inputter'];
 $Remarks = $_POST['remarks'];
-$No = '002';
+$No = rand(0,9999);;
 try {
   $pdo = new PDO('mysql:host=localhost;dbname=oic_hotel;charset=utf8','root','',array(PDO::ATTR_EMULATE_PREPARES => false));
       //接続

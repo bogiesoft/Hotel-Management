@@ -3,11 +3,11 @@
 <html lang="ja">
 <head>
 <title>予約登録画面</title>
-<link rel="stylesheet" type="text/css" href="css/employee-registration.css">
+<link rel="stylesheet" type="text/css" href="../css/employee-registration.css">
 <?php
 include "../header_css.php"
 ?>
-  <link rel="shortcut icon" href="assets/ico/img.png">
+  <link rel="shortcut icon" href="../assets/ico/img.png">
   <meta name=viewport content="width=device-width, initial-scale=1">
 </head>
 <body>

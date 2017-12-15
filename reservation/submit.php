@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <title>ビジネスホテル OIC 予約登録完了画面｜ホテル宿泊管理システム</title>
-    <link rel="stylesheet" type="text/css" href="css/submit.css">
-    <link rel="stylesheet" type="text/css" href="css/header.css">
-    <link rel="shortcut icon" href="assets/ico/img.png">
+    <link rel="stylesheet" type="text/css" href="../css/submit.css">
+    <link rel="stylesheet" type="text/css" href="../css/header.css">
+    <link rel="shortcut icon" href="../assets/ico/img.png">
       <meta name=viewport content="width=device-width, initial-scale=1">
 </head>
 <body>

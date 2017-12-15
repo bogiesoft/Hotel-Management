@@ -38,9 +38,6 @@ include "./header.php"
   <div class="box">
     <a href="/accounting/accounting.php" style="#00bcd4"><p>会計</p></a>
   </div>
-  <div class="box">
-    <a href="/login/sales-login.php" style="#00bcd4"><p>売上管理</p></a>
-  </div>
 </div>
 
 <br>

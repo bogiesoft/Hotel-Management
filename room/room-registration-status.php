@@ -7,8 +7,8 @@
 <?php
 include "../header_css.php"
 ?>
-<link rel="stylesheet" type="text/css" href="css/room-registration-status.css">
-<link rel="shortcut icon" href="assets/ico/img.png">
+<link rel="stylesheet" type="text/css" href="../css/room-registration-status.css">
+<link rel="shortcut icon" href="../assets/ico/img.png">
 <meta name=viewport content="width=device-width, initial-scale=1">
 
 <?php
@@ -25,9 +25,7 @@ include "../header.php"
 <div class="midasi col-sm-2">
   <h4>部屋登録状況</h4>
 </div>
-<div class="col-sm-1">
-<a class="btn btn-default" href="./room-registration-change.php" role="button">新規追加</a>
-</div>
+
 </div>
 <div class="box">
     <table  border=1 class="table">

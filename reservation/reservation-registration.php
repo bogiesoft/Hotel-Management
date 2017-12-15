@@ -11,8 +11,8 @@
 <?php
 include "../header_css.php"
 ?>
-<link rel="stylesheet" type="text/css" href="css/reservation-registration.css">
-<link rel="shortcut icon" href="assets/ico/img.png">
+<link rel="stylesheet" type="text/css" href="../css/reservation-registration.css">
+<link rel="shortcut icon" href="../assets/ico/img.png">
 <meta name=viewport content="width=device-width, initial-scale=1">
 
 
@@ -110,26 +110,39 @@ include "../dbconnect.php"
                     </div>
                 </div>
                 <script>
-                <?php $stmt = $db->query('select CLIENT_CODE,CLIENT_NAME from tbl_client'); ?>
+                <?php $stmt = $db->query('select CLIENT_CODE,CLIENT_NAME,CLIENT_KANA,CLIENT_SEX,CLIENT_BIRTH,CLIENT_REMARKS from tbl_client'); ?>
                 <?php $cli = $stmt -> fetchAll(PDO::FETCH_ASSOC); ?>
                 <?php $val_cli = json_encode($cli);?>
+                <?php $count = json_encode(count($cli));?>
+
 
                 $( function() {
                   $('#code').change( function() {
                     var array_cli = JSON.parse('<?php echo $val_cli;?>');
-                    console.log(array_cli);
+                    var array_count = JSON.parse('<?php echo $count?>');
+                    
+
                     var setCode = $('#code').val();
                     var i;
                     var cli_name;
-                    console.log(setCode);
 
-                    for (i=0; 2 > i;i++) {
-                      console.log(i);
+                    for (i=0; array_count > i;i++) {
+
                       if(setCode == array_cli[i]['CLIENT_CODE']) {
-                        console.log(array_cli[i]['CLIENT_NAME']);
+
                         cli_name = array_cli[i]['CLIENT_NAME'];
-                        console.log(cli_name);
+                        cli_kana = array_cli[i]['CLIENT_KANA'];
+                        cli_sex = array_cli[i]['CLIENT_SEX'];
+                        cli_birth = array_cli[i]['CLIENT_BIRTH'];
+                        cli_remarks = array_cli[i]['CLIENT_REMARKS'];
+
                         $('#name').val(cli_name);
+                        $('#f-name').val(cli_name);
+                        $('#f-kana').val(cli_kana);
+                        $('#f-sex').val(cli_sex);
+                        $('#f-birthday').val(cli_birth);
+                        $('#f-remarks').val(cli_remarks);
+
                         break;
                       }
                     }
@@ -285,36 +298,30 @@ include "../dbconnect.php"
                 <div class="form-group">
                     <label class="col-xs-2 label-control">顧客名：</label>
                     <div class="col-xs-9">
-                        <input type="text" name="f-name" class="form-control" size="21">
+                        <input type="text" name="f-name" class="form-control" size="21" id="f-name">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="col-xs-2 label-control">カナ：</label>
                     <div class="col-xs-9">
-                        <input type="text" name="f-kana" class="form-control" size="21">
+                        <input type="text" name="f-kana" class="form-control" size="21" id="f-kana">
                     </div>
                 </div>
                 <div class="form-group">
                   <label class="col-xs-2 label-control">性別：</label>
                   <div class="col-xs-2">
-                      <input type="text" name="f-sex" class="form-control" size="1">
+                      <input type="text" name="f-sex" class="form-control" size="1" id="f-sex">
                   </div>
                   <label class="col-xs-2 label-control">生年月日：</label>
                   <div class="col-xs-4">
-                      <input type="text" name="f-birthday" class="form-control" size="11">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-xs-2 label-control">年齢：</label>
-                  <div class="col-xs-4">
-                      <?php echo floor ((date('Ymd') - 19411129)/10000);?>
+                      <input type="text" name="f-birthday" class="form-control" size="11" id="f-birthday">
                   </div>
                 </div>
                 <div class="form-group">
                     <label class="col-xs-2 label-control">備考：</label>
                     <div class="col-xs-9">
-                        <textarea rows="2" cols="50" name="f-remarks" class="form-control"></textarea>
+                        <input name="f-remarks" class="form-control" id="f-remarks">
                     </div>
                 </div>
             </form>

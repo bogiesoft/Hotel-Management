@@ -20,7 +20,6 @@
               <li><a href="/room/room-registration-status.php">部屋登録状況</a></li>
               <li><a href="/room/status.php">部屋状況</a></li>
               <li><a href="/accounting/accounting.php">会計</a></li>
-              <li><a href="/login/sales-login.php">売上</a></li>
           </ul>
       </div>
   </nav>

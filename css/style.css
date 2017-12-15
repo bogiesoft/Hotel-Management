@@ -1,0 +1,17 @@
+.more {
+  display: none;
+}
+.more dt {
+  text-align: center;
+  clear: right;
+}
+.more dd {float: right;}
+.close {
+ display: none;
+}
+
+
+
+
+<th>価格<a href="#" class="open">＋</a><a href="#" class="close">－</a></th>
+  <td>無料</td>
