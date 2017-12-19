@@ -120,7 +120,7 @@ include "../dbconnect.php"
                   $('#code').change( function() {
                     var array_cli = JSON.parse('<?php echo $val_cli;?>');
                     var array_count = JSON.parse('<?php echo $count?>');
-                    
+
 
                     var setCode = $('#code').val();
                     var i;
@@ -136,12 +136,22 @@ include "../dbconnect.php"
                         cli_birth = array_cli[i]['CLIENT_BIRTH'];
                         cli_remarks = array_cli[i]['CLIENT_REMARKS'];
 
-                        $('#name').val(cli_name);
-                        $('#f-name').val(cli_name);
-                        $('#f-kana').val(cli_kana);
-                        $('#f-sex').val(cli_sex);
-                        $('#f-birthday').val(cli_birth);
-                        $('#f-remarks').val(cli_remarks);
+                          if(cli_name != null) {
+                            $('#name').val(cli_name);
+                            $('#f-name').val(cli_name);
+                            $('#f-kana').val(cli_kana);
+                            $('#f-sex').val(cli_sex);
+                            $('#f-birthday').val(cli_birth);
+                            $('#f-remarks').val(cli_remarks);
+                          }else {
+                            $('#name').val(cli_kana);
+                            $('#f-name').val(cli_name);
+                            $('#f-kana').val(cli_kana);
+                            $('#f-sex').val(cli_sex);
+                            $('#f-birthday').val(cli_birth);
+                            $('#f-remarks').val(cli_remarks);
+                          }
+
 
                         break;
                       }
@@ -192,7 +202,7 @@ include "../dbconnect.php"
                     <label class="col-xs-2 label-control">部屋番号：</label>
                     <div class="col-xs-2">
                         <select name="room_no" id="room_p">
-                          <option value="未選択">000</option>
+                          <option value="未選択">選択</option>
                           <?php  $stmt = $db->query('select ROOM_CODE,ROOM_NAME from tbl_room'); ?>
                           <?php  $room = $stmt -> fetchAll(PDO::FETCH_ASSOC); ?>
                           <?php  foreach ($room as $row): ?> {
@@ -298,30 +308,30 @@ include "../dbconnect.php"
                 <div class="form-group">
                     <label class="col-xs-2 label-control">顧客名：</label>
                     <div class="col-xs-9">
-                        <input type="text" name="f-name" class="form-control" size="21" id="f-name">
+                        <input type="text" name="f-name" class="form-control" size="21" id="f-name" readonly>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="col-xs-2 label-control">カナ：</label>
                     <div class="col-xs-9">
-                        <input type="text" name="f-kana" class="form-control" size="21" id="f-kana">
+                        <input type="text" name="f-kana" class="form-control" size="21" id="f-kana" readonly>
                     </div>
                 </div>
                 <div class="form-group">
                   <label class="col-xs-2 label-control">性別：</label>
                   <div class="col-xs-2">
-                      <input type="text" name="f-sex" class="form-control" size="1" id="f-sex">
+                      <input type="text" name="f-sex" class="form-control" size="1" id="f-sex" readonly>
                   </div>
                   <label class="col-xs-2 label-control">生年月日：</label>
                   <div class="col-xs-4">
-                      <input type="text" name="f-birthday" class="form-control" size="11" id="f-birthday">
+                      <input type="text" name="f-birthday" class="form-control" size="11" id="f-birthday" readonly>
                   </div>
                 </div>
                 <div class="form-group">
                     <label class="col-xs-2 label-control">備考：</label>
                     <div class="col-xs-9">
-                        <input name="f-remarks" class="form-control" id="f-remarks">
+                        <input name="f-remarks" class="form-control" id="f-remarks" readonly>
                     </div>
                 </div>
             </form>
@@ -334,15 +344,15 @@ include "../dbconnect.php"
   <table border=1 class="table1">
   <tr><th></th><th>喫煙</th><th>禁煙</th><th>禁煙</th></tr>
   <tr><th>エコノミーシングル</th><td>101号</td><td>102号</td><td>103号</td></tr>
-  <tr><th>標準シングル</th><td>201号</td><td>202号</td><td>203号</td></tr>
-  <tr><th>デラックスシングル</th><td>301号</td><td>302号</td><td></td></tr>
-  <tr><th>エコノミーシングル</th><td>401号</td><td>402号</td><td></td></tr>
-  <tr><th>標準ダブル</th><td>501号</td><td>502号</td><td>503号</td></tr>
-  <tr><th>キングダブル</th><td>601号</td><td>602号</td><td></td></tr>
-  <tr><th>エコノミーツイン</th><td>701号</td><td>702号</td><td></td></tr>
-  <tr><th>標準ツイン</th><td>801号</td><td>802号</td><td>803号</td></tr>
-  <tr><th>デラックスツイン</th><td>901号</td><td>902号</td><td></td></tr>
-  <tr><th>ファミリー和室</th><td>1001号</td><td></td><td></td></tr>
+  <tr><th>標準シングル</th><td>105号</td><td>106号</td><td>107号</td></tr>
+  <tr><th>デラックスシングル</th><td>109号</td><td>110号</td><td></td></tr>
+  <tr><th>エコノミーシングル</th><td>201号</td><td>202号</td><td></td></tr>
+  <tr><th>標準ダブル</th><td>204号</td><td>205号</td><td>206号</td></tr>
+  <tr><th>キングダブル</th><td>208号</td><td>209号</td><td></td></tr>
+  <tr><th>エコノミーツイン</th><td>301号</td><td>302号</td><td></td></tr>
+  <tr><th>標準ツイン</th><td>304号</td><td>305号</td><td>306号</td></tr>
+  <tr><th>デラックスツイン</th><td>308号</td><td>309号</td><td></td></tr>
+  <tr><th>ファミリー和室</th><td>401号</td><td></td><td></td></tr>
  </table>
 </div>
 

@@ -14,15 +14,21 @@ include "../header_css.php"
   <link rel="stylesheet" type="text/css" href="../css/client-registration.css">
   <link rel="shortcut icon" href="../assets/ico/img.png">
   <meta name=viewport content="width=device-width, initial-scale=1">
-
+<script>
+$( function() {
+  $('#client_kana').click( function() {
+    var setId = Math.round( Math.random()*1000000);
+    $('#client_id').val(setId);
+    console.log(setId);
+  });
+});
+</script>
 <script>
   $( function() {
   	$('#reg_conf').click( function () {
   		$('#reg_pop').modal();
-      var getId = $("#client_id").val();
+      var getId = $('#client_id').val();
       $('#Id_out').text(getId);
-      var getName = $("#client_name").val();
-      $('#Name_out').text(getName);
       var getKana = $("#client_kana").val();
       $('#Kana_out').text(getKana);
       var getTel = $("#tel").val();
@@ -39,9 +45,6 @@ include "../header_css.php"
       $('#reg_conf').click( function() {
         var i_id = document.zxc.c_id.value;
         document.getElementById('m_id').value=i_id;
-
-        var i_name = document.zxc.c_name.value;
-        document.getElementById('m_name').value=i_name;
 
         var i_kana = document.zxc.c_kana.value;
         document.getElementById('m_kana').value=i_kana;
@@ -72,18 +75,11 @@ include "../dbconnect.php"
 <div class="container">
 <div class="form-horizontal">
     <form action="newclient-form.php" method="post" name="zxc">
-          <div class="form-group">
-            <label class="col-xs-2 label-control">顧客番号：</label>
-              <div class="col-xs-2">
-                <input type="text" name="c_id" class="form-control" size="10" id="client_id">
-              </div>
-          </div>
-
         <div class="form-group">
-          <label class="col-xs-2 label-control">顧客名：</label>
-          <div class="col-xs-2">
-            <input type="text" name="c_name" class="form-control" size="21" id="client_name">
-          </div>
+          <label class="col-xs-2 label-control">顧客番号：</label>
+            <div class="col-xs-2">
+              <input type="text" name="c_id" class="form-control" size="10" id="client_id" readonly>
+            </div>
           <label class="col-xs-2 label-control">カナ ：</label>
           <div class="col-xs-2">
             <input type="text" name="c_kana" class="form-control" size="21" id="client_kana">
@@ -143,9 +139,6 @@ include "../dbconnect.php"
                           <label class="col-xs-2 label-control">顧客番号：</label><p id="Id_out" class="col-xs-3"></p>
                         </div>
                         <div class="form-group">
-                          <label class="col-xs-2 label-control">名前：</label><p id="Name_out" class="col-xs-9"></p>
-                        </div>
-                        <div class="form-group">
                           <label class="col-xs-2 label-control">ﾌﾘｶﾞﾅ：</label><p id="Kana_out" class="col-xs-9"></p>
                         </div>
                         <div class="form-group">
@@ -162,7 +155,6 @@ include "../dbconnect.php"
 			<div class="modal-footer">
   				<button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
                 <input type="hidden" name="id" id="m_id">
-                <input type="hidden" name="name" id="m_name">
                 <input type="hidden" name="kana" id="m_kana">
                 <input type="hidden" name="tel" id="m_tel">
                 <input type="hidden" name="mobile" id="m_phone">

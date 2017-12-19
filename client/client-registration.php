@@ -104,6 +104,7 @@ include "../header_css.php"
       document.getElementById('form2').action = "client-updateform.php";
     }
     </script>
+
 </head>
 
 <?php
@@ -142,6 +143,51 @@ include "../dbconnect.php"
         </div>
 
         <div class="form-group">
+          <label class="col-xs-2 label-control">電話番号：</label>
+          <div class="col-xs-2">
+            <input type="tel" placeholder="ハイフンなし" maxlength="10" name="c_tel" class="form-control" size="13" id="tel">
+          </div>
+          <label class="col-xs-2 label-control">携帯番号：</label>
+          <div class="col-xs-2">
+            <input type="tel" placeholder="ハイフンなし" maxlength="11" name="c_phone" class="form-control" size="13" id="phone">
+          </div>
+        </div>
+
+        <script>
+        <?php $stmt = $db->query('select CLIENT_CODE,CLIENT_KANA,CLIENT_TEL,CLIENT_MOBILE from tbl_client'); ?>
+        <?php $cli = $stmt -> fetchAll(PDO::FETCH_ASSOC); ?>
+        <?php $val_cli = json_encode($cli);?>
+        <?php $count = json_encode(count($cli));?>
+
+        $( function() {
+          $('#birthday').focus( function() {
+            var array_cli = JSON.parse('<?php echo $val_cli;?>');
+            var array_count = JSON.parse('<?php echo $count?>');
+
+
+            var setKana = $('#client_kana').val();
+            var setTel = $('#tel').val();
+            var setPhone = $('#phone').val();
+            var i;
+
+
+            for (i=0; array_count > i;i++) {
+
+              if(setKana == array_cli[i]['CLIENT_KANA'] && (setTel == array_cli[i]['CLIENT_TEL'] || setPhone == array_cli[i]['CLIENT_MOBILE'])) {
+
+                cli_code = array_cli[i]['CLIENT_CODE'];
+
+                $('#client_id').val(cli_code);
+
+                break;
+              }
+            }
+
+          });
+        });
+        </script>
+
+        <div class="form-group">
           <label class="col-xs-2 label-control">生年月日：</label>
           <div class="col-xs-2">
             <input type="text" name="c_birthday" class="form-control" size="12" id="birthday">
@@ -155,22 +201,6 @@ include "../dbconnect.php"
             </select>
           </div>
         </div>
-
-        <div class="form-group">
-          <label class="col-xs-2 label-control">電話番号：</label>
-          <div class="col-xs-2">
-            <input type="tel" placeholder="ハイフンなし" maxlength="10" name="c_tel" class="form-control" size="13" id="tel">
-          </div>
-          <label class="col-xs-2 label-control">携帯番号：</label>
-          <div class="col-xs-2">
-            <input type="tel" placeholder="ハイフンなし" maxlength="11" name="c_phone" class="form-control" size="13" id="phone">
-          </div>
-        </div>
-
-        <?php $stmt = $db->query('select CLIENT_CODE,CLIENT_NAME,CLIENT_KANA,CLIENT_SEX,CLIENT_BIRTH,CLIENT_REMARKS from tbl_client'); ?>
-        <?php $cli = $stmt -> fetchAll(PDO::FETCH_ASSOC); ?>
-        <?php $val_cli = json_encode($cli);?>
-        <?php $count = json_encode(count($cli));?>
 
         <div class="form-group">
             <!-- ▼郵便番号入力フィールド(7桁) -->
@@ -240,7 +270,7 @@ include "../dbconnect.php"
                           <label class="col-xs-2 label-control">名前：</label><p id="Name_out" class="col-xs-9"></p>
                         </div>
                         <div class="form-group">
-                          <label class="col-xs-2 label-control">カナ：</label><p id="Kana_out" class="col-xs-9"></p>
+                          <label class="col-xs-2 label-control">ﾌﾘｶﾞﾅ：</label><p id="Kana_out" class="col-xs-9"></p>
                         </div>
                         <div class="form-group">
                           <label class="col-xs-2 label-control">誕生日：</label><p id="Birthday_out" class="col-xs-3"></p>
