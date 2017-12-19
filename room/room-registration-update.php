@@ -145,7 +145,7 @@ $( function() {
 <div class="box">
     <div class="container">
         <div class="form-horizontal">
-            <form action="room_comit.php" method="post" name="qwe">
+            <form action="room-comit.php" method="post" name="qwe">
               <div class="form-group">
                  <label class="col-xs-2 label-control">部屋コード：</label>
                  <div class="col-xs-2">
@@ -247,7 +247,7 @@ $( function() {
 <div class="modal fade" id="reg_pop" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
-          <form action="room_comit.php" method="post">
+          <form action="room-comit.php" method="post">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span>×</span></button>
                 <h4 class="modal-title">以下で登録しますか？</h4>
