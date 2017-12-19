@@ -2,7 +2,6 @@
   //DB接続用
 $Id = $_POST['id'];
 $Entry = date('Y-m-d');
-$Name = $_POST['name'];
 $Kana = $_POST['kana'];
 $Tel = $_POST['tel'];
 $Mobile = $_POST['mobile'];
@@ -19,12 +18,11 @@ try {
  }
 
 try {
-  $sql = ("INSERT INTO tbl_client(CLIENT_CODE,CLIENT_ENTRY,CLIENT_NAME,CLIENT_KANA,CLIENT_TEL,CLIENT_MOBILE,CLIENT_EMPLOYEE_CODE)
-  VALUE(:CLIENT_CODE,:CLIENT_ENTRY,:CLIENT_NAME,:CLIENT_KANA,:CLIENT_TEL,:CLIENT_MOBILE,:CLIENT_EMPLOYEE_CODE)");
+  $sql = ("INSERT INTO tbl_client(CLIENT_CODE,CLIENT_ENTRY,CLIENT_KANA,CLIENT_TEL,CLIENT_MOBILE,CLIENT_EMPLOYEE_CODE)
+  VALUE(:CLIENT_CODE,:CLIENT_ENTRY,:CLIENT_KANA,:CLIENT_TEL,:CLIENT_MOBILE,:CLIENT_EMPLOYEE_CODE)");
   $stmt = $pdo->prepare($sql);
   $params = array(':CLIENT_CODE' => $Id,
                   ':CLIENT_ENTRY' => $Entry,
-                  ':CLIENT_NAME' => $Name,
                   ':CLIENT_KANA' => $Kana,
                   ':CLIENT_TEL' => $Tel,
                   ':CLIENT_MOBILE' => $Mobile,

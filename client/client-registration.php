@@ -11,16 +11,25 @@
 <?php
 include "../header_css.php"
 ?>
-  <link rel="stylesheet" type="text/css" href="../css/client-registration.css">
-  <link rel="shortcut icon" href="../assets/ico/img.png">
+  <link rel="stylesheet" type="text/css" href="css/client-registration.css">
+  <link rel="shortcut icon" href="assets/ico/img.png">
   <meta name=viewport content="width=device-width, initial-scale=1">
 
 <script>
   $( function() {
   	$('#reg_conf').click( function () {
   		$('#reg_pop').modal();
-      var getId = $("#client_id").val();
-      $('#Id_out').text(getId);
+
+      if(document.getElementById('client_id').value != "") {
+        var getId = $("#client_id").val();
+        $('#Id_out').text(getId);
+        console.log(true);
+      }else {
+        var getId = Math.round( Math.random()*1000000);
+        $('#Id_out').text(getId);
+        console.log(false);
+      }
+
       var getEntry = $("#entry").val();
       $('#Entry_out').text(getEntry);
       var getName = $("#client_name").val();
@@ -45,52 +54,55 @@ include "../header_css.php"
         var getEmp = $("#emp_id").val();
         $('#Emp_out').text(getEmp);
 
-  	});
-  });
-</script>
-    <script type="text/javascript">
-    $(function () {
-      $('#reg_conf').click( function() {
-        var i_id = document.zxc.c_id.value;
-        console.log(i_id);
-        document.getElementById('m_id').value=i_id;
+      if(('#client_id') != '') {
+      var i_id = getId;
+      document.getElementById('m_id').value=i_id;
+    }else {
+      var i_id = document.zxc.c_id.value;
+      doument.getElementById('m_id').value=i_id;
+    }
+      console.log(i_id);
+        var i_entry = document.zxc.n_entry.value;
+        document.getElementById('m_entry').value=i_entry;
 
-                var i_entry = document.zxc.n_entry.value;
-                document.getElementById('m_entry').value=i_entry;
+        var i_name = document.zxc.c_name.value;
+        document.getElementById('m_name').value=i_name;
 
-                var i_name = document.zxc.c_name.value;
-                document.getElementById('m_name').value=i_name;
+        var i_kana = document.zxc.c_kana.value;
+        document.getElementById('m_kana').value=i_kana;
 
-                var i_kana = document.zxc.c_kana.value;
-                document.getElementById('m_kana').value=i_kana;
+        var i_birthday = document.zxc.c_birthday.value;
+        document.getElementById('m_birthday').value=i_birthday;
 
-                var i_birthday = document.zxc.c_birthday.value;
-                document.getElementById('m_birthday').value=i_birthday;
+        var i_sex = document.zxc.sex.value;
+        document.getElementById('m_sex').value=i_sex;
 
-                var i_sex = document.zxc.sex.value;
-                document.getElementById('m_sex').value=i_sex;
+        var i_tel = document.zxc.c_tel.value;
+        document.getElementById('m_tel').value=i_tel;
 
-                var i_tel = document.zxc.c_tel.value;
-                document.getElementById('m_tel').value=i_tel;
+        var i_phone = document.zxc.c_phone.value;
+        document.getElementById('m_phone').value=i_phone;
 
-                var i_phone = document.zxc.c_phone.value;
-                document.getElementById('m_phone').value=i_phone;
+        var i_zip = document.zxc.zip11.value;
+        document.getElementById('m_zip').value=i_zip;
 
-                var i_zip = document.zxc.zip11.value;
-                document.getElementById('m_zip').value=i_zip;
+        var i_add = document.zxc.addr11.value;
+        document.getElementById('m_add').value=i_add;
 
-                var i_add = document.zxc.addr11.value;
-                document.getElementById('m_add').value=i_add;
+        var i_remark = document.zxc.c_remarks.value;
+        document.getElementById('m_remark').value=i_remark;
 
-                var i_remark = document.zxc.c_remarks.value;
-                document.getElementById('m_remark').value=i_remark;
-
-                var i_emp = document.zxc.e_id.value;
-                document.getElementById('m_emp').value=i_emp;
+        var i_emp = document.zxc.e_id.value;
+        document.getElementById('m_emp').value=i_emp;
 
             });
         });
 
+    </script>
+    <script>
+    function update() {
+      document.getElementById('form2').action = "client-updateform.php";
+    }
     </script>
 </head>
 
@@ -108,8 +120,10 @@ include "../dbconnect.php"
           <div class="form-group">
             <label class="col-xs-2 label-control">顧客番号：</label>
               <div class="col-xs-2">
-                <input type="text" name="c_id" class="form-control" size="10" id="client_id">
+                <input type="text" name="c_id" class="form-control" size="10" id="client_id" readonly>
               </div>
+
+
             <label class="col-xs-2 label-control">入会日：</label>
             <div class="col-xs-2">
               <input type="date" name="n_entry" class="form-control" size="12" tabindex="-1" id="entry">
@@ -121,7 +135,7 @@ include "../dbconnect.php"
           <div class="col-xs-2">
             <input type="text" name="c_name" class="form-control" size="21" id="client_name">
           </div>
-          <label class="col-xs-2 label-control">カナ ：</label>
+          <label class="col-xs-2 label-control">ﾌﾘｶﾞﾅ ：</label>
           <div class="col-xs-2">
             <input type="text" name="c_kana" class="form-control" size="21" id="client_kana">
           </div>
@@ -152,6 +166,11 @@ include "../dbconnect.php"
             <input type="tel" placeholder="ハイフンなし" maxlength="11" name="c_phone" class="form-control" size="13" id="phone">
           </div>
         </div>
+
+        <?php $stmt = $db->query('select CLIENT_CODE,CLIENT_NAME,CLIENT_KANA,CLIENT_SEX,CLIENT_BIRTH,CLIENT_REMARKS from tbl_client'); ?>
+        <?php $cli = $stmt -> fetchAll(PDO::FETCH_ASSOC); ?>
+        <?php $val_cli = json_encode($cli);?>
+        <?php $count = json_encode(count($cli));?>
 
         <div class="form-group">
             <!-- ▼郵便番号入力フィールド(7桁) -->
@@ -206,7 +225,7 @@ include "../dbconnect.php"
 <div class="modal fade" id="reg_pop" tabindex="-1">
 	<div class="modal-dialog">
 		<div class="modal-content">
-           <form action="client-form.php" method="post">
+           <form action="client-form.php" method="post" id="form2">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"><span>×</span></button>
 				<h4 class="modal-title">以下で登録しますか？</h4>
@@ -221,7 +240,7 @@ include "../dbconnect.php"
                           <label class="col-xs-2 label-control">名前：</label><p id="Name_out" class="col-xs-9"></p>
                         </div>
                         <div class="form-group">
-                          <label class="col-xs-2 label-control">カナ：</label><p id="Kana_out" class="col-xs-9"></p>
+                          <label class="col-xs-2 label-control">ﾌﾘｶﾞﾅ：</label><p id="Kana_out" class="col-xs-9"></p>
                         </div>
                         <div class="form-group">
                           <label class="col-xs-2 label-control">誕生日：</label><p id="Birthday_out" class="col-xs-3"></p>
@@ -260,6 +279,7 @@ include "../dbconnect.php"
                 <input type="hidden" name="remark" id="m_remark">
                 <input type="hidden" name="emp" id="m_emp">
                 <button type="submit" class="btn btn-default">登録</button>
+                <button type="submit" class="btn btn-default" onclick="update();">更新</button>
 			</div>
     </form>
 		</div>

@@ -57,11 +57,11 @@ $(function(){
 <?php
 include "../header_css.php"
 ?>
-    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
 
 
-  <link rel="stylesheet" type="text/css" href="../css/status.css">
-  <link rel="shortcut icon" href="../assets/ico/img.png">
+  <link rel="stylesheet" type="text/css" href="css/status.css">
+  <link rel="shortcut icon" href="assets/ico/img.png">
   <meta name=viewport content="width=device-width, initial-scale=1">
 </head>
 
@@ -110,10 +110,16 @@ include "../header.php"
                           $time_stamp_day = strtotime($r_c_row['RESERVATION_DAY']);
                           if(date($today) > date("Y-m-d",strtotime((string)$time_stamp_stayday,$time_stamp_day)))
                               ;//終了
-                          elseif(date($today) == date($r_c_row['RESERVATION_DAY']) or date($today) >=date("Y-m-d",strtotime((string)$time_stamp_stayday,$time_stamp_day)))
-                            echo $r_c_row['CLIENT_NAME'];
+                          elseif(date($today) == date($r_c_row['RESERVATION_DAY']))
+                            echo $r_c_row['CLIENT_NAME']; //本日から宿泊
+                          elseif(date($today) < date("Y-m-d",strtotime((string)$time_stamp_stayday,$time_stamp_day)))
+                            if(date($today) < date($r_c_row['RESERVATION_DAY']))
+                              ; //予約;
                             else
-                            echo '予約済み:'.$r_c_row['CLIENT_NAME'];
+                              echo $r_c_row['CLIENT_NAME']; //宿泊中
+                          else
+                            echo $r_c_row['CLIENT_NAME']; //宿泊中
+
                           }
                         }
                 echo '</td></a>';
@@ -130,10 +136,15 @@ include "../header.php"
                     $time_stamp_day = strtotime($r_c_row['RESERVATION_DAY']);
                     if(date($today) > date("Y-m-d",strtotime((string)$time_stamp_stayday,$time_stamp_day)))
                         ;//終了
-                    elseif(date($today) == date($r_c_row['RESERVATION_DAY']) or date($today) >=date("Y-m-d",strtotime((string)$time_stamp_stayday,$time_stamp_day)))
-                      echo $r_c_row['CLIENT_NAME'];
-                      else
-                      echo '予約済み:'.$r_c_row['CLIENT_NAME'];
+                        elseif(date($today) == date($r_c_row['RESERVATION_DAY']))
+                          echo $r_c_row['CLIENT_NAME'];
+                        elseif(date($today) < date("Y-m-d",strtotime((string)$time_stamp_stayday,$time_stamp_day)))
+                          if(date($today) < date($r_c_row['RESERVATION_DAY']))
+                            ;
+                          else
+                            echo $r_c_row['CLIENT_NAME'];
+                        else
+                          echo $r_c_row['CLIENT_NAME'];
                     }
                   }
                   echo '</td></a>';}
@@ -148,10 +159,15 @@ include "../header.php"
                     $time_stamp_day = strtotime($r_c_row['RESERVATION_DAY']);
                     if(date($today) > date("Y-m-d",strtotime((string)$time_stamp_stayday,$time_stamp_day)))
                         ;//終了
-                    elseif(date($today) == date($r_c_row['RESERVATION_DAY']) or date($today) >=date("Y-m-d",strtotime((string)$time_stamp_stayday,$time_stamp_day)))
-                      echo $r_c_row['CLIENT_NAME'];
-                      else
-                      echo '予約済み:'.$r_c_row['CLIENT_NAME'];
+                        elseif(date($today) == date($r_c_row['RESERVATION_DAY']))
+                          echo $r_c_row['CLIENT_NAME'];
+                        elseif(date($today) < date("Y-m-d",strtotime((string)$time_stamp_stayday,$time_stamp_day)))
+                          if(date($today) < date($r_c_row['RESERVATION_DAY']))
+                            ;
+                          else
+                            echo $r_c_row['CLIENT_NAME'];
+                        else
+                          echo $r_c_row['CLIENT_NAME'];
                     }
                   }
                   echo '</td></a>';
@@ -169,14 +185,25 @@ include "../header.php"
 
     foreach ($rooms as $row) {
       echo '<div id="'.$row['ROOM_CODE'].'" class="modal-content">';
-      echo '喫煙禁煙:';
+      echo 'タバコ:';
             if($row['ROOM_SMOKING'] === '0')
               echo '喫煙';
             else
               echo '禁煙';
       echo '<br>';
-      echo '収容人数:'.$row['ROOM_CAPACITY'].'<br>';
-
+      echo '最大人数:'.$row['ROOM_CAPACITY'].'<br>';
+      foreach($room_client_reservation as $r_c_row)
+      {
+        if($row['ROOM_CODE'] == $r_c_row['ROOM_CODE'])
+        {
+        $time_stamp_stayday = (string)($r_c_row['RESERVATION_STAYDAY']);
+        $time_stamp_stayday .= "day";
+        $time_stamp_day = strtotime($r_c_row['RESERVATION_DAY']);
+        if(date($today) < date($r_c_row['RESERVATION_DAY']))
+          echo '予約済み:'.$r_c_row['CLIENT_NAME'].' : '.date($r_c_row['RESERVATION_DAY']).' ~ '.date("Y-m-d",strtotime((string)$time_stamp_stayday,$time_stamp_day)); //予約;
+        else 'hoge';
+        }
+      }
       echo '<p><a class="modal-close">閉じる</a></p>'.
             '</div>';
     }
