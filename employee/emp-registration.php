@@ -8,8 +8,8 @@
 <?php
 include "../header_css.php"
 ?>
-  <link rel="stylesheet" type="text/css" href="css/emp-registration.css">
-  <link rel="shortcut icon" href="assets/ico/img.png">
+  <link rel="stylesheet" type="text/css" href="../css/emp-registration.css">
+  <link rel="shortcut icon" href="../assets/ico/img.png">
   <meta name=viewport content="width=device-width, initial-scale=1">
 
 
@@ -97,7 +97,7 @@ include "../header.php"
                  <div class="col-xs-2">
                      <input type="text" name="e_name" class="form-control" size="21" id="emp_name" required>
                  </div>
-                 <label class="col-xs-2 label-control">ﾌﾘｶﾞﾅ ：</label>
+                 <label class="col-xs-2 label-control">カナ ：</label>
                  <div class="col-xs-2">
                      <input type="text" name="e_kana" class="form-control" size="21" id="emp_kana" required>
                  </div>
@@ -153,7 +153,7 @@ include "../header.php"
                         <label class="col-xs-2 label-control">名前：</label><p id="Name_out" class="col-xs-9"></p>
                     </div>
                     <div class="form-group">
-                        <label class="col-xs-2 label-control">ﾌﾘｶﾞﾅ：</label><p id="Kana_out" class="col-xs-9"></p><br>
+                        <label class="col-xs-2 label-control">カナ：</label><p id="Kana_out" class="col-xs-9"></p><br>
                     </div>
                     <div class="form-group">
                         <label class="col-xs-2 label-control">性別：</label><p id="Gender_out" class="col-xs-3"></p>
@@ -176,7 +176,7 @@ include "../header.php"
                 <input type="hidden" name="sex" id="f_sex">
                 <input type="hidden" name="mgr" id="f_mgr">
                 <input type="hidden" name="pass" id="f_pass">
-                <button type="submit" class="btn btn-default">ボタン</button>
+                <button type="submit" class="btn btn-default">登録</button>
             </div>
           </form>
         </div>

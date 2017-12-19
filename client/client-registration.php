@@ -121,7 +121,7 @@ include "../dbconnect.php"
           <div class="col-xs-2">
             <input type="text" name="c_name" class="form-control" size="21" id="client_name">
           </div>
-          <label class="col-xs-2 label-control">ﾌﾘｶﾞﾅ ：</label>
+          <label class="col-xs-2 label-control">カナ ：</label>
           <div class="col-xs-2">
             <input type="text" name="c_kana" class="form-control" size="21" id="client_kana">
           </div>
@@ -221,7 +221,7 @@ include "../dbconnect.php"
                           <label class="col-xs-2 label-control">名前：</label><p id="Name_out" class="col-xs-9"></p>
                         </div>
                         <div class="form-group">
-                          <label class="col-xs-2 label-control">ﾌﾘｶﾞﾅ：</label><p id="Kana_out" class="col-xs-9"></p>
+                          <label class="col-xs-2 label-control">カナ：</label><p id="Kana_out" class="col-xs-9"></p>
                         </div>
                         <div class="form-group">
                           <label class="col-xs-2 label-control">誕生日：</label><p id="Birthday_out" class="col-xs-3"></p>

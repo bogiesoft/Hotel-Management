@@ -19,7 +19,7 @@ include "../header.php"
 
   <div class="boxA">
     <div class="box">
-        <a href="client-newclient.php" style="#00bcd4"><p>顧客仮登録</p></a>
+        <a href="client-newclient.php" style="#00bcd4"><p>新規顧客仮登録</p></a>
     </div>
       <div class="box">
           <a href="client-registration.php" style="#00bcd4"><p>顧客登録</p></a>
