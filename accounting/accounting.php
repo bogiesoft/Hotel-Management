@@ -30,23 +30,25 @@ include "../dbconnect.php"
   <div class="form-horizontal">
       <form action="receipt.php" method="post" name="asd">
             <div class="form-group">
-                <label class="col-xs-2 label-control">予約番号：</label>
+                <label class="col-xs-2 label-control">部屋名：</label>
                 <div class="col-xs-2">
-                    <input type="text" name="rsv_id"  id="code" list="yoyaku" placeholder="テキスト入力もしくはダブルクリック" autocomplete="off" style="height: 26px">
-                    <datalist id="yoyaku">
+                    <select name="rsv_id"  id="code">
+                        <option>部屋を選んでください</option>
                     <?php
                     $db->exec('SET FOREIGN_KEY_CHECKS=0;');
-                    $stmt = $db->query("SELECT RESERVATION_CODE FROM tbl_reservation");
+                    $stmt = $db->query("SELECT RESERVATION_CODE, ROOM_NAME FROM tbl_reservation left outer join tbl_room on tbl_reservation.ROOM_CODE = tbl_room.ROOM_CODE");
                     $reservation = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     foreach ($reservation as $row):
                         ?>{
-                        <option value="<?=$row['RESERVATION_CODE']?>"><?=$row['RESERVATION_CODE']?></option>
+                        <option value="<?=$row['RESERVATION_CODE']?>"><?=$row['ROOM_NAME']?></option>
                         }
                     <?php endforeach?>
-                    </datalist>
+                    </select>
                     <script>
-                        <?php $stmt = $db->query('select RESERVATION_CODE, ROOM_CODE, EMPLOYEE_CODE, tbl_reservation.CLIENT_CODE, CLIENT_NAME, RESERVATION_STAYDAY
-                                                   from tbl_reservation left outer join tbl_client on tbl_reservation.CLIENT_CODE = tbl_client.CLIENT_CODE'); ?>
+                        <?php $stmt = $db->query('select RESERVATION_CODE, CLIENT_NAME, ROOM_NAME, EMPLOYEE_CODE, RESERVATION_DAY
+                                                   from tbl_reservation left outer join tbl_room on tbl_reservation.ROOM_CODE = tbl_room.ROOM_CODE
+                                                   left outer join tbl_client on tbl_reservation.CLIENT_CODE = tbl_client.CLIENT_CODE;
+                                                   '); ?>
                         <?php $rsv = $stmt -> fetchAll(PDO::FETCH_ASSOC); ?>
                         <?php $val_rsv = json_encode($rsv);?>
 
@@ -58,45 +60,56 @@ include "../dbconnect.php"
                                 var i;
                                 var room;
                                 var emp;
-                                var id;
                                 var name;
-                                var stay;
+                                var c_in;
+                                var ci;
+
+                                var hiduke=new Date();
+                                var year = hiduke.getFullYear();
+                                var month = hiduke.getMonth()+1;
+                                var day = hiduke.getDate();
+                                var c_out =  year + "-" + month + "-" + day;
+                                var co =Date.parse(c_out);
+                                console.log(c_out);
+                                $('#out').val(c_out);
 
                                 console.log(setCode);
 
                                 for (i=0; 2 > i;i++) {
                                     console.log(i);
                                     if(setCode == array_rsv[i]['RESERVATION_CODE']) {
-                                        console.log(array_rsv[i]['ROOM_CODE']);
-                                        room = array_rsv[i]['ROOM_CODE'];
-                                        $('#r_code').val(room);
+                                        console.log(array_rsv[i]['CLIENT_NAME']);
+                                        name = array_rsv[i]['CLIENT_NAME'];
+                                        $('#name').val(name);
+
+                                        console.log(array_rsv[i]['ROOM_NAME']);
+                                        room = array_rsv[i]['ROOM_NAME'];
+                                        $('#r_num').val(room);
 
                                         console.log(array_rsv[i]['EMPLOYEE_CODE']);
                                         emp = array_rsv[i]['EMPLOYEE_CODE'];
                                         $('#emp_id').val(emp);
 
-                                        console.log(array_rsv[i]['CLIENT_CODE']);
-                                        id = array_rsv[i]['CLIENT_CODE'];
-                                        $('#cli_id').val(id);
-
-                                        console.log(array_rsv[i]['CLIENT_NAME']);
-                                        name = array_rsv[i]['CLIENT_NAME'];
-                                        $('#cli_name').val(name);
-
-                                        console.log(array_rsv[i]['RESERVATION_STAYDAY']);
-                                        stay = array_rsv[i]['RESERVATION_STAYDAY'];
-                                        $('#r_stay').val(stay);
-
+                                        console.log(array_rsv[i]['RESERVATION_DAY']);
+                                        c_in = array_rsv[i]['RESERVATION_DAY'];
+                                        ci = Date.parse(c_in);
+                                        $('#in').val(c_in);
                                         break;
                                     }
                                 }
+
+                                var stay = Math.ceil((co - ci) / 86400000);
+                                console.log(typeof c_in);
+                                console.log(typeof c_out);
+                                console.log(stay);
+                                $('#r_stay').val(stay);
 
                             });
                         });
                     </script>
                     <script>
                         <?php
-                        $stmt = $db->query("SELECT tbl_reservation.ROOM_CODE, RESERVATION_NUMBER, RESERVATION_STAYDAY, ROOM_PRICE
+                        $stmt = $db->query("SELECT tbl_reservation.ROOM_CODE, RESERVATION_NUMBER, RESERVATION_DAY, ROOM_PRICE
                                     FROM tbl_reservation LEFT OUTER JOIN tbl_room ON tbl_reservation.ROOM_CODE = tbl_room.ROOM_CODE");
                         $bill = $stmt -> fetchAll(PDO::FETCH_ASSOC);
                         $val_bill = json_encode($bill);
@@ -106,15 +119,20 @@ include "../dbconnect.php"
                                 var array_bill = JSON.parse('<?php echo $val_bill;?>');
                                 console.log(array_bill);
                                 var count = array_bill.length;
-
+                                var hiduke=new Date();
+                                    var year = hiduke.getFullYear();
+                                    var month = hiduke.getMonth()+1;
+                                    var day = hiduke.getDate();
+                                    var co =  Date.parse(year + "-" + month + "-" + day);
+                                console.log(co);
                                 for(i=0; count>i;i++) {
                                     var number = array_bill[i]['RESERVATION_NUMBER'];
                                     console.log(number);
-                                    var stay = array_bill[i]['RESERVATION_STAYDAY'];
-                                    console.log(stay);
+                                    var ci = Date.parse(array_bill[i]['RESERVATION_DAY']);
+                                    console.log(ci);
                                     var price = array_bill[i]['ROOM_PRICE'];
                                     console.log(price);
-                                    var bill = number * stay * price;
+                                    var bill = number * (stay = Math.ceil((co - ci) / 86400000)) * price;
                                     console.log(bill);
                                     $('#bill').val(bill);
                                 }
@@ -124,9 +142,9 @@ include "../dbconnect.php"
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-xs-2 label-control">部屋番号：</label>
-                <div class="col-xs-2">
-                    <input type="text" name="room_id" id="r_code" class="form-control" size="10">
+                <label class="col-xs-2 label-control">顧客名：</label>
+                <div class="col-xs-3">
+                    <input type="text" name="client" id="name" class="form-control" size="10">
                 </div>
                 <label class="col-xs-2 label-control">従業員番号：</label>
                 <div class="col-xs-2">
@@ -144,56 +162,19 @@ include "../dbconnect.php"
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-xs-2 label-control">顧客番号：</label>
-                <div class="col-xs-2">
-                    <input type="text" name="c_id" id="cli_id" class="form-control" size="12">
-                </div>
-                <label class="col-xs-2 label-control">顧客名：</label>
-                <div class="col-xs-2">
-                    <input type="text" name="c_name" id="cli_name" class="form-control" size="10">
-                </div>
-            </div>
-            <div class="form-group">
                 <label class="col-xs-2 label-control">CheckIn：</label>
-                <div class="col-xs-2">
-                    <input type="date" name="checkin" class="form-control" size="12">
+                <div class="col-xs-3">
+                    <input type="date" name="checkin" id="in" class="form-control" size="12">
                 </div>
                 <label class="col-xs-2 label-control">泊数：</label>
                 <div class="col-xs-2">
                     <input type="text" name="stayday" id="r_stay" class="form-control" size="12">
                 </div>
             </div>
-          <script>
-              <?php
-              $stmt = $db->query("SELECT tbl_reservation.ROOM_CODE, RESERVATION_NUMBER, RESERVATION_STAYDAY, ROOM_PRICE
-                                    FROM tbl_reservation LEFT OUTER JOIN tbl_room ON tbl_reservation.ROOM_CODE = tbl_room.ROOM_CODE");
-              $bill = $stmt -> fetchAll(PDO::FETCH_ASSOC);
-              $val_bill = json_encode($bill);
-              ?>
-              $(function () {
-                  $('#r_stay').change( function () {
-
-                      var array_bill = JSON.parse('<?php echo $val_bill;?>');
-                      console.log(array_bill.length);
-
-                      for(i=0; array_bill.length> i;i++){
-                          var number  = array_bill[i]['RESERVATION_NUMBER'];
-                          console.log(number);
-                          var stay    = ['RESERVATION_STAYDAY'];
-                          console.log(stay);
-                          var price   = ['ROOM_PRICE'];
-                          console.log(price);
-                          var bill = number * stay * price;
-                          console.log(bill);
-                          $('#bill').val(bill);
-                      }
-                  });
-              });
-          </script>
             <div class="form-group">
             <label class="col-xs-2 label-control">CheckOut：</label>
-                <div class="col-xs-2">
-                   <input type="date" name="checkout" class="form-control" size="12">
+                <div class="col-xs-3">
+                   <input type="date" name="checkout" id="out" class="form-control" size="12">
                 </div>
             </div>
             <div class="form-group">
@@ -201,7 +182,9 @@ include "../dbconnect.php"
                 <div class="col-xs-2">
                     <input type="text" name="pay" id="bill" class="form-control" size="12" readonly="readonly">
                 </div>
-                <div class="col-xs-2"></div>
+                <div class="col-xs-2">
+                    <input type="hidden" name="room_id" id="r_num">
+                </div>
                 <div class="col-xs-2">
                 <button type="submit" class="btn btn-default btn-lg bill">領収書発行</button>
                 </div>

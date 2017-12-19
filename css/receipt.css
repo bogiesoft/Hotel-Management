@@ -1,0 +1,11 @@
+.boxbill
+        {
+        margin: 0 auto;
+        width: 300px;
+        }
+
+.bill
+    {
+    background: #fafad2;
+    border: solid #ccccab 1px;
+    }

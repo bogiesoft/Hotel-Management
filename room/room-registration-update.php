@@ -121,7 +121,6 @@ $( function() {
         room_end_reno = array_room[i]['END_RENOVATION'];
         room_clean = array_room[i]['ROOM_CLEAN'];
 
-
         $('#id').val(room_id);
         $('#type').val(room_type);
         $('#name').val(room_name);
@@ -146,7 +145,7 @@ $( function() {
 <div class="box">
     <div class="container">
         <div class="form-horizontal">
-            <form action="test.php" method="post" name="qwe">
+            <form action="room_comit.php" method="post" name="qwe">
               <div class="form-group">
                  <label class="col-xs-2 label-control">部屋コード：</label>
                  <div class="col-xs-2">
@@ -166,7 +165,7 @@ $( function() {
                        <option value="エコノミーシングル">エコノミーシングル</option>
                        <option value="標準シングル">標準シングル</option>
                        <option value="デラックスシングル">デラックスシングル</option>
-                       <option value="エコノミーシングル">エコノミーダブル</option>
+                       <option value="エコノミーダブル">エコノミーダブル</option>
                        <option value="標準ダブル">標準ダブル</option>
                        <option value="キングダブル">キングダブル</option>
                        <option value="エコノミーツイン">エコノミーツイン</option>
@@ -248,7 +247,7 @@ $( function() {
 <div class="modal fade" id="reg_pop" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
-          <form action="test.php" method="post">
+          <form action="room_comit.php" method="post">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span>×</span></button>
                 <h4 class="modal-title">以下で登録しますか？</h4>

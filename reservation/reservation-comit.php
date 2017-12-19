@@ -35,17 +35,20 @@ try {
 
   $check=$stmt->execute($params);
   if($check){
-  echo "成功！";
+  echo "登録に成功しました。　5秒後に予約登録画面へ移動します。";
   }else{
-  echo "失敗！";
+  echo "登録に失敗しました！　5秒後に予約登録画面へ移動します。";
   }
 
-  echo"登録完了","<br>";
-  echo  $No,'+',$Day,'+',$Stayday,'+',$Code,'+',$Name,'+',$Num,'+',$Room,'+',$Inputter,'+',$Remarks,"<br>";
-  echo  gettype($No),'+',gettype($Day),'+',gettype($Stayday),'+',gettype($Code),'+',gettype($Name),'+',gettype($Num),'+',gettype($Room),'+',gettype($Inputter),'+',gettype($Remarks);
 }
 catch(PDOException $e){
    echo 'user error';
  echo $e->getMessage();
  exit;
 }
+
+<script type="text/javascript">
+    setTimeout(function(){
+     location.replace('http://localhost/reservation/reservation-registration.php');
+   }, 5000);
+</script>

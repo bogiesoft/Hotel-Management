@@ -84,7 +84,7 @@ $END_RENOVATIONphp=$row['END_RENOVATION'];
              };
              if($row['ROOM_RENOVATION'] === '1'||$todate>=$START_RENOVATIONphp&&$todate<=$END_RENOVATIONphp){
                  echo '<td>'."改装中".'</td>';
-             }else if($START_RENOVATIONphp==null){
+             }else if($START_RENOVATIONphp== null){
                  echo '<td>'."改装予定なし".'</td>';
              }else{
                  echo '<td>'."改装予定あり".'</td>';

@@ -8,8 +8,8 @@
 <?php
 include "../header_css.php"
 ?>
-  <link rel="stylesheet" type="text/css" href="../css/emp-registration.css">
-  <link rel="shortcut icon" href="../assets/ico/img.png">
+  <link rel="stylesheet" type="text/css" href="css/emp-registration.css">
+  <link rel="shortcut icon" href="assets/ico/img.png">
   <meta name=viewport content="width=device-width, initial-scale=1">
 
 
@@ -97,7 +97,7 @@ include "../header.php"
                  <div class="col-xs-2">
                      <input type="text" name="e_name" class="form-control" size="21" id="emp_name" required>
                  </div>
-                 <label class="col-xs-2 label-control">カナ ：</label>
+                 <label class="col-xs-2 label-control">ﾌﾘｶﾞﾅ ：</label>
                  <div class="col-xs-2">
                      <input type="text" name="e_kana" class="form-control" size="21" id="emp_kana" required>
                  </div>

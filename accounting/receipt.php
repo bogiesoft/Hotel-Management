@@ -67,7 +67,7 @@ catch(PDOException $e){
     <div class="bill">
         <p style="text-align: center; font-size: 26px;">領収証</p>
 
-        <script>document.write(s);</script>
+        <script>document.write();</script>
     </div>
     <a href="accounting.php"><p style="text-align: center">会計画面に戻る</p></a>
     </div>

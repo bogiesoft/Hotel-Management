@@ -67,6 +67,12 @@ a {
 text-decoration: none;
 }
 
+.btn.btn-default.btn-lg.bill {
+    padding: 6px 12px;
+    width: auto;
+    height: 34px;
+}
+
 input.stay{
 width: 3em;
 }
