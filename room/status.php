@@ -57,11 +57,10 @@ $(function(){
 <?php
 include "../header_css.php"
 ?>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
 
-
-  <link rel="stylesheet" type="text/css" href="css/status.css">
-  <link rel="shortcut icon" href="assets/ico/img.png">
+  <link rel="stylesheet" type="text/css" href="../css/status.css">
+  <link rel="shortcut icon" href="../assets/ico/img.png">
   <meta name=viewport content="width=device-width, initial-scale=1">
 </head>
 

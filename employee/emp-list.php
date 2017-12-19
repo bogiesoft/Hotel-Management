@@ -31,7 +31,7 @@ include "../header.php"
      <col style="width: 19%;" />
      <col style="width: 19%;" />
      <col style="width: 1.4%;" />
-     <tr><th>名前</th><th>ふりがな</th><th>登録日</th><th>性別</th><th>責任者</th><th></th></tr>
+     <tr><th>名前</th><th>フリガナ</th><th>登録日</th><th>性別</th><th>責任者</th><th></th></tr>
    </table>
  </div>
  <div class="scroll_box">
