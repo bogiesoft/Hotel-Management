@@ -20,8 +20,6 @@ include "../header_css.php"
 
                 var getId = $("#emp_id").val();
                 $('#Id_out').text(getId);
-                var getEntry = $("#entry").val();
-                $('#Entry_out').text(getEntry);
                 var getName = $("#emp_name").val();
                 $('#Name_out').text(getName);
                 var getKana = $("#emp_kana").val();
@@ -30,23 +28,9 @@ include "../header_css.php"
                 $('#Gender_out').text(getSex);
                 var getMgr = $("#mgr").val();
                 $('#Mgr_out').text(getMgr);
-                var getPass = $("#pass").val();
-                $('#Pass_out').text(getPass);
-
-                var dummy = $("#pass").val();
-                var strdum = "*".repeat(dummy.length);
-                $('#Dummy_pass').text(strdum);
 
             });
         });
-    </script>
-    <script>
-        function tf() {
-            var targetElement = document.getElementById('pass');
-            var sel =document.getElementById("mgr");
-            if(sel.value == "true"){targetElement.readOnly = false;}
-            else if(sel.value == "false"){targetElement.readOnly = true;}
-        }
     </script>
     <script type="text/javascript">
     $(function () {
@@ -54,8 +38,6 @@ include "../header_css.php"
         var i_id = document.qwe.e_id.value;
         console.log(i_id);
         document.getElementById('f_id').value=i_id;
-        var i_entry = document.qwe.entry.value;
-        document.getElementById('f_entry').value=i_entry;
         var i_name = document.qwe.e_name.value;
         document.getElementById('f_name').value=i_name;
         var i_kana = document.qwe.e_kana.value;
@@ -64,8 +46,6 @@ include "../header_css.php"
         document.getElementById('f_sex').value=i_sex;
         var i_mgr = document.qwe.mgr.value;
         document.getElementById('f_mgr').value=i_mgr;
-        var i_pass = document.qwe.e_pass.value;
-        document.getElementById('f_pass').value=i_pass;
       });
     });
 
@@ -80,16 +60,27 @@ include "../header.php"
 <div class="box">
     <div class="container">
         <div class="form-horizontal">
-            <form action="test.php" method="post" name="qwe">
+            <form action="emp-form.php" method="post" name="qwe">
               <div class="form-group">
                  <label class="col-xs-2 label-control">従業員番号：</label>
                  <div class="col-xs-2">
-                     <input type="text" name="e_id" class="form-control" size="7" id="emp_id">
+                     <input type="text" name="e_id" class="form-control" size="7" id="emp_id" readonly="readonly">
                  </div>
-                 <label class="col-xs-2 label-control ">登録日：</label>
-                 <div class="col-xs-2">
-                     <input type="date" name="entry"  value='' class="form-control" size="12" tabindex="-1" required id="entry">
-                 </div>
+                  <script>
+                      <?php
+                      $micro = microtime();
+                      list($msec, $sec) = explode(" ", microtime());
+                      $Time = $sec.floor($msec*1000);
+                      $Time = strrev($Time);
+
+                      ?>
+                      $( function() {
+                              var micro = <?php echo $Time;?>;
+                              console.log(micro);
+                              $('#emp_id').val(micro);
+                          });
+
+                  </script>
              </div>
 
              <div class="form-group">
@@ -112,19 +103,12 @@ include "../header.php"
                          <option value="その他">その他</option>
                      </select>
                  </div>
-             </div>
-
-             <div class="form-group">
-                 <label class="col-xs-2 label-control">責任者：</label>
+                 <label class="col-xs-2 label-control">責任者権限：</label>
                  <div class="col-xs-2">
-                     <select name="mgr" id="mgr" onchange="tf()">
-                         <option value="true">true</option>
-                         <option value="false" selected>false</option>
+                     <select name="mgr" id="mgr">
+                         <option value="true">あり</option>
+                         <option value="false" selected>なし</option>
                      </select>
-                 </div>
-                 <label class="col-xs-2 label-control">ﾊﾟｽﾜｰﾄﾞ ：</label>
-                 <div class="col-xs-2">
-                     <input type="password" name="e_pass" class="form-control" size="21" id="pass" readonly="readonly" required>
                  </div>
              </div>
                 <button type="button" class="btn btn-default btn-lg" id="reg_conf">登録確認</button>
@@ -138,7 +122,7 @@ include "../header.php"
 <div class="modal fade" id="reg_pop" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
-          <form action="test.php" method="post">
+          <form action="emp-form.php" method="post">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span>×</span></button>
                 <h4 class="modal-title">以下で登録しますか？</h4>
@@ -146,8 +130,7 @@ include "../header.php"
             <div class="form-horizontal">
                 <div class="modal-body">
                     <div class="form-group">
-                        <label class="col-xs-2 label-control">顧客番号：</label><p id="Id_out" class="col-xs-3"></p>
-                        <label class="col-xs-2 label-control">登録日：</label><p id="Entry_out" class="col-xs-3"></p>
+                        <label class="col-xs-2 label-control">従業員番号：</label><p id="Id_out" class="col-xs-3"></p>
                     </div>
                     <div class="form-group">
                         <label class="col-xs-2 label-control">名前：</label><p id="Name_out" class="col-xs-9"></p>
@@ -170,12 +153,10 @@ include "../header.php"
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
                 <input type="hidden" name="id" id="f_id">
-                <input type="hidden" name="entry" id="f_entry">
                 <input type="hidden" name="name" id="f_name">
                 <input type="hidden" name="kana" id="f_kana">
                 <input type="hidden" name="sex" id="f_sex">
                 <input type="hidden" name="mgr" id="f_mgr">
-                <input type="hidden" name="pass" id="f_pass">
                 <button type="submit" class="btn btn-default">登録</button>
             </div>
           </form>

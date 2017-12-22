@@ -96,7 +96,7 @@ $END_RENOVATIONphp=$row['END_RENOVATION'];
              }else{
                echo '<td>'."使用可".'</td>';
              };
-             echo '<td><a class="btn btn-default" href="./room-registration-update.php?id='.$row['ROOM_CODE'].'" role="button">変更</a>　<a class="btn btn-danger" href="./room-registration-remove.php?id='.$row['ROOM_CODE'].'" role="button">削除</a></td>';
+             echo '<td><a class="btn btn-default" href="./room-registration-update.php?id='.$row['ROOM_CODE'].'" role="button">変更</a></td>';
       }
       ?>
 

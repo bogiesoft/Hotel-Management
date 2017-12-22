@@ -57,6 +57,7 @@ include "../dbconnect.php"
                                 var array_rsv = JSON.parse('<?php echo $val_rsv;?>');
                                 console.log(array_rsv);
                                 var setCode = $('#code').val();
+                                var count = array_rsv.length;
                                 var i;
                                 var room;
                                 var emp;
@@ -75,7 +76,7 @@ include "../dbconnect.php"
 
                                 console.log(setCode);
 
-                                for (i=0; 2 > i;i++) {
+                                for (i=0; count > i;i++) {
                                     console.log(i);
                                     if(setCode == array_rsv[i]['RESERVATION_CODE']) {
                                         console.log(array_rsv[i]['CLIENT_NAME']);
@@ -109,7 +110,7 @@ include "../dbconnect.php"
                     </script>
                     <script>
                         <?php
-                        $stmt = $db->query("SELECT tbl_reservation.ROOM_CODE, RESERVATION_NUMBER, RESERVATION_DAY, ROOM_PRICE
+                        $stmt = $db->query("SELECT RESERVATION_CODE, tbl_reservation.ROOM_CODE, RESERVATION_NUMBER, RESERVATION_DAY, ROOM_PRICE
                                     FROM tbl_reservation LEFT OUTER JOIN tbl_room ON tbl_reservation.ROOM_CODE = tbl_room.ROOM_CODE");
                         $bill = $stmt -> fetchAll(PDO::FETCH_ASSOC);
                         $val_bill = json_encode($bill);
@@ -118,23 +119,33 @@ include "../dbconnect.php"
                             $('#code').change( function () {
                                 var array_bill = JSON.parse('<?php echo $val_bill;?>');
                                 console.log(array_bill);
-                                var count = array_bill.length;
+
                                 var hiduke=new Date();
                                     var year = hiduke.getFullYear();
                                     var month = hiduke.getMonth()+1;
                                     var day = hiduke.getDate();
                                     var co =  Date.parse(year + "-" + month + "-" + day);
                                 console.log(co);
-                                for(i=0; count>i;i++) {
-                                    var number = array_bill[i]['RESERVATION_NUMBER'];
-                                    console.log(number);
-                                    var ci = Date.parse(array_bill[i]['RESERVATION_DAY']);
-                                    console.log(ci);
-                                    var price = array_bill[i]['ROOM_PRICE'];
-                                    console.log(price);
-                                    var bill = number * (stay = Math.ceil((co - ci) / 86400000)) * price;
-                                    console.log(bill);
-                                    $('#bill').val(bill);
+
+                                var j;
+                                var count = array_bill.length;
+                                var setCode = $('#code').val();
+                                console.log(setCode);
+                                for(j=0; count>j;j++) {
+                                    console.log(j);
+                                    console.log(array_bill[j]['RESERVATION_CODE']);
+                                    if (setCode == array_bill[j]['RESERVATION_CODE']) {
+                                        var number = array_bill[j]['RESERVATION_NUMBER'];
+                                        console.log(number);
+                                        var ci = Date.parse(array_bill[j]['RESERVATION_DAY']);
+                                        console.log(ci);
+                                        var price = array_bill[j]['ROOM_PRICE'];
+                                        console.log(price);
+                                        var bill = number * (stay = Math.ceil((co - ci) / 86400000)) * price;
+                                        console.log(bill);
+                                        $('#bill').val(bill);
+                                        break;
+                                    }
                                 }
                             });
                         });
@@ -143,7 +154,7 @@ include "../dbconnect.php"
             </div>
             <div class="form-group">
                 <label class="col-xs-2 label-control">顧客名：</label>
-                <div class="col-xs-3">
+                <div class="col-xs-2">
                     <input type="text" name="client" id="name" class="form-control" size="10">
                 </div>
                 <label class="col-xs-2 label-control">従業員番号：</label>
@@ -163,7 +174,7 @@ include "../dbconnect.php"
             </div>
             <div class="form-group">
                 <label class="col-xs-2 label-control">CheckIn：</label>
-                <div class="col-xs-3">
+                <div class="col-xs-2">
                     <input type="date" name="checkin" id="in" class="form-control" size="12">
                 </div>
                 <label class="col-xs-2 label-control">泊数：</label>
@@ -173,7 +184,7 @@ include "../dbconnect.php"
             </div>
             <div class="form-group">
             <label class="col-xs-2 label-control">CheckOut：</label>
-                <div class="col-xs-3">
+                <div class="col-xs-2">
                    <input type="date" name="checkout" id="out" class="form-control" size="12">
                 </div>
             </div>

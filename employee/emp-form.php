@@ -1,12 +1,10 @@
 <?php
   //DB接続用
 $Id = $_POST['id'];
-$Entry = $_POST['entry'];
 $Name = $_POST['name'];
 $Kana = $_POST['kana'];
 $Sex = $_POST['sex'];
 $Mgr = $_POST['mgr'];
-$Pass = $_POST['pass'];
 
 
 try {
@@ -20,18 +18,20 @@ try {
  }
 
 try {
-  $sql = ("INSERT INTO tbl_employee(EMPLOYEE_CODE,EMPLOYEE_NAME,EMPLOYEE_KANA,EMPLOYEE_SEX,EMPLOYEE_ENTRY,EMPLOYEE_ADMIN,ADMIN_PASSWORD)value(:EMPLOYEE_CODE,:EMPLOYEE_NAME,:EMPLOYEE_KANA,:EMPLOYEE_SEX,:EMPLOYEE_ENTRY,:EMPLOYEE_ADMIN,:ADMIN_PASSWORD)");
+  $sql = ("INSERT INTO tbl_employee(EMPLOYEE_CODE,EMPLOYEE_NAME,EMPLOYEE_KANA,EMPLOYEE_SEX,EMPLOYEE_ENTRY,EMPLOYEE_ADMIN)VALUE(:EMPLOYEE_CODE,:EMPLOYEE_NAME,:EMPLOYEE_KANA,:EMPLOYEE_SEX,:EMPLOYEE_ENTRY,:EMPLOYEE_ADMIN)");
   $stmt = $pdo->prepare($sql);
   $params = array(':EMPLOYEE_CODE' => $Id,
-                  ':EMPLOYEE_ENTRY' => $Entry,
+                  ':EMPLOYEE_ENTRY' => date('Y/m/d'),
                   ':EMPLOYEE_NAME' => $Name,
                   ':EMPLOYEE_KANA' => $Kana,
                   ':EMPLOYEE_SEX' => $Sex,
-                  ':EMPLOYEE_ADMIN' => $Mgr,
-                  ':ADMIN_PASSWORD' => $Pass);
-  $stmt->execute($params);
-
-  echo"登録完了";
+                  ':EMPLOYEE_ADMIN' => $Mgr);
+    if (!$stmt) {
+        echo "\nPDO::errorInfo():\n";
+        print_r($pdo->errorInfo());
+    }
+    $stmt->execute($params);
+    echo"登録完了 5秒後に従業員登録画面に移動します";
 }
 catch(PDOException $e){
    echo 'user error';
@@ -46,3 +46,10 @@ catch(PDOException $e){
 </script>
 */
  ?>
+
+<script>
+    setTimeout("redirect()", 5000);
+    function redirect(){
+        location.href='/employee/emp-registration.php';
+    }
+</script>

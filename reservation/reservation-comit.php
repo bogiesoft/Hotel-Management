@@ -46,7 +46,7 @@ catch(PDOException $e){
  echo $e->getMessage();
  exit;
 }
-
+?>
 <script type="text/javascript">
     setTimeout(function(){
      location.replace('http://localhost/reservation/reservation-registration.php');
