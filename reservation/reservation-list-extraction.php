@@ -3,7 +3,7 @@ require"../dbconnect.php";//DB接続用ファイルの読み込み
 
 
 //テーブルのレコードを抽出
-$stmt = $db->query('select * from tbl_reservation re join tbl_client cl on re.CLIENT_CODE = cl.CLIENT_CODE join tbl_employee em on em.EMPLOYEE_CODE = re.EMPLOYEE_CODE join tbl_room ro on ro.ROOM_CODE = re.ROOM_CODE;');
+$stmt = $db->query('select * from tbl_reservation re join tbl_client cl on re.CLIENT_CODE = cl.CLIENT_CODE join tbl_employee em on em.EMPLOYEE_CODE = re.EMPLOYEE_CODE join tbl_room ro on ro.ROOM_CODE = re.ROOM_CODE ORDER BY RECEIP_DAY DESC;');
 
 
 //fetchAll(PDO::返却される配列の形式)でquery関数で返却された値を全件取得します
@@ -21,7 +21,7 @@ foreach ($users as $row) {
         '<td>' . $row['CLIENT_NAME']. '</td>' .				//名前
         '<td>' . $row['CLIENT_KANA']. '</td>' .				//フリガナ
         '<td>' . $row['CLIENT_SEX'] . '</td>' .				//性別
-		'<td>' . $row['CLIENT_TEL'] . '</td>' .				//連絡先
+		    '<td>' . $row['CLIENT_TEL'] . '</td>' .				//連絡先
         '<td>' . $row['ROOM_NAME'] . '</td>' .				//部屋番号
         '<td>' . $row['ROOM_TYPE'] . '</td>' .				//部屋タイプ
         '<td>' . $row['EMPLOYEE_CODE'] . '</td>' .			//従業員番号

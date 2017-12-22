@@ -30,22 +30,22 @@ include "../dbconnect.php"
   <div class="form-horizontal">
       <form action="receipt.php" method="post" name="asd">
             <div class="form-group">
-                <label class="col-xs-2 label-control">部屋名：</label>
+                <label class="col-xs-2 label-control">部屋番号：</label>
                 <div class="col-xs-2">
                     <select name="rsv_id"  id="code">
                         <option>部屋を選んでください</option>
                     <?php
                     $db->exec('SET FOREIGN_KEY_CHECKS=0;');
-                    $stmt = $db->query("SELECT RESERVATION_CODE, ROOM_NAME FROM tbl_reservation left outer join tbl_room on tbl_reservation.ROOM_CODE = tbl_room.ROOM_CODE");
+                    $stmt = $db->query("SELECT RESERVATION_CODE, CLIENT_KANA, ROOM_NAME, RESERVATION_DAY FROM tbl_reservation left outer join tbl_room on tbl_reservation.ROOM_CODE = tbl_room.ROOM_CODE left outer join tbl_client on tbl_reservation.CLIENT_CODE = tbl_client.CLIENT_CODE where RESERVATION_DAY < date(sysdate())");
                     $reservation = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     foreach ($reservation as $row):
                         ?>{
-                        <option value="<?=$row['RESERVATION_CODE']?>"><?=$row['ROOM_NAME']?></option>
+                        <option value="<?=$row['RESERVATION_CODE']?>"><?=$row['ROOM_NAME']?>　<span style="font-size: 12px"><?=$row['CLIENT_KANA']?></span></option>
                         }
                     <?php endforeach?>
                     </select>
                     <script>
-                        <?php $stmt = $db->query('select RESERVATION_CODE, CLIENT_NAME, ROOM_NAME, EMPLOYEE_CODE, RESERVATION_DAY
+                        <?php $stmt = $db->query('select RESERVATION_CODE, CLIENT_NAME, ROOM_NAME, RESERVATION_DAY
                                                    from tbl_reservation left outer join tbl_room on tbl_reservation.ROOM_CODE = tbl_room.ROOM_CODE
                                                    left outer join tbl_client on tbl_reservation.CLIENT_CODE = tbl_client.CLIENT_CODE;
                                                    '); ?>
@@ -60,7 +60,6 @@ include "../dbconnect.php"
                                 var count = array_rsv.length;
                                 var i;
                                 var room;
-                                var emp;
                                 var name;
                                 var c_in;
                                 var ci;
@@ -86,10 +85,6 @@ include "../dbconnect.php"
                                         console.log(array_rsv[i]['ROOM_NAME']);
                                         room = array_rsv[i]['ROOM_NAME'];
                                         $('#r_num').val(room);
-
-                                        console.log(array_rsv[i]['EMPLOYEE_CODE']);
-                                        emp = array_rsv[i]['EMPLOYEE_CODE'];
-                                        $('#emp_id').val(emp);
 
                                         console.log(array_rsv[i]['RESERVATION_DAY']);
                                         c_in = array_rsv[i]['RESERVATION_DAY'];
@@ -157,9 +152,10 @@ include "../dbconnect.php"
                 <div class="col-xs-2">
                     <input type="text" name="client" id="name" class="form-control" size="10">
                 </div>
-                <label class="col-xs-2 label-control">従業員番号：</label>
+                <label class="col-xs-2 label-control">従業員名：</label>
                 <div class="col-xs-2">
                     <select name="e_id" id="emp_id">
+                        <option></option>
                         <?php
                         $db->exec('SET FOREIGN_KEY_CHECKS=0;');
                         $stmt = $db->query("SELECT EMPLOYEE_CODE, EMPLOYEE_NAME FROM tbl_employee");
@@ -175,7 +171,7 @@ include "../dbconnect.php"
             <div class="form-group">
                 <label class="col-xs-2 label-control">CheckIn：</label>
                 <div class="col-xs-2">
-                    <input type="date" name="checkin" id="in" class="form-control" size="12">
+                    <input type="date" name="checkin" id="in" class="form-control" size="12" readonly="readonly">
                 </div>
                 <label class="col-xs-2 label-control">泊数：</label>
                 <div class="col-xs-2">
@@ -185,7 +181,7 @@ include "../dbconnect.php"
             <div class="form-group">
             <label class="col-xs-2 label-control">CheckOut：</label>
                 <div class="col-xs-2">
-                   <input type="date" name="checkout" id="out" class="form-control" size="12">
+                    <input type="date" name="checkout" id="out" class="form-control" size="12" readonly="readonly">
                 </div>
             </div>
             <div class="form-group">

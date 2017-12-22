@@ -46,7 +46,7 @@ try {
  }
   $stmt->execute($params);
 
-  echo"登録完了 5秒後に顧客登録画面に移動します。";
+  echo"登録完了 3秒後に顧客登録画面に移動します。";
 
 }
 
@@ -58,7 +58,7 @@ catch(PDOException $e){
 ?>
 
  <script>
- setTimeout("redirect()", 5000);
+ setTimeout("redirect()", 3000);
    function redirect(){
      location.href='/client/client-registration.php';
    }

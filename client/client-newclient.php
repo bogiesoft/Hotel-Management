@@ -98,7 +98,7 @@ include "../dbconnect.php"
         </div>
 
         <div class="form-group">
-          <label class="col-xs-2 label-control">従業員番号：</label>
+          <label class="col-xs-2 label-control">従業員名：</label>
           <div class="col-xs-2">
               <select name="e_id" id="emp_id">
 

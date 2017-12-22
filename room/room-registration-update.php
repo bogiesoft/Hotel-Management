@@ -250,7 +250,7 @@ $( function() {
           <form action="room-comit.php" method="post">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span>×</span></button>
-                <h4 class="modal-title">以下で登録しますか？</h4>
+                <h4 class="modal-title">以下で更新しますか？</h4>
             </div>
             <div class="form-horizontal">
                 <div class="modal-body">
@@ -298,7 +298,7 @@ $( function() {
                 <input type="hidden" name="h_end_reno" id="f_end_reno">
                 <input type="hidden" name="h_desc" id="f_desc">
 
-                <button type="submit" class="btn btn-default">ボタン</button>
+                <button type="submit" class="btn btn-default">更新</button>
             </div>
           </form>
         </div>

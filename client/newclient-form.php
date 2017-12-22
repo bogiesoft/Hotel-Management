@@ -55,6 +55,6 @@ catch(PDOException $e){
  <script>
  setTimeout("redirect()", 3000);
    function redirect(){
-     location.href='http://localhost/reservation/reservation-registration.php';
+     location.href='/reservation/reservation-registration.php';
    }
 </script>

@@ -53,9 +53,19 @@ try {
   $check=$stmt->execute($params);
 
   if($check){
-  echo "登録に成功しました。5秒後に部屋登録状況画面に移動します。";
+  echo "登録に成功しました。3秒後に部屋登録状況画面に移動します。";
+  echo "<script type='text/javascript'>
+      setTimeout(function(){
+       location.replace('/room/room-registration-status.php');
+     }, 3000);
+  </script>";
 }else{
-  echo "登録に失敗しました！　5秒後に部屋登録状況画面に移動します。";
+  echo "登録に失敗しました！　3秒後に部屋登録状況画面に移動します。";
+  echo "<script type='text/javascript'>
+      setTimeout(function(){
+       location.replace('/room/room-registration-update.php?p=".$Id."');
+     }, 3000);
+  </script>";
   }
 
 }
@@ -65,9 +75,3 @@ catch(PDOException $e){
  exit;
 }
 ?>
-
-<script type="text/javascript">
-    setTimeout(function(){
-     location.replace('http://localhost/room/room-registration-status.php');
-   }, 5000);
-</script>

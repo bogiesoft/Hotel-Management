@@ -209,22 +209,7 @@ include "../dbconnect.php"
             <input type="tel" placeholder="ハイフンなし" name="zip11" class="form-control" size="10" maxlength="7" onKeyUp="AjaxZip3.zip2addr(this,'','addr11','addr11'); " id="zip11">
           </div>
 
-          <label class="col-xs-2 label-control">従業員番号：</label>
-          <div class="col-xs-2">
-              <select name="e_id" id="emp_id">
 
-                  <?php
-                  $db->exec('SET FOREIGN_KEY_CHECKS=0;');
-                  $stmt = $db->query("SELECT EMPLOYEE_CODE, EMPLOYEE_NAME FROM tbl_employee");
-                  $employee = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                  foreach ($employee as $row):
-                  ?>{
-                     <option value="<?=$row['EMPLOYEE_CODE']?>"><?=$row['EMPLOYEE_NAME']?></option>
-                     }
-                  <?php endforeach?>
-
-              </select>
-          </div>
         </div>
 
 
@@ -243,6 +228,27 @@ include "../dbconnect.php"
             <textarea rows="2" cols="50" name="c_remarks" class="form-control" id="remarks"></textarea>
           </div>
         </div>
+
+
+        <div class="form-group">
+          <label class="col-xs-2 label-control">従業員名：</label>
+          <div class="col-xs-2">
+              <select name="e_id" id="emp_id">
+
+                  <?php
+                  $db->exec('SET FOREIGN_KEY_CHECKS=0;');
+                  $stmt = $db->query("SELECT EMPLOYEE_CODE, EMPLOYEE_NAME FROM tbl_employee");
+                  $employee = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                  foreach ($employee as $row):
+                  ?>{
+                     <option value="<?=$row['EMPLOYEE_CODE']?>"><?=$row['EMPLOYEE_NAME']?></option>
+                     }
+                  <?php endforeach?>
+
+              </select>
+          </div>
+        </div>
+
         <button type="button" class="btn btn-default btn-lg" id="reg_conf">登録確認</button>
         <input type="button" class="btn btn-default btn-lg" onclick="history.back();" value="キャンセル">
     </form>
@@ -282,13 +288,15 @@ include "../dbconnect.php"
                         </div>
                         <div class="form-group">
                           <label class="col-xs-2 label-control">郵便番号：</label><p id="Zip_out" class="col-xs-3"></p>
-                          <label class="col-xs-2 label-control">従業員番号：</label><p id="Emp_out" class="col-xs-3"></p>
                         </div>
                         <div class="form-group">
                           <label class="col-xs-2 label-control">住所：</label><p id="Add_out" class="col-xs-9"></p>
                         </div>
                         <div class="form-group">
                           <label class="col-xs-2 label-control">備考：</label><p id="Remarks_out" class="col-xs-9"></p>
+                        </div>
+                        <div class="form-group">
+                          <label class="col-xs-2 label-control">従業員番号：</label><p id="Emp_out" class="col-xs-3"></p>
                         </div>
                      </div>
               </div>

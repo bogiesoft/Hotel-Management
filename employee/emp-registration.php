@@ -140,13 +140,7 @@ include "../header.php"
                     </div>
                     <div class="form-group">
                         <label class="col-xs-2 label-control">性別：</label><p id="Gender_out" class="col-xs-3"></p>
-                        <label class="col-xs-2 label-control">責任者：</label><p id="Mgr_out" class="col-xs-3"></p>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-xs-2 label-control" >ﾊﾟｽﾜｰﾄﾞ：</label>
-                        <p id="Dummy_pass" class="col-xs-3"></p>
-                        <p hidden id="Pass_out" class="col-xs-3"></p>
-                    </div>
+                        <label class="col-xs-2 label-control">責任者権限：</label><p id="Mgr_out" class="col-xs-3"></p>
                     </div>
                 </div>
             </div>
