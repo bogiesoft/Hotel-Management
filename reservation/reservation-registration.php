@@ -40,7 +40,7 @@ $( function() {
     $('#Room_out').text(getRoom);
     console.log(getRoom);
 
-    var getSmoke = $("input[name='smoke']:checked").val();
+    var getSmoke = $("#smoke option:selected").text();
     $('#Smoke_out').text(getSmoke);
 
     var getInputter = $("#inputter").val();
@@ -167,19 +167,27 @@ include "../dbconnect.php"
                   </div>
                 </div>
 
+                <script type="text/javascript" src="ConnectedSelect.js"></script>
                 <div class="form-group">
                     <label class="col-xs-2 label-control">人数：</label>
                     <div class="col-xs-2">
-                        <input type="text" name="num" class="form-control" size="2" id="num">
+                        <select name="num" id="num">
+                          <option value="">---</option>
+                          <option value="1">1人</option>
+                          <option value="2">2人</option>
+                          <option value="3">3人</option>
+                          <option value="4">4人</option>
+                        </select>
                     </div>
                     <label class="col-xs-2 label-control">客室名称：</label>
                     <div class="col-xs-2">
                         <select name="room" id="room">
-                            <option value="未選択">--客室名称を選択--</option>
+                            <option value="">--客室名称を選択--</option>
+                          <optgroup label="1">
                             <option value="エコノミーシングル">エコノミーシングル</option>
                             <option value="標準シングル">標準シングル</option>
                             <option value="デラックスシングル">デラックスシングル</option>
-                            <option value="エコノミーシングル">エコノミーダブル</option>
+                            <option value="エコノミーダブル">エコノミーダブル</option>
                             <option value="標準ダブル">標準ダブル</option>
                             <option value="キングダブル">キングダブル</option>
                             <option value="エコノミーツイン">エコノミーツイン</option>
@@ -188,29 +196,272 @@ include "../dbconnect.php"
                             <option value="ファミリー和室">ファミリー和室</option>
                             <option value="シングル">シングル</option>
                             <option value="ダブル">ダブル</option>
+                            <option value="ツイン">ツイン</option>
+                          </optgroup>
+                          <optgroup label="2">
+                            <option value="エコノミーダブル">エコノミーダブル</option>
+                            <option value="標準ダブル">標準ダブル</option>
+                            <option value="キングダブル">キングダブル</option>
+                            <option value="エコノミーツイン">エコノミーツイン</option>
+                            <option value="標準ツイン">標準ツイン</option>
+                            <option value="デラックスツイン">デラックスツイン</option>
+                            <option value="ファミリー和室">ファミリー和室</option>
+                            <option value="ダブル">ダブル</option>
+                            <option value="ツイン">ツイン</option>
+                          </optgroup>
+                          <optgroup label="3">
+                            <option value="ファミリー和室">ファミリー和室</option>
+                          </optgroup>
+                          <optgroup label="4">
+                            <option value="ファミリー和室">ファミリー和室</option>
+                          </optgroup>
                         </select>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="col-xs-2 label-control">煙草：</label>
-                    <div class="col-xs-4" id="smoke">
-                        <input type="radio" name="smoke" value="禁煙"><label for="no_smoke">禁煙</label>
-                        <input type="radio" name="smoke" value="喫煙"><label for="ok_smoke">喫煙</label><br>
-                        <input type="radio" name="smoke" value="どちらでも"><label for="either_smoke">どちらでも</label>
+                    <div class="col-xs-4">
+                      <select name="smoke" id="smoke">
+                          <option value="">----</option>
+                        <optgroup label="エコノミーシングル">
+                          <option value="エコノミーシングル：禁煙">禁煙</option>
+                          <option value="エコノミーシングル：喫煙">喫煙</option>
+                          <option value="エコノミーシングル：どちらでも">どちらでも</option>
+                        </optgroup>
+                        <optgroup label="標準シングル">
+                          <option value="標準シングル：禁煙">禁煙</option>
+                          <option value="標準シングル：喫煙">喫煙</option>
+                          <option value="標準シングル：どちらでも">どちらでも</option>
+                        </optgroup>
+                        <optgroup label="デラックスシングル">
+                          <option value="デラックスシングル：禁煙">禁煙</option>
+                          <option value="デラックスシングル：喫煙">喫煙</option>
+                          <option value="デラックスシングル：どちらでも">どちらでも</option>
+                        </optgroup>
+                        <optgroup label="エコノミーダブル">
+                          <option value="エコノミーダブル：禁煙">禁煙</option>
+                          <option value="エコノミーダブル：喫煙">喫煙</option>
+                          <option value="エコノミーダブル：どちらでも">どちらでも</option>
+                        </optgroup>
+                        <optgroup label="標準ダブル">
+                          <option value="標準ダブル：禁煙">禁煙</option>
+                          <option value="標準ダブル：喫煙">喫煙</option>
+                          <option value="標準ダブル：どちらでも">どちらでも</option>
+                        </optgroup>
+                        <optgroup label="キングダブル">
+                          <option value="キングダブル：禁煙">禁煙</option>
+                          <option value="キングダブル：喫煙">喫煙</option>
+                          <option value="キングダブル：どちらでも">どちらでも</option>
+                        </optgroup>
+                        <optgroup label="エコノミーツイン">
+                          <option value="エコノミーツイン：禁煙">禁煙</option>
+                          <option value="エコノミーツイン：喫煙">喫煙</option>
+                          <option value="エコノミーツイン：どちらでも">どちらでも</option>
+                        </optgroup>
+                        <optgroup label="標準ツイン">
+                          <option value="標準ツイン：禁煙">禁煙</option>
+                          <option value="標準ツイン：喫煙">喫煙</option>
+                          <option value="標準ツイン：どちらでも">どちらでも</option>
+                        </optgroup>
+                        <optgroup label="デラックスツイン">
+                          <option value="デラックスツイン：禁煙">禁煙</option>
+                          <option value="デラックスツイン：喫煙">喫煙</option>
+                          <option value="デラックスツイン：どちらでも">どちらでも</option>
+                        </optgroup>
+                        <optgroup label="ファミリー和室">
+                          <option value="ファミリー和室：禁煙">禁煙</option>
+                        </optgroup>
+                        <optgroup label="シングル">
+                          <option value="シングル：禁煙">禁煙</option>
+                          <option value="シングル：喫煙">喫煙</option>
+                          <option value="シングル：どちらでも">どちらでも</option>
+                        </optgroup>
+                        <optgroup label="ダブル">
+                          <option value="ダブル：禁煙">禁煙</option>
+                          <option value="ダブル：喫煙">喫煙</option>
+                          <option value="ダブル：どちらでも">どちらでも</option>
+                        </optgroup>
+                        <optgroup label="ツイン">
+                          <option value="ツイン：禁煙">禁煙</option>
+                          <option value="ツイン：喫煙">喫煙</option>
+                          <option value="ツイン：どちらでも">どちらでも</option>
+                        </optgroup>
+                      </select>
                     </div>
                     <label class="col-xs-2 label-control">部屋番号：</label>
                     <div class="col-xs-2">
                         <select name="room_no" id="room_p">
-                          <option value="未選択">選択</option>
-                          <?php  $stmt = $db->query('select ROOM_CODE,ROOM_NAME from tbl_room'); ?>
-                          <?php  $room = $stmt -> fetchAll(PDO::FETCH_ASSOC); ?>
-                          <?php  foreach ($room as $row): ?> {
-                                    <option value="<?= $row['ROOM_CODE']?>"><?= $row['ROOM_NAME']?></option>
-                                  }
-                          <?php endforeach ?>
-
+                            <option value="">----</option>
+                          <optgroup label="エコノミーシングル：禁煙">
+                            <option value="01">101号</option>
+                            <option value="02">102号</option>
+                          </optgroup>
+                          <optgroup label="エコノミーシングル：喫煙">
+                            <option value="03">103号</option>
+                          </optgroup>
+                          <optgroup label="エコノミーシングル：どちらでも">
+                            <option value="01">101号</option>
+                            <option value="02">102号</option>
+                            <option value="03">103号</option>
+                          </optgroup>
+                          <optgroup label="標準シングル：禁煙">
+                            <option value="04">105号</option>
+                            <option value="05">106号</option>
+                          </optgroup>
+                          <optgroup label="標準シングル：喫煙">
+                            <option value="06">107号</option>
+                          </optgroup>
+                          <optgroup label="標準シングル：どちらでも">
+                            <option value="04">105号</option>
+                            <option value="05">106号</option>
+                            <option value="06">107号</option>
+                          </optgroup>
+                          <optgroup label="デラックスシングル：禁煙">
+                            <option value="07">109号</option>
+                          </optgroup>
+                          <optgroup label="デラックスシングル：喫煙">
+                            <option value="08">110号</option>
+                          </optgroup>
+                          <optgroup label="デラックスシングル：どちらでも">
+                            <option value="07">109号</option>
+                            <option value="08">110号</option>
+                          </optgroup>
+                          <optgroup label="エコノミーダブル：禁煙">
+                            <option value="09">201号</option>
+                          </optgroup>
+                          <optgroup label="エコノミーダブル：喫煙">
+                            <option value="10">202号</option>
+                          </optgroup>
+                          <optgroup label="エコノミーダブル：どちらでも">
+                            <option value="09">201号</option>
+                            <option value="10">202号</option>
+                          </optgroup>
+                          <optgroup label="標準ダブル：禁煙">
+                            <option value="11">204号</option>
+                            <option value="12">205号</option>
+                          </optgroup>
+                          <optgroup label="標準ダブル：喫煙">
+                            <option value="13">206号</option>
+                          </optgroup>
+                          <optgroup label="標準ダブル：どちらでも">
+                            <option value="11">204号</option>
+                            <option value="12">205号</option>
+                            <option value="13">206号</option>
+                          </optgroup>
+                          <optgroup label="キングダブル：禁煙">
+                            <option value="14">208号</option>
+                          </optgroup>
+                          <optgroup label="キングダブル：喫煙">
+                            <option value="15">209号</option>
+                          </optgroup>
+                          <optgroup label="キングダブル：どちらでも">
+                            <option value="14">208号</option>
+                            <option value="15">209号</option>
+                          </optgroup>
+                          <optgroup label="エコノミーツイン：禁煙">
+                            <option value="16">301号</option>
+                          </optgroup>
+                          <optgroup label="エコノミーツイン：喫煙">
+                            <option value="17">302号</option>
+                          </optgroup>
+                          <optgroup label="エコノミーツイン：どちらでも">
+                            <option value="16">301号</option>
+                            <option value="17">302号</option>
+                          </optgroup>
+                          <optgroup label="標準ツイン：禁煙">
+                            <option value="18">304号</option>
+                            <option value="19">305号</option>
+                          </optgroup>
+                          <optgroup label="標準ツイン：喫煙">
+                            <option value="20">306号</option>
+                          </optgroup>
+                          <optgroup label="標準ツイン：どちらでも">
+                            <option value="18">304号</option>
+                            <option value="19">305号</option>
+                            <option value="20">306号</option>
+                          </optgroup>
+                          <optgroup label="デラックスツイン：禁煙">
+                            <option value="21">308号</option>
+                          </optgroup>
+                          <optgroup label="デラックスツイン：喫煙">
+                            <option value="22">309号</option>
+                          </optgroup>
+                          <optgroup label="デラックスツイン：どちらでも">
+                            <option value="21">308号</option>
+                            <option value="22">309号</option>
+                          </optgroup>
+                          <optgroup label="ファミリー和室：禁煙">
+                            <option value="23">401号</option>
+                          </optgroup>
+                          <optgroup label="シングル：禁煙">
+                            <option value="01">101号</option>
+                            <option value="02">102号</option>
+                            <option value="04">105号</option>
+                            <option value="05">106号</option>
+                            <option value="07">109号</option>
+                          </optgroup>
+                          <optgroup label="シングル：喫煙">
+                            <option value="03">103号</option>
+                            <option value="06">107号</option>
+                            <option value="08">110号</option>
+                          </optgroup>
+                          <optgroup label="シングル：どちらでも">
+                            <option value="01">101号</option>
+                            <option value="02">102号</option>
+                            <option value="03">103号</option>
+                            <option value="04">105号</option>
+                            <option value="05">106号</option>
+                            <option value="06">107号</option>
+                            <option value="07">109号</option>
+                            <option value="08">110号</option>
+                          </optgroup>
+                          <optgroup label="ダブル：禁煙">
+                            <option value="09">201号</option>
+                            <option value="11">204号</option>
+                            <option value="12">205号</option>
+                            <option value="14">208号</option>
+                          </optgroup>
+                          <optgroup label="ダブル：喫煙">
+                            <option value="10">202号</option>
+                            <option value="13">206号</option>
+                            <option value="15">209号</option>
+                          </optgroup>
+                          <optgroup label="ダブル：どちらでも">
+                            <option value="09">201号</option>
+                            <option value="10">202号</option>
+                            <option value="11">204号</option>
+                            <option value="12">205号</option>
+                            <option value="13">206号</option>
+                            <option value="14">208号</option>
+                            <option value="15">209号</option>
+                          </optgroup>
+                          <optgroup label="ツイン：禁煙">
+                            <option value="16">301号</option>
+                            <option value="18">304号</option>
+                            <option value="19">305号</option>
+                            <option value="21">308号</option>
+                          </optgroup>
+                          <optgroup label="ツイン：喫煙">
+                            <option value="17">302号</option>
+                            <option value="20">306号</option>
+                            <option value="22">309号</option>
+                          </optgroup>
+                          <optgroup label="ツイン：どちらでも">
+                            <option value="16">301号</option>
+                            <option value="17">302号</option>
+                            <option value="18">304号</option>
+                            <option value="19">305号</option>
+                            <option value="20">306号</option>
+                            <option value="21">308号</option>
+                            <option value="22">309号</option>
+                          </optgroup>
                         </select>
+
+                        <script type="text/javascript">
+                          ConnectedSelect(['num','room','smoke','room_p']);
+                        </script>
+
                     </div>
                 </div>
                 <div class="form-group">
@@ -340,21 +591,292 @@ include "../dbconnect.php"
     </div>
 </div>
 
+<script>
+$(function(){
+    // 「.modal-open」をクリック
+    $('.modal-open').click(function(){
+        // オーバーレイ用の要素を追加
+        $('body').append('<div class="modal-overlay"></div>');
+        // オーバーレイをフェードイン
+        $('.modal-overlay').fadeIn('slow');
+
+        // モーダルコンテンツのIDを取得
+        var modal = '#' + $(this).attr('data-target');
+        // モーダルコンテンツの表示位置を設定
+        modalResize();
+         // モーダルコンテンツフェードイン
+        $(modal).fadeIn('slow');
+
+        // 「.modal-overlay」あるいは「.modal-close」をクリック
+        $('.modal-overlay, .modal-close').off().click(function(){
+            // モーダルコンテンツとオーバーレイをフェードアウト
+            $(modal).fadeOut('slow');
+            $('.modal-overlay').fadeOut('slow',function(){
+                // オーバーレイを削除
+                $('.modal-overlay').remove();
+            });
+        });
+
+        // リサイズしたら表示位置を再取得
+        $(window).on('resize', function(){
+            modalResize();
+        });
+
+        // モーダルコンテンツの表示位置を設定する関数
+        function modalResize(){
+            // ウィンドウの横幅、高さを取得
+            var w = $(window).width();
+            var h = $(window).height();
+
+            // モーダルコンテンツの表示位置を取得
+            var x = (w - $(modal).outerWidth(true)) / 2;
+            var y = (h - $(modal).outerHeight(true)) / 2;
+
+            // モーダルコンテンツの表示位置を設定
+            $(modal).css({'left': x + 'px','top': y + 'px'});
+        }
+
+    });
+});
+</script>
+
+<link rel="stylesheet" type="text/css" href="../css/status.css">
+
+
 <div class="box3">
   <table border=1 class="table1">
-  <tr><th></th><th>喫煙</th><th>禁煙</th><th>禁煙</th></tr>
-  <tr><th>エコノミーシングル</th><td>101号</td><td>102号</td><td>103号</td></tr>
-  <tr><th>標準シングル</th><td>105号</td><td>106号</td><td>107号</td></tr>
-  <tr><th>デラックスシングル</th><td>109号</td><td>110号</td><td></td></tr>
-  <tr><th>エコノミーシングル</th><td>201号</td><td>202号</td><td></td></tr>
-  <tr><th>標準ダブル</th><td>204号</td><td>205号</td><td>206号</td></tr>
-  <tr><th>キングダブル</th><td>208号</td><td>209号</td><td></td></tr>
-  <tr><th>エコノミーツイン</th><td>301号</td><td>302号</td><td></td></tr>
-  <tr><th>標準ツイン</th><td>304号</td><td>305号</td><td>306号</td></tr>
-  <tr><th>デラックスツイン</th><td>308号</td><td>309号</td><td></td></tr>
-  <tr><th>ファミリー和室</th><td>401号</td><td></td><td></td></tr>
+    <?php
+        //DB接続用ファイルの読み込み
+        //テーブルのレコードを抽出
+        $reservation_client_stmt = $db->query('SELECT * FROM tbl_reservation LEFT JOIN tbl_client ON tbl_reservation.CLIENT_CODE = tbl_client.CLIENT_CODE;');
+        //fetchAll(PDO::返却される配列の形式)でquery関数で返却された値を全件取得します
+        $reservation_client = $reservation_client_stmt -> fetchAll(PDO::FETCH_ASSOC);
+
+        $room_client_stmt = $db->query('SELECT * FROM tbl_reservation LEFT JOIN tbl_room ON tbl_reservation.ROOM_CODE = tbl_room.ROOM_CODE;');
+        $room_client = $room_client_stmt -> fetchAll(PDO::FETCH_ASSOC);
+
+        $room_stmt = $db->query('select * from tbl_room');
+        $rooms = $room_stmt -> fetchAll(PDO::FETCH_ASSOC);
+
+        $room_client_reservation_stmt = $db->query('SELECT * FROM tbl_reservation LEFT JOIN tbl_client ON tbl_reservation.CLIENT_CODE = tbl_client.CLIENT_CODE LEFT JOIN tbl_room ON tbl_reservation.ROOM_CODE = tbl_room.ROOM_CODE;');
+        $room_client_reservation = $room_client_reservation_stmt -> fetchAll(PDO::FETCH_ASSOC);
+
+
+        $count = 0;
+        $today = date("Y-m-d");
+        $color = "";
+        $day3 = date("Y-m-d",strtotime('3 day'));
+
+        foreach ($rooms as $r_row)
+        {
+          $color = "";
+            if($count == 0)
+            {
+              echo '<tr>'.
+                      '<td>'.$r_row['ROOM_TYPE'].'</td>'.
+                      '<td class="room'.$r_row['ROOM_CODE'].'"><a data-target="'.$r_row['ROOM_CODE'].'" class="modal-open">'.$r_row['ROOM_NAME'].
+                      '号室<br>';
+                      if($r_row['ROOM_RENOVATION'] == 0){
+
+                      foreach($room_client_reservation as $r_c_row)
+                      {
+                        if($r_row['ROOM_CODE'] == $r_c_row['ROOM_CODE'])
+                        {
+                        $time_stamp_stayday = (string)($r_c_row['RESERVATION_STAYDAY']);
+                        $time_stamp_stayday .= "day";
+                        $time_stamp_day = strtotime($r_c_row['RESERVATION_DAY']);
+                        if(date($today) > date("Y-m-d",strtotime((string)$time_stamp_stayday,$time_stamp_day)))
+                            ;//終了
+                        elseif(date($today) == date($r_c_row['RESERVATION_DAY'])){
+                          echo $r_c_row['CLIENT_NAME'];
+                          $color = "#d86a6a";
+                          break; }//本日から宿泊
+                        elseif(date($today) < date("Y-m-d",strtotime((string)$time_stamp_stayday,$time_stamp_day)))
+                          if(date($today) < date($r_c_row['RESERVATION_DAY'])){
+                            if(date($day3) >= date($r_c_row['RESERVATION_DAY']))
+                            $color = "skyblue";else;} //予約;
+                          else{
+                            echo $r_c_row['CLIENT_NAME'];
+                            $color = "#d86a6a";
+                            break;} //宿泊中
+                        else{
+                          echo $r_c_row['CLIENT_NAME'];
+                          $color = "#d86a6a";
+                          break; }//宿泊中
+
+                        }
+                      }}
+                      else {
+                        echo '改装中';
+                        $color = "grey";
+                      }
+              echo    '<style>.room'.$r_row['ROOM_CODE'].'{background-color:'.$color.'}</style>';
+              echo    '</td></a>';
+            }
+            else {
+              if($r_row['ROOM_TYPE'] === $roomif){
+                echo '<td class="room'.$r_row['ROOM_CODE'].'"><a data-target="'.$r_row['ROOM_CODE'].'" class="modal-open">'.$r_row['ROOM_NAME'].'号室<br>';
+                if($r_row['ROOM_RENOVATION'] == 0){
+                foreach($room_client_reservation as $r_c_row)
+                {
+                  if($r_row['ROOM_CODE'] == $r_c_row['ROOM_CODE'])
+                  {
+                  $time_stamp_stayday = (string)($r_c_row['RESERVATION_STAYDAY']);
+                  $time_stamp_stayday .= "day";
+                  $time_stamp_day = strtotime($r_c_row['RESERVATION_DAY']);
+                  if(date($today) > date("Y-m-d",strtotime((string)$time_stamp_stayday,$time_stamp_day)))
+                      ;//終了
+                  elseif(date($today) == date($r_c_row['RESERVATION_DAY'])){
+                    echo $r_c_row['CLIENT_NAME'];
+                    $color = "#d86a6a";
+                    break; }//本日から宿泊
+                  elseif(date($today) < date("Y-m-d",strtotime((string)$time_stamp_stayday,$time_stamp_day)))
+                    if(date($today) < date($r_c_row['RESERVATION_DAY'])){
+                      if(date($day3) >= date($r_c_row['RESERVATION_DAY']))
+                      $color = "skyblue";else;} //予約;
+                    else{
+                      echo $r_c_row['CLIENT_NAME'];
+                      $color = "#d86a6a";
+                      break;} //宿泊中
+                  else{
+                    echo $r_c_row['CLIENT_NAME'];
+                    $color = "#d86a6a";
+                    break; }//宿泊中
+
+                  }
+                }
+              }
+              else{
+                echo "改装中";
+                $color = "grey";
+              }
+                echo    '';
+                echo    '<style>
+                        .room'.$r_row['ROOM_CODE'].'{background-color:'.$color.'}
+                        </style></td></a>';
+              }
+              else{
+                echo '</tr><tr><td>'.$r_row['ROOM_TYPE'].'</td><td class="room'.$r_row['ROOM_CODE'].'"><a data-target="'.$r_row['ROOM_CODE'].'" class="modal-open">'.$r_row['ROOM_NAME'].'号室<br>';
+                if($r_row['ROOM_RENOVATION'] == 0){
+                foreach($room_client_reservation as $r_c_row)
+                {
+                  if($r_row['ROOM_CODE'] == $r_c_row['ROOM_CODE'])
+                  {
+                  $time_stamp_stayday = (string)($r_c_row['RESERVATION_STAYDAY']);
+                  $time_stamp_stayday .= "day";
+                  $time_stamp_day = strtotime($r_c_row['RESERVATION_DAY']);
+                  if(date($today) > date("Y-m-d",strtotime((string)$time_stamp_stayday,$time_stamp_day)))
+                      ;//終了
+                  elseif(date($today) == date($r_c_row['RESERVATION_DAY'])){
+                    echo $r_c_row['CLIENT_NAME'];
+                    $color = "#d86a6a";
+                    break; }//本日から宿泊
+                  elseif(date($today) < date("Y-m-d",strtotime((string)$time_stamp_stayday,$time_stamp_day)))
+                    if(date($today) < date($r_c_row['RESERVATION_DAY'])){
+                      if(date($day3) >= date($r_c_row['RESERVATION_DAY']))
+                      $color = "skyblue";else;} //予約;
+                    else{
+                      echo $r_c_row['CLIENT_NAME'];
+                      $color = "#d86a6a";
+                      break;} //宿泊中
+                  else{
+                    echo $r_c_row['CLIENT_NAME'];
+                    $color = "##d86a6a";
+                    break; }//宿泊中
+
+                  }
+                }
+              }
+              else{
+                echo '改装中';
+                $color ="grey";
+              }
+                echo    '<style>
+                        .room'.$r_row['ROOM_CODE'].'{background-color:'.$color.'}
+                        </style></td></a>';
+
+              }}
+            $roomif = $r_row['ROOM_TYPE'];
+            $count++;
+
+        }
+    ?>
  </table>
 </div>
+
+<?php
+
+    foreach ($rooms as $row) {
+      echo '<div id="'.$row['ROOM_CODE'].'" class="modal-content">';
+      echo '<ul>';
+      echo    '<li>部屋情報</li>';
+      echo      '<ul>';
+      echo     '<li>部屋番号：'.$row['ROOM_NAME'].'</li>';
+      echo     '<li>部屋タイプ：'.$row['ROOM_TYPE'].'</li>';
+      echo     '<li>タバコ：';
+            if($row['ROOM_SMOKING'] === '0')
+              echo '喫煙</li>';
+            else
+              echo '禁煙</li>';
+      echo     '<li>最大人数：  '.$row['ROOM_CAPACITY'].'人</li>';
+      echo     '<li>ベッド数：'.$row['ROOM_BED'].'</li>';
+      echo     '<li>料金：'.$row['ROOM_PRICE'].'円</li>';
+      echo '</ul>';
+
+      echo '<li>宿泊者情報</li>';
+      echo '<ul><li>';
+      foreach($room_client_reservation as $r_c_row)
+      {
+        if($row['ROOM_CODE'] == $r_c_row['ROOM_CODE'])
+        {
+        $time_stamp_stayday = (string)($r_c_row['RESERVATION_STAYDAY']);
+        $time_stamp_stayday .= "day";
+        $time_stamp_day = strtotime($r_c_row['RESERVATION_DAY']);
+        if(date($today) > date("Y-m-d",strtotime((string)$time_stamp_stayday,$time_stamp_day)))
+            ;//終了
+        elseif(date($today) == date($r_c_row['RESERVATION_DAY'])){
+          echo $r_c_row['CLIENT_NAME'].' ： '.date("Y年m月d日",strtotime((string)$r_c_row['RESERVATION_DAY'])).' ~ '.date("Y年m月d日",strtotime((string)$time_stamp_stayday,$time_stamp_day)).'</li>';
+          echo '<li>宿泊人数：'.$r_c_row['RESERVATION_NUMBER'].'人</li>';
+          break; }//本日から宿泊
+        elseif(date($today) < date("Y-m-d",strtotime((string)$time_stamp_stayday,$time_stamp_day)))
+          if(date($today) < date($r_c_row['RESERVATION_DAY']))
+            ; //予約;
+          else{
+            echo $r_c_row['CLIENT_NAME'].' ： '.date("Y年m月d日",strtotime((string)$r_c_row['RESERVATION_DAY'])).' ~ '.date("Y年m月d日",strtotime((string)$time_stamp_stayday,$time_stamp_day)).'</li>';
+            echo '<li>宿泊人数：'.$r_c_row['RESERVATION_NUMBER'].'人</li>';
+            break;} //宿泊中
+        else{
+          echo $r_c_row['CLIENT_NAME'].' ： '.date("Y年m月d日",strtotime((string)$r_c_row['RESERVATION_DAY'])).' ~ '.date("Y年m月d日",strtotime((string)$time_stamp_stayday,$time_stamp_day)).'</li>';
+          echo '<li>宿泊人数：'.$r_c_row['RESERVATION_NUMBER'].'人</li>';
+          break; }//宿泊中
+        }
+      }
+
+
+
+          echo '</ul><li>予約情報</li><ul>';
+
+
+      foreach($room_client_reservation as $r_c_row)
+      {
+        if($row['ROOM_CODE'] == $r_c_row['ROOM_CODE'])
+        {
+        $time_stamp_stayday = (string)($r_c_row['RESERVATION_STAYDAY']);
+        $time_stamp_stayday .= "day";
+        $time_stamp_day = strtotime($r_c_row['RESERVATION_DAY']);
+    if(date($today) < date($r_c_row['RESERVATION_DAY'])){
+      echo '<li>'.$r_c_row['CLIENT_NAME'].' ： '.date("Y年m月d日",strtotime((string)$r_c_row['RESERVATION_DAY'])).' ~ '.date("Y年m月d日",strtotime((string)$time_stamp_stayday,$time_stamp_day)).'</li>'; //予約;
+      }
+    else ;
+      }
+    }
+      echo '</ul></ul>';
+      echo '</ul>';
+      echo '<p><a class="modal-close">閉じる</a></p>'.
+            '</div>';
+    }
+
+ ?>
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </body>
