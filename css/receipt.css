@@ -1,11 +1,69 @@
-.boxbill
+.sheet
         {
         margin: 0 auto;
-        width: 300px;
+        padding: 0;
+        width: 210mm;
+        height: 147.5mm;
         }
 
+.title
+        {
+        text-align: center;
+        font-size: 3.2em;
+        margin: 0
+        }
+
+.room
+        {
+        border-bottom: solid 1px #000;
+        height: 44px;
+        width: 17.5em;
+        margin: 0;
+        display: inline-block;
+
+}
+
+.name
+        {
+        padding-top: 2em;
+        border-bottom: solid 1px #000;
+        height: 44px;
+        width: 17.5em;
+        margin: 0;
+        display: inline-block;
+        }
+
+.code
+        {
+        border-bottom: solid 1px #000;
+        height: 31px;
+        width: 17em;
+        margin: 0;
+        display: inline-block;
+        }
+
+.date
+{
+        text-align: right;
+        border-bottom: solid 1px #000;
+        height: 29px;
+        width: 17em;
+        margin: 0;
+        display: inline-block;
+}
+
 .bill
-    {
-    background: #fafad2;
-    border: solid #ccccab 1px;
-    }
+{
+        padding-top: 50px;
+        margin: 0 auto;
+        text-align: center;
+        font-size: 50px;
+        width: 8em;
+}
+
+.add
+{
+        position: absolute;
+        left: 5.5em;
+        bottom: 1em;
+}

@@ -135,6 +135,7 @@ include "../header.php"
                           echo '改装中';
                           $color = "grey";
                         }
+                echo    '</a>';
                 echo    '<style>.room'.$r_row['ROOM_CODE'].'{background-color:'.$color.'}</style>';
                 echo    '</td></a>';
               }
@@ -175,7 +176,7 @@ include "../header.php"
                   echo "改装中";
                   $color = "grey";
                 }
-                  echo    '';
+                  echo    '</a>';
                   echo    '<style>
                           .room'.$r_row['ROOM_CODE'].'{background-color:'.$color.'}
                           </style></td></a>';
@@ -216,6 +217,7 @@ include "../header.php"
                   echo '改装中';
                   $color ="grey";
                 }
+                echo    '</a>';
                   echo    '<style>
                           .room'.$r_row['ROOM_CODE'].'{background-color:'.$color.'}
                           </style></td></a>';
@@ -233,7 +235,7 @@ include "../header.php"
 <?php
 
     foreach ($rooms as $row) {
-      echo '<div id="'.$row['ROOM_CODE'].'" class="modal-content">';
+      echo '<div id="'.$row['ROOM_CODE'].'" class="modal-content-room">';
       echo '<ul>';
       echo    '<li>部屋情報</li>';
       echo      '<ul>';

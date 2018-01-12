@@ -31,7 +31,12 @@ try {
         print_r($pdo->errorInfo());
     }
     $stmt->execute($params);
-    echo"登録完了 5秒後に従業員登録画面に移動します";
+    $check=$stmt;
+    if($check){
+    echo "登録に成功しました。　3秒後に従業員一覧画面へ移動します。";
+    }else{
+    echo "登録に失敗しました！　3秒後に従業員一覧画面へ移動します。";
+    }
 }
 catch(PDOException $e){
    echo 'user error';
@@ -39,17 +44,10 @@ catch(PDOException $e){
  exit;
 }
 
+?>
 
-/*
-<script>
- header('Location:http://localhost/employee/emp-registration.php');
-</script>
-*/
- ?>
-
-<script>
-    setTimeout("redirect()", 5000);
-    function redirect(){
-        location.href='/employee/emp-registration.php';
-    }
+<script type="text/javascript">
+    setTimeout(function(){
+     location.replace('/employee/emp-list.php');
+   }, 3000);
 </script>

@@ -28,7 +28,7 @@ include "../dbconnect.php"
 <div class="box">
   <div class="container">
   <div class="form-horizontal">
-      <form action="receipt.php" method="post" name="asd">
+      <form action="receipt.php" method="post">
             <div class="form-group">
                 <label class="col-xs-2 label-control">部屋番号：</label>
                 <div class="col-xs-2">
@@ -196,7 +196,7 @@ include "../dbconnect.php"
                 <button type="submit" class="btn btn-default btn-lg bill">領収書発行</button>
                 </div>
             </div>
-          </form>
+      </form>
 
 
 </div>

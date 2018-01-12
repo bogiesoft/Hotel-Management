@@ -45,9 +45,12 @@ try {
    print_r($pdo->errorInfo());
  }
   $stmt->execute($params);
-
-  echo"登録完了 3秒後に顧客登録画面に移動します。";
-
+  $check=$stmt;
+  if($check){
+  echo "登録に成功しました。　3秒後に顧客一覧画面へ移動します。";
+  }else{
+  echo "登録に失敗しました！　3秒後に顧客一覧画面へ移動します。";
+  }
 }
 
 catch(PDOException $e){

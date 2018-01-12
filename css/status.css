@@ -64,7 +64,7 @@ text-decoration: none;
 
 
 
-.modal-content {
+.modal-content-room {
     position:fixed;
     display:none;
     z-index:2;
@@ -75,7 +75,7 @@ text-decoration: none;
     background:#fff;
 }
 
-.modal-content p {
+.modal-content-room p {
     margin:0;
     padding:0;
 }
@@ -92,14 +92,10 @@ text-decoration: none;
 }
 
 .modal-open {
-    color:#00f;
+    color:#00fff;
     text-decoration:underline;
 }
 
-.modal-open:hover {
-    cursor:pointer;
-    color:#f00;
-}
 
 .modal-close {
     color:#00f;

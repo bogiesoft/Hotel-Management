@@ -45,9 +45,12 @@ try {
    print_r($pdo->errorInfo());
  }
   $stmt->execute($params);
-
-  echo"登録完了";
-
+  $check=$stmt;
+  if($check){
+  echo "登録に成功しました。　3秒後に顧客一覧画面へ移動します。";
+  }else{
+  echo "登録に失敗しました！　3秒後に顧客一覧画面へ移動します。";
+  }
 }
 catch(PDOException $e){
    echo 'user error';
@@ -55,10 +58,10 @@ catch(PDOException $e){
  exit;
 }
 
+?>
 
-/*
-<script>
- header('Location:http://localhost/employee/emp-registration.php');
+<script type="text/javascript">
+    setTimeout(function(){
+     location.replace('/client/client-list.php');
+   }, 3000);
 </script>
-*/
- ?>
