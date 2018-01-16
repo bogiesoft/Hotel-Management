@@ -630,7 +630,7 @@ $(function(){
 
             // モーダルコンテンツの表示位置を取得
             var x = (w - $(modal).outerWidth(true)) / 2;
-            var y = (h - $(modal).outerHeight(true)) / 4;
+            var y = (h - $(modal).outerHeight(true)) / 5;
 
             // モーダルコンテンツの表示位置を設定
             $(modal).css({'left': x + 'px','top': y + 'px'});
@@ -646,239 +646,158 @@ $(function(){
 <div class="box3">
   <table border=1 class="table1">
     <?php
-        //DB接続用ファイルの読み込み
         //テーブルのレコードを抽出
-        $reservation_client_stmt = $db->query('SELECT * FROM tbl_reservation LEFT JOIN tbl_client ON tbl_reservation.CLIENT_CODE = tbl_client.CLIENT_CODE;');
+        $room_stmt = $db->query('SELECT DISTINCT ROOM_TYPE FROM tbl_room ;');
         //fetchAll(PDO::返却される配列の形式)でquery関数で返却された値を全件取得します
-        $reservation_client = $reservation_client_stmt -> fetchAll(PDO::FETCH_ASSOC);
-
-        $room_client_stmt = $db->query('SELECT * FROM tbl_reservation LEFT JOIN tbl_room ON tbl_reservation.ROOM_CODE = tbl_room.ROOM_CODE;');
-        $room_client = $room_client_stmt -> fetchAll(PDO::FETCH_ASSOC);
-
-        $room_stmt = $db->query('select * from tbl_room');
-        $rooms = $room_stmt -> fetchAll(PDO::FETCH_ASSOC);
+        $room_type = $room_stmt -> fetchAll(PDO::FETCH_ASSOC);
 
         $room_client_reservation_stmt = $db->query('SELECT * FROM tbl_reservation LEFT JOIN tbl_client ON tbl_reservation.CLIENT_CODE = tbl_client.CLIENT_CODE LEFT JOIN tbl_room ON tbl_reservation.ROOM_CODE = tbl_room.ROOM_CODE;');
         $room_client_reservation = $room_client_reservation_stmt -> fetchAll(PDO::FETCH_ASSOC);
 
+        $room_stmt = $db->query('select * from tbl_room');
+        $rooms = $room_stmt -> fetchAll(PDO::FETCH_ASSOC);
 
-        $count = 0;
         $today = date("Y-m-d");
         $color = "";
         $day3 = date("Y-m-d",strtotime('3 day'));
 
-        foreach ($rooms as $r_row)
+
+        foreach ($room_type as $room_type_row)
         {
-          $color = "";
-            if($count == 0)
+          echo '<tr>';
+          echo '<td>'.$room_type_row['ROOM_TYPE'].'</td>';
+          $room_type_stmt2 = $db->query("SELECT * FROM tbl_room where ROOM_TYPE = ".'"'.$room_type_row['ROOM_TYPE'].'"'."  ;");
+          $room_type2 = $room_type_stmt2 -> fetchAll(PDO::FETCH_ASSOC);
+          foreach ($room_type2 as $room_type_row2)
+          {
+            $color = "";
+            echo '<td class="room'.$room_type_row2['ROOM_CODE'].'"><a data-target="'.$room_type_row2['ROOM_CODE'].'" class="modal-open">'.$room_type_row2['ROOM_NAME'].'号室<br>';
+
+
+            if($room_type_row2['ROOM_RENOVATION'] == 0){
+            foreach($room_client_reservation as $r_c_row)
             {
-              echo '<tr>'.
-                      '<td>'.$r_row['ROOM_TYPE'].'</td>'.
-                      '<td class="room'.$r_row['ROOM_CODE'].'"><a data-target="'.$r_row['ROOM_CODE'].'" class="modal-open">'.$r_row['ROOM_NAME'].
-                      '号室<br></a>';
-                      if($r_row['ROOM_RENOVATION'] == 0){
+              if($room_type_row2['ROOM_CODE'] == $r_c_row['ROOM_CODE'])
+              {
+              $time_stamp_stayday = (string)($r_c_row['RESERVATION_STAYDAY']);
+              $time_stamp_stayday .= "day";
+              $time_stamp_day = strtotime($r_c_row['RESERVATION_DAY']);
+              if(date($today) > date("Y-m-d",strtotime((string)$time_stamp_stayday,$time_stamp_day)))
+                  ;//終了
+              elseif(date($today) == date($r_c_row['RESERVATION_DAY'])){
+                echo $r_c_row['CLIENT_NAME'];
+                $color = "#d86a6a";
+                break; }//本日から宿泊
+              elseif(date($today) < date("Y-m-d",strtotime((string)$time_stamp_stayday,$time_stamp_day)))
+                if(date($today) < date($r_c_row['RESERVATION_DAY'])){
+                  if(date($day3) >= date($r_c_row['RESERVATION_DAY']))
+                  $color = "skyblue";else;} //予約;
+                else{
+                  echo $r_c_row['CLIENT_NAME'];
+                  $color = "#d86a6a";
+                  break;} //宿泊中
+              else{
+                echo $r_c_row['CLIENT_NAME'];
+                $color = "#d86a6a";
+                break; }//宿泊中
 
-                      foreach($room_client_reservation as $r_c_row)
-                      {
-                        if($r_row['ROOM_CODE'] == $r_c_row['ROOM_CODE'])
-                        {
-                        $time_stamp_stayday = (string)($r_c_row['RESERVATION_STAYDAY']);
-                        $time_stamp_stayday .= "day";
-                        $time_stamp_day = strtotime($r_c_row['RESERVATION_DAY']);
-                        if(date($today) > date("Y-m-d",strtotime((string)$time_stamp_stayday,$time_stamp_day)))
-                            ;//終了
-                        elseif(date($today) == date($r_c_row['RESERVATION_DAY'])){
-                          echo $r_c_row['CLIENT_NAME'];
-                          $color = "#d86a6a";
-                          break; }//本日から宿泊
-                        elseif(date($today) < date("Y-m-d",strtotime((string)$time_stamp_stayday,$time_stamp_day)))
-                          if(date($today) < date($r_c_row['RESERVATION_DAY'])){
-                            if(date($day3) >= date($r_c_row['RESERVATION_DAY']))
-                            $color = "skyblue";else;} //予約;
-                          else{
-                            echo $r_c_row['CLIENT_NAME'];
-                            $color = "#d86a6a";
-                            break;} //宿泊中
-                        else{
-                          echo $r_c_row['CLIENT_NAME'];
-                          $color = "#d86a6a";
-                          break; }//宿泊中
-
-                        }
-                      }}
-                      else {
-                        echo '改装中';
-                        $color = "grey";
-                      }
-              echo    '</a>';
-              echo    '<style>.room'.$r_row['ROOM_CODE'].'{background-color:'.$color.'}</style>';
-              echo    '</td></a>';
+              }
             }
-            else {
-              if($r_row['ROOM_TYPE'] === $roomif){
-                echo '<td class="room'.$r_row['ROOM_CODE'].'"><a data-target="'.$r_row['ROOM_CODE'].'" class="modal-open">'.$r_row['ROOM_NAME'].'号室<br>';
-                if($r_row['ROOM_RENOVATION'] == 0){
-                foreach($room_client_reservation as $r_c_row)
-                {
-                  if($r_row['ROOM_CODE'] == $r_c_row['ROOM_CODE'])
-                  {
-                  $time_stamp_stayday = (string)($r_c_row['RESERVATION_STAYDAY']);
-                  $time_stamp_stayday .= "day";
-                  $time_stamp_day = strtotime($r_c_row['RESERVATION_DAY']);
-                  if(date($today) > date("Y-m-d",strtotime((string)$time_stamp_stayday,$time_stamp_day)))
-                      ;//終了
-                  elseif(date($today) == date($r_c_row['RESERVATION_DAY'])){
-                    echo $r_c_row['CLIENT_NAME'];
-                    $color = "#d86a6a";
-                    break; }//本日から宿泊
-                  elseif(date($today) < date("Y-m-d",strtotime((string)$time_stamp_stayday,$time_stamp_day)))
-                    if(date($today) < date($r_c_row['RESERVATION_DAY'])){
-                      if(date($day3) >= date($r_c_row['RESERVATION_DAY']))
-                      $color = "skyblue";else;} //予約;
-                    else{
-                      echo $r_c_row['CLIENT_NAME'];
-                      $color = "#d86a6a";
-                      break;} //宿泊中
-                  else{
-                    echo $r_c_row['CLIENT_NAME'];
-                    $color = "#d86a6a";
-                    break; }//宿泊中
+          }
+          else {
+            echo '改装中';
+            $color = "grey";
+          }
 
-                  }
-                }
-              }
-              else{
-                echo "改装中";
-                $color = "grey";
-              }
-                echo    '</a>';
-                echo    '<style>
-                        .room'.$r_row['ROOM_CODE'].'{background-color:'.$color.'}
-                        </style></td></a>';
-              }
-              else{
-                echo '</tr><tr><td>'.$r_row['ROOM_TYPE'].'</td><td class="room'.$r_row['ROOM_CODE'].'"><a data-target="'.$r_row['ROOM_CODE'].'" class="modal-open">'.$r_row['ROOM_NAME'].'号室<br>';
-                if($r_row['ROOM_RENOVATION'] == 0){
-                foreach($room_client_reservation as $r_c_row)
-                {
-                  if($r_row['ROOM_CODE'] == $r_c_row['ROOM_CODE'])
-                  {
-                  $time_stamp_stayday = (string)($r_c_row['RESERVATION_STAYDAY']);
-                  $time_stamp_stayday .= "day";
-                  $time_stamp_day = strtotime($r_c_row['RESERVATION_DAY']);
-                  if(date($today) > date("Y-m-d",strtotime((string)$time_stamp_stayday,$time_stamp_day)))
-                      ;//終了
-                  elseif(date($today) == date($r_c_row['RESERVATION_DAY'])){
-                    echo $r_c_row['CLIENT_NAME'];
-                    $color = "#d86a6a";
-                    break; }//本日から宿泊
-                  elseif(date($today) < date("Y-m-d",strtotime((string)$time_stamp_stayday,$time_stamp_day)))
-                    if(date($today) < date($r_c_row['RESERVATION_DAY'])){
-                      if(date($day3) >= date($r_c_row['RESERVATION_DAY']))
-                      $color = "skyblue";else;} //予約;
-                    else{
-                      echo $r_c_row['CLIENT_NAME'];
-                      $color = "#d86a6a";
-                      break;} //宿泊中
-                  else{
-                    echo $r_c_row['CLIENT_NAME'];
-                    $color = "##d86a6a";
-                    break; }//宿泊中
+          echo    '<style>.room'.$room_type_row2['ROOM_CODE'].'{background-color:'.$color.'}</style>';
+          echo '</td></a>';
 
-                  }
-                }
-              }
-              else{
-                echo '改装中';
-                $color ="grey";
-              }
-                echo    '</a>';
-                echo    '<style>
-                        .room'.$r_row['ROOM_CODE'].'{background-color:'.$color.'}
-                        </style></td></a>';
 
-              }}
-            $roomif = $r_row['ROOM_TYPE'];
-            $count++;
+          }
+          echo '</tr>';
 
         }
+
+
     ?>
- </table>
-</div>
+        </table>
+      </div>
+    </div>
 
-<?php
 
-    foreach ($rooms as $row) {
-      echo '<div id="'.$row['ROOM_CODE'].'" class="modal-content-room">';
-      echo '<ul>';
-      echo    '<li>部屋情報</li>';
-      echo      '<ul>';
-      echo     '<li>部屋番号：'.$row['ROOM_NAME'].'</li>';
-      echo     '<li>部屋タイプ：'.$row['ROOM_TYPE'].'</li>';
-      echo     '<li>タバコ：';
-            if($row['ROOM_SMOKING'] === '0')
-              echo '喫煙</li>';
-            else
-              echo '禁煙</li>';
-      echo     '<li>最大人数：  '.$row['ROOM_CAPACITY'].'人</li>';
-      echo     '<li>ベッド数：'.$row['ROOM_BED'].'</li>';
-      echo     '<li>料金：'.$row['ROOM_PRICE'].'円</li>';
-      echo '</ul>';
+    <?php
 
-      echo '<li>宿泊者情報</li>';
-      echo '<ul><li>';
-      foreach($room_client_reservation as $r_c_row)
-      {
-        if($row['ROOM_CODE'] == $r_c_row['ROOM_CODE'])
-        {
-        $time_stamp_stayday = (string)($r_c_row['RESERVATION_STAYDAY']);
-        $time_stamp_stayday .= "day";
-        $time_stamp_day = strtotime($r_c_row['RESERVATION_DAY']);
-        if(date($today) > date("Y-m-d",strtotime((string)$time_stamp_stayday,$time_stamp_day)))
-            ;//終了
-        elseif(date($today) == date($r_c_row['RESERVATION_DAY'])){
-          echo $r_c_row['CLIENT_NAME'].' ： '.date("Y年m月d日",strtotime((string)$r_c_row['RESERVATION_DAY'])).' ~ '.date("Y年m月d日",strtotime((string)$time_stamp_stayday,$time_stamp_day)).'</li>';
-          echo '<li>宿泊人数：'.$r_c_row['RESERVATION_NUMBER'].'人</li>';
-          break; }//本日から宿泊
-        elseif(date($today) < date("Y-m-d",strtotime((string)$time_stamp_stayday,$time_stamp_day)))
-          if(date($today) < date($r_c_row['RESERVATION_DAY']))
-            ; //予約;
-          else{
-            echo $r_c_row['CLIENT_NAME'].' ： '.date("Y年m月d日",strtotime((string)$r_c_row['RESERVATION_DAY'])).' ~ '.date("Y年m月d日",strtotime((string)$time_stamp_stayday,$time_stamp_day)).'</li>';
-            echo '<li>宿泊人数：'.$r_c_row['RESERVATION_NUMBER'].'人</li>';
-            break;} //宿泊中
-        else{
-          echo $r_c_row['CLIENT_NAME'].' ： '.date("Y年m月d日",strtotime((string)$r_c_row['RESERVATION_DAY'])).' ~ '.date("Y年m月d日",strtotime((string)$time_stamp_stayday,$time_stamp_day)).'</li>';
-          echo '<li>宿泊人数：'.$r_c_row['RESERVATION_NUMBER'].'人</li>';
-          break; }//宿泊中
+        foreach ($rooms as $row) {
+          echo '<div id="'.$row['ROOM_CODE'].'" class="modal-content-room">';
+          echo '<ul>';
+          echo    '<li>部屋情報</li>';
+          echo      '<ul>';
+          echo     '<li>部屋番号：'.$row['ROOM_NAME'].'</li>';
+          echo     '<li>部屋タイプ：'.$row['ROOM_TYPE'].'</li>';
+          echo     '<li>タバコ：';
+                if($row['ROOM_SMOKING'] === '0')
+                  echo '喫煙</li>';
+                else
+                  echo '禁煙</li>';
+          echo     '<li>最大人数：  '.$row['ROOM_CAPACITY'].'人</li>';
+          echo     '<li>ベッド数：'.$row['ROOM_BED'].'</li>';
+          echo     '<li>料金：'.$row['ROOM_PRICE'].'円</li>';
+          echo '</ul>';
+
+          echo '<li>宿泊者情報</li>';
+          echo '<ul><li>';
+          foreach($room_client_reservation as $r_c_row)
+          {
+            if($row['ROOM_CODE'] == $r_c_row['ROOM_CODE'])
+            {
+            $time_stamp_stayday = (string)($r_c_row['RESERVATION_STAYDAY']);
+            $time_stamp_stayday .= "day";
+            $time_stamp_day = strtotime($r_c_row['RESERVATION_DAY']);
+            if(date($today) > date("Y-m-d",strtotime((string)$time_stamp_stayday,$time_stamp_day)))
+                ;//終了
+            elseif(date($today) == date($r_c_row['RESERVATION_DAY'])){
+              echo $r_c_row['CLIENT_NAME'].' ： '.date("Y年m月d日",strtotime((string)$r_c_row['RESERVATION_DAY'])).' ~ '.date("Y年m月d日",strtotime((string)$time_stamp_stayday,$time_stamp_day)).'</li>';
+              echo '<li>宿泊人数：'.$r_c_row['RESERVATION_NUMBER'].'人</li>';
+              break; }//本日から宿泊
+            elseif(date($today) < date("Y-m-d",strtotime((string)$time_stamp_stayday,$time_stamp_day)))
+              if(date($today) < date($r_c_row['RESERVATION_DAY']))
+                ; //予約;
+              else{
+                echo $r_c_row['CLIENT_NAME'].' ： '.date("Y年m月d日",strtotime((string)$r_c_row['RESERVATION_DAY'])).' ~ '.date("Y年m月d日",strtotime((string)$time_stamp_stayday,$time_stamp_day)).'</li>';
+                echo '<li>宿泊人数：'.$r_c_row['RESERVATION_NUMBER'].'人</li>';
+                break;} //宿泊中
+            else{
+              echo $r_c_row['CLIENT_NAME'].' ： '.date("Y年m月d日",strtotime((string)$r_c_row['RESERVATION_DAY'])).' ~ '.date("Y年m月d日",strtotime((string)$time_stamp_stayday,$time_stamp_day)).'</li>';
+              echo '<li>宿泊人数：'.$r_c_row['RESERVATION_NUMBER'].'人</li>';
+              break; }//宿泊中
+            }
+          }
+
+
+
+              echo '</ul><li>予約情報</li><ul>';
+
+
+          foreach($room_client_reservation as $r_c_row)
+          {
+            if($row['ROOM_CODE'] == $r_c_row['ROOM_CODE'])
+            {
+            $time_stamp_stayday = (string)($r_c_row['RESERVATION_STAYDAY']);
+            $time_stamp_stayday .= "day";
+            $time_stamp_day = strtotime($r_c_row['RESERVATION_DAY']);
+        if(date($today) < date($r_c_row['RESERVATION_DAY'])){
+          echo '<li>'.$r_c_row['CLIENT_NAME'].' ： '.date("Y年m月d日",strtotime((string)$r_c_row['RESERVATION_DAY'])).' ~ '.date("Y年m月d日",strtotime((string)$time_stamp_stayday,$time_stamp_day)).'</li>'; //予約;
+          }
+        else ;
+          }
         }
-      }
+          echo '</ul></ul>';
+          echo '</ul>';
+          echo '<p><a class="modal-close">閉じる</a></p>'.
+                '</div>';
+        }
 
-
-
-          echo '</ul><li>予約情報</li><ul>';
-
-
-      foreach($room_client_reservation as $r_c_row)
-      {
-        if($row['ROOM_CODE'] == $r_c_row['ROOM_CODE'])
-        {
-        $time_stamp_stayday = (string)($r_c_row['RESERVATION_STAYDAY']);
-        $time_stamp_stayday .= "day";
-        $time_stamp_day = strtotime($r_c_row['RESERVATION_DAY']);
-    if(date($today) < date($r_c_row['RESERVATION_DAY'])){
-      echo '<li>'.$r_c_row['CLIENT_NAME'].' ： '.date("Y年m月d日",strtotime((string)$r_c_row['RESERVATION_DAY'])).' ~ '.date("Y年m月d日",strtotime((string)$time_stamp_stayday,$time_stamp_day)).'</li>'; //予約;
-      }
-    else ;
-      }
-    }
-      echo '</ul></ul>';
-      echo '</ul>';
-      echo '<p><a class="modal-close">閉じる</a></p>'.
-            '</div>';
-    }
-
- ?>
+     ?>
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </body>

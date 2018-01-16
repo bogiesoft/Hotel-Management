@@ -66,9 +66,9 @@ include "../dbconnect.php"
 
                                 var hiduke=new Date();
                                 var year = hiduke.getFullYear();
-                                var month = hiduke.getMonth()+1;
-                                var day = hiduke.getDate();
-                                var c_out =  year + "-" + month + "-" + day;
+                                var month = ("0"+(hiduke.getMonth() + 1)).slice(-2);
+                                var day = ("0"+hiduke.getDate()).slice(-2);
+                                var c_out =  year + "/" + month + "/" + day;
                                 var co =Date.parse(c_out);
                                 console.log(c_out);
                                 $('#out').val(c_out);
@@ -150,22 +150,11 @@ include "../dbconnect.php"
             <div class="form-group">
                 <label class="col-xs-2 label-control">顧客名：</label>
                 <div class="col-xs-2">
-                    <input type="text" name="client" id="name" class="form-control" size="10">
+                    <input type="text" name="client" id="name" class="form-control" size="10" readonly="readonly">
                 </div>
-                <label class="col-xs-2 label-control">従業員名：</label>
+                <label class="col-xs-2 label-control">泊数：</label>
                 <div class="col-xs-2">
-                    <select name="e_id" id="emp_id">
-                        <option></option>
-                        <?php
-                        $db->exec('SET FOREIGN_KEY_CHECKS=0;');
-                        $stmt = $db->query("SELECT EMPLOYEE_CODE, EMPLOYEE_NAME FROM tbl_employee");
-                        $employee = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                        foreach ($employee as $row):
-                            ?>{
-                            <option value="<?=$row['EMPLOYEE_CODE']?>"><?=$row['EMPLOYEE_NAME']?></option>
-                            }
-                        <?php endforeach?>
-                    </select>
+                    <input type="text" name="stayday" id="r_stay" class="form-control" size="12" readonly="readonly">
                 </div>
             </div>
             <div class="form-group">
@@ -173,15 +162,11 @@ include "../dbconnect.php"
                 <div class="col-xs-2">
                     <input type="date" name="checkin" id="in" class="form-control" size="12" readonly="readonly">
                 </div>
-                <label class="col-xs-2 label-control">泊数：</label>
-                <div class="col-xs-2">
-                    <input type="text" name="stayday" id="r_stay" class="form-control" size="12">
-                </div>
             </div>
             <div class="form-group">
             <label class="col-xs-2 label-control">CheckOut：</label>
                 <div class="col-xs-2">
-                    <input type="date" name="checkout" id="out" class="form-control" size="12" readonly="readonly">
+                    <input type="text" name="checkout" id="out" class="form-control" size="12" readonly="readonly">
                 </div>
             </div>
             <div class="form-group">

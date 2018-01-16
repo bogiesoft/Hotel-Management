@@ -114,6 +114,58 @@ include "../header.php"
 include "../dbconnect.php"
 ?>
 
+<script>
+<?php $stmt = $db->query('select * from tbl_client'); ?>
+<?php $cli = $stmt -> fetchAll(PDO::FETCH_ASSOC); ?>
+<?php $val_cli = json_encode($cli);?>
+<?php $count = json_encode(count($cli));?>
+
+$( function() {
+  $('#birthday').focus( function() {
+    var array_cli = JSON.parse('<?php echo $val_cli;?>');
+    var array_count = JSON.parse('<?php echo $count?>');
+
+
+    var setKana = $('#client_kana').val();
+    var setTel = $('#tel').val();
+    var setPhone = $('#phone').val();
+    var i;
+
+
+    for (i=0; array_count > i;i++) {
+
+      if(setKana == array_cli[i]['CLIENT_KANA'] && (setTel == array_cli[i]['CLIENT_TEL'] || setPhone == array_cli[i]['CLIENT_MOBILE'])) {
+
+        cli_code = array_cli[i]['CLIENT_CODE'];
+        cli_entry = array_cli[i]['CLIENT_ENTRY'];
+        cli_name = array_cli[i]['CLIENT_NAME'];
+        cli_tel = array_cli[i]['CLIENT_TEL'];
+        cli_phone = array_cli[i]['CLIENT_MOBILE'];
+        cli_birth = array_cli[i]['CLIENT_BIRTH'];
+        cli_sex = array_cli[i]['CLIENT_SEX'];
+        cli_post = array_cli[i]['CLIENT_POSTCODE'];
+        cli_add = array_cli[i]['CLIENT_ADDRESS'];
+        cli_remarks = array_cli[i]['CLIENT_REMARKS'];
+
+        $('#client_id').val(cli_code);
+        $('#entry').val(cli_entry);
+        $('#client_name').val(cli_name);
+        $('#tel').val(cli_tel);
+        $('#phone').val(cli_phone);
+        $('#birthday').val(cli_birth);
+        $('#sex').val(cli_sex);
+        $('#zip11').val(cli_post);
+        $('#add').val(cli_add);
+        $('#remarks').val(cli_remarks);
+
+        break;
+      }
+    }
+
+  });
+});
+</script>
+
 <div class="box">
 <div class="container">
 <div class="form-horizontal">
@@ -153,39 +205,7 @@ include "../dbconnect.php"
           </div>
         </div>
 
-        <script>
-        <?php $stmt = $db->query('select CLIENT_CODE,CLIENT_KANA,CLIENT_TEL,CLIENT_MOBILE from tbl_client'); ?>
-        <?php $cli = $stmt -> fetchAll(PDO::FETCH_ASSOC); ?>
-        <?php $val_cli = json_encode($cli);?>
-        <?php $count = json_encode(count($cli));?>
 
-        $( function() {
-          $('#birthday').focus( function() {
-            var array_cli = JSON.parse('<?php echo $val_cli;?>');
-            var array_count = JSON.parse('<?php echo $count?>');
-
-
-            var setKana = $('#client_kana').val();
-            var setTel = $('#tel').val();
-            var setPhone = $('#phone').val();
-            var i;
-
-
-            for (i=0; array_count > i;i++) {
-
-              if(setKana == array_cli[i]['CLIENT_KANA'] && (setTel == array_cli[i]['CLIENT_TEL'] || setPhone == array_cli[i]['CLIENT_MOBILE'])) {
-
-                cli_code = array_cli[i]['CLIENT_CODE'];
-
-                $('#client_id').val(cli_code);
-
-                break;
-              }
-            }
-
-          });
-        });
-        </script>
 
         <div class="form-group">
           <label class="col-xs-2 label-control">生年月日：</label>
@@ -209,7 +229,22 @@ include "../dbconnect.php"
             <input type="tel" placeholder="ハイフンなし" name="zip11" class="form-control" size="10" maxlength="7" onKeyUp="AjaxZip3.zip2addr(this,'','addr11','addr11'); " id="zip11">
           </div>
 
+          <label class="col-xs-2 label-control">従業員番号：</label>
+          <div class="col-xs-2">
+              <select name="e_id" id="emp_id">
 
+                  <?php
+                  $db->exec('SET FOREIGN_KEY_CHECKS=0;');
+                  $stmt = $db->query("SELECT EMPLOYEE_CODE, EMPLOYEE_NAME FROM tbl_employee");
+                  $employee = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                  foreach ($employee as $row):
+                  ?>{
+                     <option value="<?=$row['EMPLOYEE_CODE']?>"><?=$row['EMPLOYEE_NAME']?></option>
+                     }
+                  <?php endforeach?>
+
+              </select>
+          </div>
         </div>
 
 
@@ -228,27 +263,6 @@ include "../dbconnect.php"
             <textarea rows="2" cols="50" name="c_remarks" class="form-control" id="remarks"></textarea>
           </div>
         </div>
-
-
-        <div class="form-group">
-          <label class="col-xs-2 label-control">従業員名：</label>
-          <div class="col-xs-2">
-              <select name="e_id" id="emp_id">
-
-                  <?php
-                  $db->exec('SET FOREIGN_KEY_CHECKS=0;');
-                  $stmt = $db->query("SELECT EMPLOYEE_CODE, EMPLOYEE_NAME FROM tbl_employee");
-                  $employee = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                  foreach ($employee as $row):
-                  ?>{
-                     <option value="<?=$row['EMPLOYEE_CODE']?>"><?=$row['EMPLOYEE_NAME']?></option>
-                     }
-                  <?php endforeach?>
-
-              </select>
-          </div>
-        </div>
-
         <button type="button" class="btn btn-default btn-lg" id="reg_conf">登録確認</button>
         <input type="button" class="btn btn-default btn-lg" onclick="history.back();" value="キャンセル">
     </form>
@@ -288,15 +302,13 @@ include "../dbconnect.php"
                         </div>
                         <div class="form-group">
                           <label class="col-xs-2 label-control">郵便番号：</label><p id="Zip_out" class="col-xs-3"></p>
+                          <label class="col-xs-2 label-control">従業員番号：</label><p id="Emp_out" class="col-xs-3"></p>
                         </div>
                         <div class="form-group">
                           <label class="col-xs-2 label-control">住所：</label><p id="Add_out" class="col-xs-9"></p>
                         </div>
                         <div class="form-group">
                           <label class="col-xs-2 label-control">備考：</label><p id="Remarks_out" class="col-xs-9"></p>
-                        </div>
-                        <div class="form-group">
-                          <label class="col-xs-2 label-control">従業員番号：</label><p id="Emp_out" class="col-xs-3"></p>
                         </div>
                      </div>
               </div>

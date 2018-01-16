@@ -49,7 +49,7 @@ try {
   if($check){
   echo "登録に成功しました。　3秒後に顧客一覧画面へ移動します。";
   }else{
-  echo "登録に失敗しました！　3秒後に顧客一覧画面へ移動します。";
+  echo "登録に失敗しました！　3秒後に顧客登録画面へ移動します。";
   }
 }
 catch(PDOException $e){
@@ -62,6 +62,11 @@ catch(PDOException $e){
 
 <script type="text/javascript">
     setTimeout(function(){
-     location.replace('/client/client-list.php');
+      if(<?php echo json_encode($check);?>) {
+          location.href='/client/client-list.php';
+      }else {
+          location.href='/client/client-registration.php';
+      }
+
    }, 3000);
 </script>

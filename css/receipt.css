@@ -13,45 +13,6 @@
         margin: 0
         }
 
-.room
-        {
-        border-bottom: solid 1px #000;
-        height: 44px;
-        width: 17.5em;
-        margin: 0;
-        display: inline-block;
-
-}
-
-.name
-        {
-        padding-top: 2em;
-        border-bottom: solid 1px #000;
-        height: 44px;
-        width: 17.5em;
-        margin: 0;
-        display: inline-block;
-        }
-
-.code
-        {
-        border-bottom: solid 1px #000;
-        height: 31px;
-        width: 17em;
-        margin: 0;
-        display: inline-block;
-        }
-
-.date
-{
-        text-align: right;
-        border-bottom: solid 1px #000;
-        height: 29px;
-        width: 17em;
-        margin: 0;
-        display: inline-block;
-}
-
 .bill
 {
         padding-top: 50px;
@@ -66,4 +27,9 @@
         position: absolute;
         left: 5.5em;
         bottom: 1em;
+}
+
+.no_box
+{
+        position: relative;
 }

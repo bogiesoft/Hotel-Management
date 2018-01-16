@@ -38,7 +38,7 @@ try {
   if($check){
   echo "登録に成功しました。　3秒後に予約一覧画面へ移動します。";
   }else{
-  echo "登録に失敗しました！　3秒後に予約一覧画面へ移動します。";
+  echo "登録に失敗しました！　3秒後に予約登録画面へ移動します。";
   }
 
 }
@@ -51,6 +51,11 @@ catch(PDOException $e){
 
 <script type="text/javascript">
     setTimeout(function(){
-     location.replace('http://localhost/reservation/reservation-list.php');
+      if(<?php echo json_encode($check);?>) {
+          location.href='/reservation/reservation-list.php';
+      }else {
+          location.href='/reservation/reservation-registration.php';
+      }
+
    }, 3000);
 </script>
