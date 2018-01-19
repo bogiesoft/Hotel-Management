@@ -210,7 +210,7 @@ $( function() {
         <div class="form-group">
           <label class="col-xs-2 label-control">生年月日：</label>
           <div class="col-xs-2">
-            <input type="text" name="c_birthday" class="form-control" size="12" id="birthday">
+            <input type="date" name="c_birthday" class="form-control" id="birthday">
           </div>
           <label class="col-xs-2 label-control">性別：</label>
           <div class="col-xs-2">
