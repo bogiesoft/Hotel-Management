@@ -106,7 +106,7 @@ include "../dbconnect.php"
                     <label class="col-xs-2 label-control">顧客番号：</label>
                     <div class="col-xs-3">
 
-                        <input type="text" name="r_code" class="form-control" size="8" id="code">
+                        <input type="text"  name="r_code" class="form-control" size="8" id="code">
                     </div>
                 </div>
                 <script>
