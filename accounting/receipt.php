@@ -39,9 +39,8 @@
         <div class="sheet" style="position: relative; border-bottom: dashed 1px #000">
         <p class="title">領収証</p>
             <div>　
-                <span style="font-size: 1.5em">No.<script>document.write(code);</script>　　</span>
-                　　　　　　　　　　　　　　　　　　　　　
-                <span style="font-size: 1.5em;">発行日:<script>document.write(date);</script></span>
+                <span style="font-size: 1.5em">No.<script>document.write(code);</script></span>
+                <span style="font-size: 1.5em;position: absolute; right: 1em;">発行日:<script>document.write(date);</script></span>
             </div>
             <div>　
                 <span style="border-bottom: solid 1px #000">　　　　　<span style="font-size: 2.25em;"><script>document.write(room);</script></span><span style="font-size: 1.5em;">　号室　</span></span>
@@ -68,9 +67,8 @@
             <p style="font-size: 5px; margin: 0">　</p>
             <p class="title">領収証</p>
             <div>　
-                <span style="font-size: 1.5em">No.<script>document.write(code);</script>　　</span>
-                　　　　　　　　　　　　　　　　　　　　　
-                <span style="font-size: 1.5em;">発行日:<script>document.write(date);</script></span>
+                <span style="font-size: 1.5em">No.<script>document.write(code);</script></span>
+                <span style="font-size: 1.5em;position: absolute; right: 1em;">発行日:<script>document.write(date);</script></span>
             </div>
             <div>　
                 <span style="border-bottom: solid 1px #000">　　　　　<span style="font-size: 2.25em;"><script>document.write(room);</script></span><span style="font-size: 1.5em;">　号室　</span></span>
