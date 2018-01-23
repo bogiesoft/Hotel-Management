@@ -46,7 +46,7 @@
                 <span style="border-bottom: solid 1px #000">　　　　　<span style="font-size: 2.25em;"><script>document.write(room);</script></span><span style="font-size: 1.5em;">　号室　</span></span>
             </div>
             <div style="margin:0;">　
-                <span style="border-bottom: solid 1px #000"><p style="width: 185mm; margin: 0; height:3em; display: inline-block">　　<span style="font-size: 2.25em;"><script>document.write(name);</script></span></p><p style="font-size: 1.5em; display: inline-block; text-align: right">様　</p></span>
+                <span style="border-bottom: solid 1px #000"><p style="width: 185mm; margin: 0; height:3em; display: inline-block">　　<span style="font-size: 2.25em;"><script></script></span></p><p style="font-size: 1.5em; display: inline-block; text-align: right">様　</p></span>
             </div>
 
         <p class="bill">￥<script>document.write(bill);</script></p>
@@ -65,7 +65,7 @@
 
         <div class="sheet" style="position: relative;">
             <p style="font-size: 5px; margin: 0">　</p>
-            <p class="title">領収証</p>
+            <p class="title">領収証(控)</p>
             <div>　
                 <span style="font-size: 1.5em">No.<script>document.write(code);</script></span>
                 <span style="font-size: 1.5em;position: absolute; right: 1em;">発行日:<script>document.write(date);</script></span>
@@ -74,7 +74,7 @@
                 <span style="border-bottom: solid 1px #000">　　　　　<span style="font-size: 2.25em;"><script>document.write(room);</script></span><span style="font-size: 1.5em;">　号室　</span></span>
             </div>
             <div style="margin:0;">　
-                <span style="border-bottom: solid 1px #000"><p style="width: 185mm; margin: 0; height:3em; display: inline-block">　　<span style="font-size: 2.25em;"><script>document.write(name);</script></span></p><p style="font-size: 1.5em; display: inline-block; text-align: right">様　</p></span>
+                <span style="border-bottom: solid 1px #000"><p style="width: 185mm; margin: 0; height:3em; display: inline-block">　　<span style="font-size: 2.25em;"></span></p><p style="font-size: 1.5em; display: inline-block; text-align: right">様　</p></span>
             </div>
 
             <p class="bill">￥<script>document.write(bill);</script></p>
